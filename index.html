@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="PaidProperly - Legit platforms that actually pay South Africans. No scams. No obvious job boards. Just vetted platforms worth your time.">
+  <meta name="theme-color" content="#2d6a4f">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="PaidProperly - Legit Remote Work for South Africans">
+  <meta property="og:description" content="Curated directory of legit platforms that pay South Africans. No scams, no obvious job boards.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://paidproperly.co.za">
+  
+  <title>PaidProperly - Legit platforms that actually pay South Africans</title>
+  
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✓</text></svg>">
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container">
+      <div class="header-inner">
+        <a href="index.html" class="brand">
+          <span class="brand-icon">✓</span>
+          <span class="brand-name">PaidProperly</span>
+        </a>
+        <span class="header-tagline">No dodgy business, just legit gigs for Mzansi</span>
+      </div>
+    </div>
+  </header>
+  
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <span class="hero-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+          <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+        100% Sorted for Mzansi
+      </span>
+      <h1>Legit platforms that actually pay South Africans</h1>
+      <p class="hero-subtitle">Don't let these overseas okes scam you. These are curated job boards, worth your time.</p>
+    </div>
+  </section>
+  
+  <!-- Main Content -->
+  <main class="container">
+    <!-- Featured Platform -->
+    <section id="featured-section" class="featured-section">
+      <!-- Populated by JavaScript -->
+      <div class="loading">
+        <div class="loading-spinner"></div>
+      </div>
+    </section>
+    
+    <!-- Filters -->
+    <section class="filters-section">
+      <div class="search-wrapper">
+        <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input 
+          type="search" 
+          id="search-input" 
+          class="search-input" 
+          placeholder="Search for a lekker opportunity..."
+          aria-label="Search platforms"
+        >
+      </div>
+      
+      <div class="filters-grid">
+        <div class="filter-group">
+          <label class="filter-label" for="category-filter">Type of Hustle</label>
+          <select id="category-filter" class="filter-select">
+            <option value="">All hustles</option>
+            <!-- Populated by JavaScript -->
+          </select>
+        </div>
+        
+        <div class="filter-group">
+          <label class="filter-label" for="difficulty-filter">How Hectic</label>
+          <select id="difficulty-filter" class="filter-select">
+            <option value="">Any level</option>
+            <option value="Easy">Chilled</option>
+            <option value="Medium">Medium</option>
+            <option value="Hard">Hectic</option>
+          </select>
+        </div>
+        
+        <div class="filter-group">
+          <label class="filter-label" for="bestfor-filter">Best For</label>
+          <select id="bestfor-filter" class="filter-select">
+            <option value="">Everyone</option>
+            <!-- Populated by JavaScript -->
+          </select>
+        </div>
+        
+        <div class="filter-group">
+          <label class="filter-label">Options</label>
+          <div class="filter-toggle">
+            <label class="toggle-switch">
+              <input type="checkbox" id="sa-friendly-toggle" checked>
+              <span class="toggle-slider"></span>
+            </label>
+            <span class="toggle-label">Mzansi-friendly only</span>
+          </div>
+        </div>
+        
+        <div class="filter-group">
+          <label class="filter-label">&nbsp;</label>
+          <div class="filter-toggle">
+            <label class="toggle-switch">
+              <input type="checkbox" id="hide-noped-toggle">
+              <span class="toggle-slider"></span>
+            </label>
+            <span class="toggle-label">Hide the duds</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Results -->
+    <section class="results-section">
+      <div class="results-header">
+        <span id="results-count" class="results-count">Loading...</span>
+      </div>
+      
+      <div id="platforms-grid" class="platforms-grid">
+        <div class="loading">
+          <div class="loading-spinner"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-text">
+        Made with ❤️ in Mzansi. 
+        <a href="https://github.com" target="_blank" rel="noopener">Contribute on GitHub</a>
+      </p>
+    </div>
+  </footer>
+  
+  <script src="app.js"></script>
+</body>
+</html>
