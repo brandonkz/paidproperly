@@ -4,7 +4,7 @@
  */
 
 // Embedded platform data (works without server)
-const PLATFORMS_DATA = [
+const PLATFORMS_DATA = 
   {
     "id": 1,
     "name": "Somewhere",
