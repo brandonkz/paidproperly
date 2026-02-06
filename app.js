@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', init);
 async function init() {
   try {
     await loadPlatforms();
+    updateHeroStats();
     populateFilters();
     setupEventListeners();
     applyFilters();
@@ -35,6 +36,14 @@ async function init() {
     console.error('Failed to initialize:', error);
     showError('Failed to load platforms. Please refresh the page.');
   }
+}
+
+function updateHeroStats() {
+  const totalEl = document.getElementById('total-platforms');
+  const entryEl = document.getElementById('entry-level-count');
+  
+  if (totalEl) totalEl.textContent = platforms.length;
+  if (entryEl) entryEl.textContent = platforms.filter(p => p.difficulty === 'Easy').length;
 }
 
 // Data Loading
