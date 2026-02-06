@@ -1,23 +1,26 @@
 /**
  * PaidProperly - Main Application JavaScript
- * Handles platform directory, filtering, search, and preferences
  */
 
 // State
 let platforms = [];
 let filteredPlatforms = [];
 let preferences = loadPreferences();
+let activeQuickFilter = 'all';
+let selectedDifficulties = ['Easy', 'Medium', 'Hard'];
+let selectedCategories = [];
+let selectedBestFor = [];
 
 // DOM Elements
 const searchInput = document.getElementById('search-input');
-const categoryFilter = document.getElementById('category-filter');
-const difficultyFilter = document.getElementById('difficulty-filter');
-const bestForFilter = document.getElementById('bestfor-filter');
-const saFriendlyToggle = document.getElementById('sa-friendly-toggle');
-const hideNopedToggle = document.getElementById('hide-noped-toggle');
-const platformsGrid = document.getElementById('platforms-grid');
 const resultsCount = document.getElementById('results-count');
-const featuredSection = document.getElementById('featured-section');
+const popularGrid = document.getElementById('popular-grid');
+const platformsList = document.getElementById('platforms-list');
+const quickPills = document.querySelectorAll('.pill');
+const saFriendlyToggle = document.getElementById('sa-friendly-toggle');
+const resetFiltersBtn = document.getElementById('reset-filters');
+const categoryFiltersContainer = document.getElementById('category-filters');
+const bestForFiltersContainer = document.getElementById('bestfor-filters');
 
 // Initialize
 document.addEventListener('DOMContentLoaded', init);
@@ -27,7 +30,6 @@ async function init() {
     await loadPlatforms();
     populateFilters();
     setupEventListeners();
-    renderFeatured();
     applyFilters();
   } catch (error) {
     console.error('Failed to initialize:', error);
@@ -48,16 +50,15 @@ async function loadPlatforms() {
     console.error('Could not load platforms:', e);
     platforms = [];
   }
-  // Sort by recommended_rank
   platforms.sort((a, b) => a.recommended_rank - b.recommended_rank);
 }
 
-// Preferences (localStorage)
+// Preferences
 function loadPreferences() {
   try {
     const saved = localStorage.getItem('paidproperly_preferences');
     return saved ? JSON.parse(saved) : { liked: [], noped: [] };
-  } catch {
+  } catch (e) {
     return { liked: [], noped: [] };
   }
 }
@@ -70,176 +71,205 @@ function savePreferences() {
   }
 }
 
-function toggleLike(slug) {
+function toggleSave(slug) {
   const index = preferences.liked.indexOf(slug);
   if (index > -1) {
     preferences.liked.splice(index, 1);
   } else {
     preferences.liked.push(slug);
-    const nopedIndex = preferences.noped.indexOf(slug);
-    if (nopedIndex > -1) preferences.noped.splice(nopedIndex, 1);
-  }
-  savePreferences();
-  renderPlatforms();
-}
-
-function toggleNope(slug) {
-  const index = preferences.noped.indexOf(slug);
-  if (index > -1) {
-    preferences.noped.splice(index, 1);
-  } else {
-    preferences.noped.push(slug);
-    const likedIndex = preferences.liked.indexOf(slug);
-    if (likedIndex > -1) preferences.liked.splice(likedIndex, 1);
   }
   savePreferences();
   applyFilters();
 }
 
-// Populate Filter Options
+// Populate Filters
 function populateFilters() {
+  // Categories
   const categories = [...new Set(platforms.map(p => p.category))].sort();
-  categories.forEach(cat => {
-    const option = document.createElement('option');
-    option.value = cat;
-    option.textContent = cat;
-    categoryFilter.appendChild(option);
-  });
+  categoryFiltersContainer.innerHTML = categories.map(cat => `
+    <label class="filter-checkbox">
+      <input type="checkbox" value="${escapeHtml(cat)}" class="category-check">
+      <span class="checkmark"></span>
+      <span>${escapeHtml(cat)}</span>
+    </label>
+  `).join('');
   
+  // Best For
   const bestForSet = new Set();
   platforms.forEach(p => p.best_for.forEach(bf => bestForSet.add(bf)));
   const bestForOptions = [...bestForSet].sort();
-  bestForOptions.forEach(bf => {
-    const option = document.createElement('option');
-    option.value = bf;
-    option.textContent = bf;
-    bestForFilter.appendChild(option);
-  });
+  bestForFiltersContainer.innerHTML = bestForOptions.map(bf => `
+    <label class="filter-checkbox">
+      <input type="checkbox" value="${escapeHtml(bf)}" class="bestfor-check">
+      <span class="checkmark"></span>
+      <span>${escapeHtml(bf)}</span>
+    </label>
+  `).join('');
+  
+  // Update counts
+  updateFilterCounts();
+}
+
+function updateFilterCounts() {
+  const easyCnt = platforms.filter(p => p.difficulty === 'Easy').length;
+  const medCnt = platforms.filter(p => p.difficulty === 'Medium').length;
+  const hardCnt = platforms.filter(p => p.difficulty === 'Hard').length;
+  
+  document.querySelector('[data-difficulty="Easy"]').textContent = easyCnt;
+  document.querySelector('[data-difficulty="Medium"]').textContent = medCnt;
+  document.querySelector('[data-difficulty="Hard"]').textContent = hardCnt;
 }
 
 // Event Listeners
 function setupEventListeners() {
+  // Search
   searchInput.addEventListener('input', debounce(applyFilters, 200));
-  categoryFilter.addEventListener('change', applyFilters);
-  difficultyFilter.addEventListener('change', applyFilters);
-  bestForFilter.addEventListener('change', applyFilters);
-  saFriendlyToggle.addEventListener('change', applyFilters);
-  hideNopedToggle.addEventListener('change', applyFilters);
   
+  // Quick pills
+  quickPills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      quickPills.forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      activeQuickFilter = pill.dataset.filter;
+      applyFilters();
+    });
+  });
+  
+  // Difficulty checkboxes
+  document.querySelectorAll('.difficulty-check').forEach(cb => {
+    cb.addEventListener('change', () => {
+      selectedDifficulties = [...document.querySelectorAll('.difficulty-check:checked')].map(c => c.value);
+      applyFilters();
+    });
+  });
+  
+  // Category checkboxes
+  categoryFiltersContainer.addEventListener('change', () => {
+    selectedCategories = [...document.querySelectorAll('.category-check:checked')].map(c => c.value);
+    applyFilters();
+  });
+  
+  // Best For checkboxes
+  bestForFiltersContainer.addEventListener('change', () => {
+    selectedBestFor = [...document.querySelectorAll('.bestfor-check:checked')].map(c => c.value);
+    applyFilters();
+  });
+  
+  // SA Friendly toggle
+  saFriendlyToggle.addEventListener('change', applyFilters);
+  
+  // Reset filters
+  resetFiltersBtn.addEventListener('click', resetFilters);
+  
+  // Save buttons (delegated)
   document.addEventListener('click', (e) => {
-    const likeBtn = e.target.closest('.like-btn');
-    const nopeBtn = e.target.closest('.nope-btn');
-    
-    if (likeBtn) {
+    const saveBtn = e.target.closest('.save-btn');
+    if (saveBtn) {
       e.preventDefault();
-      toggleLike(likeBtn.dataset.slug);
-    }
-    
-    if (nopeBtn) {
-      e.preventDefault();
-      toggleNope(nopeBtn.dataset.slug);
+      e.stopPropagation();
+      toggleSave(saveBtn.dataset.slug);
     }
   });
+}
+
+function resetFilters() {
+  searchInput.value = '';
+  selectedDifficulties = ['Easy', 'Medium', 'Hard'];
+  selectedCategories = [];
+  selectedBestFor = [];
+  activeQuickFilter = 'all';
+  
+  document.querySelectorAll('.difficulty-check').forEach(cb => cb.checked = true);
+  document.querySelectorAll('.category-check').forEach(cb => cb.checked = false);
+  document.querySelectorAll('.bestfor-check').forEach(cb => cb.checked = false);
+  saFriendlyToggle.checked = true;
+  
+  quickPills.forEach(p => p.classList.remove('active'));
+  document.querySelector('[data-filter="all"]').classList.add('active');
+  
+  applyFilters();
 }
 
 // Filtering
 function applyFilters() {
   const searchTerm = searchInput.value.toLowerCase().trim();
-  const category = categoryFilter.value;
-  const difficulty = difficultyFilter.value;
-  const bestFor = bestForFilter.value;
   const saFriendlyOnly = saFriendlyToggle.checked;
-  const hideNoped = hideNopedToggle.checked;
   
   filteredPlatforms = platforms.filter(p => {
-    if (p.featured) return false;
+    // Quick filter
+    if (activeQuickFilter === 'entry' && p.difficulty !== 'Easy') return false;
+    if (activeQuickFilter === 'non-tech') {
+      const isOnlyTech = p.best_for.length === 1 && p.best_for[0] === 'Dev';
+      if (isOnlyTech) return false;
+    }
+    if (activeQuickFilter === 'tech' && !p.best_for.includes('Dev')) return false;
+    if (activeQuickFilter === 'competitive' && p.difficulty !== 'Hard') return false;
     
+    // Difficulty
+    if (!selectedDifficulties.includes(p.difficulty)) return false;
+    
+    // Category
+    if (selectedCategories.length > 0 && !selectedCategories.includes(p.category)) return false;
+    
+    // Best For
+    if (selectedBestFor.length > 0 && !p.best_for.some(bf => selectedBestFor.includes(bf))) return false;
+    
+    // SA Friendly
+    if (saFriendlyOnly && !p.sa_friendly) return false;
+    
+    // Search
     if (searchTerm) {
-      const searchable = [
-        p.name,
-        p.description,
-        p.category,
-        ...p.tags,
-        ...p.best_for
-      ].join(' ').toLowerCase();
+      const searchable = [p.name, p.description, p.category, ...p.tags, ...p.best_for].join(' ').toLowerCase();
       if (!searchable.includes(searchTerm)) return false;
     }
-    
-    if (category && p.category !== category) return false;
-    if (difficulty && p.difficulty !== difficulty) return false;
-    if (bestFor && !p.best_for.includes(bestFor)) return false;
-    if (saFriendlyOnly && !p.sa_friendly) return false;
-    if (hideNoped && preferences.noped.includes(p.slug)) return false;
     
     return true;
   });
   
-  renderPlatforms();
+  render();
 }
 
 // Rendering
-function renderFeatured() {
-  const featured = platforms.find(p => p.featured);
-  if (!featured) {
-    featuredSection.style.display = 'none';
+function render() {
+  resultsCount.textContent = `${filteredPlatforms.length} platforms`;
+  renderPopular();
+  renderPlatformsList();
+}
+
+function renderPopular() {
+  const popular = filteredPlatforms.slice(0, 4);
+  
+  if (popular.length === 0) {
+    popularGrid.innerHTML = '';
     return;
   }
   
-  featuredSection.innerHTML = `
-    <div class="featured-card">
-      <span class="featured-label">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-        </svg>
-        Sharp Pick
-      </span>
-      <div class="featured-content">
-        <h2 class="featured-name">${escapeHtml(featured.name)}</h2>
-        <p class="featured-description">${escapeHtml(featured.description)}</p>
-        <div class="featured-meta">
-          <span class="featured-meta-item">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-              <circle cx="12" cy="7" r="4"></circle>
-            </svg>
-            ${escapeHtml(featured.best_for.join(', '))}
-          </span>
-          <span class="featured-meta-item">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="10"></circle>
-              <polyline points="12 6 12 12 16 14"></polyline>
-            </svg>
-            ${escapeHtml(featured.difficulty)}
-          </span>
-          <span class="featured-meta-item">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="12" y1="1" x2="12" y2="23"></line>
-              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-            </svg>
-            ${escapeHtml(featured.payout_notes)}
-          </span>
+  popularGrid.innerHTML = popular.map(p => {
+    const isSaved = preferences.liked.includes(p.slug);
+    const initial = p.name.charAt(0).toUpperCase();
+    const diffClass = p.difficulty.toLowerCase();
+    
+    return `
+      <a href="platform.html?slug=${p.slug}" class="popular-card">
+        <button class="save-btn popular-card-bookmark ${isSaved ? 'saved' : ''}" data-slug="${p.slug}">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="${isSaved ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2">
+            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+          </svg>
+        </button>
+        <div class="popular-card-logo">${getEmoji(p.category) || initial}</div>
+        <div class="popular-card-company">${escapeHtml(p.category)}</div>
+        <div class="popular-card-title">${escapeHtml(p.name)}</div>
+        <div class="popular-card-meta">
+          <span class="popular-card-difficulty difficulty-${diffClass}">${getDifficultyLabel(p.difficulty)}</span>
         </div>
-        <div class="featured-actions">
-          <a href="platform.html?slug=${featured.slug}" class="btn btn--white">Check it out</a>
-          <a href="go/${featured.slug}.html" target="_blank" rel="noopener" class="btn btn--white-outline">
-            Let's Go
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-              <polyline points="15 3 21 3 21 9"></polyline>
-              <line x1="10" y1="14" x2="21" y2="3"></line>
-            </svg>
-          </a>
-        </div>
-      </div>
-    </div>
-  `;
+      </a>
+    `;
+  }).join('');
 }
 
-function renderPlatforms() {
-  resultsCount.textContent = `${filteredPlatforms.length} lekker option${filteredPlatforms.length !== 1 ? 's' : ''} found`;
-  
+function renderPlatformsList() {
   if (filteredPlatforms.length === 0) {
-    platformsGrid.innerHTML = `
+    platformsList.innerHTML = `
       <div class="empty-state">
         <svg class="empty-state-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
           <circle cx="11" cy="11" r="8"></circle>
@@ -252,77 +282,80 @@ function renderPlatforms() {
     return;
   }
   
-  platformsGrid.innerHTML = filteredPlatforms.map(p => renderPlatformCard(p)).join('');
-}
-
-function renderPlatformCard(platform) {
-  const isLiked = preferences.liked.includes(platform.slug);
-  const isNoped = preferences.noped.includes(platform.slug);
-  const difficultyClass = platform.difficulty.toLowerCase();
-  
-  return `
-    <article class="platform-card ${isNoped ? 'is-noped' : ''}">
-      <div class="card-header">
-        <div class="card-title-group">
-          <h3 class="card-title">
-            ${escapeHtml(platform.name)}
-            ${platform.sa_friendly ? `
-              <span title="Sorted for Mzansi">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--color-success)" stroke="none">
-                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                </svg>
-              </span>
-            ` : ''}
-          </h3>
-          <span class="card-category">${escapeHtml(platform.category)}</span>
+  platformsList.innerHTML = filteredPlatforms.map(p => {
+    const isSaved = preferences.liked.includes(p.slug);
+    const initial = p.name.charAt(0).toUpperCase();
+    const diffClass = p.difficulty.toLowerCase();
+    
+    return `
+      <article class="platform-card">
+        <div class="platform-logo">${initial}</div>
+        <div class="platform-info">
+          <div class="platform-header">
+            <h3 class="platform-name">${escapeHtml(p.name)}</h3>
+            ${p.sa_friendly ? '<span class="platform-badge badge-sa">🇿🇦 SA Friendly</span>' : ''}
+            <span class="platform-badge difficulty-${diffClass}">${getDifficultyLabel(p.difficulty)}</span>
+          </div>
+          <div class="platform-meta">
+            <span class="platform-meta-item">${escapeHtml(p.category)}</span>
+            <span class="platform-meta-item">•</span>
+            <span class="platform-meta-item">${escapeHtml(p.best_for.join(', '))}</span>
+          </div>
+          <p class="platform-description">${escapeHtml(p.description)}</p>
+          <div class="platform-tags">
+            ${p.tags.slice(0, 4).map(tag => `<span class="tag">${escapeHtml(tag)}</span>`).join('')}
+          </div>
         </div>
-        <div class="preference-actions">
-          <button class="pref-btn like-btn ${isLiked ? 'liked' : ''}" data-slug="${platform.slug}" title="Like">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="${isLiked ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2">
-              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-            </svg>
-          </button>
-          <button class="pref-btn nope-btn ${isNoped ? 'noped' : ''}" data-slug="${platform.slug}" title="Not interested">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="18" y1="6" x2="6" y2="18"></line>
-              <line x1="6" y1="6" x2="18" y2="18"></line>
-            </svg>
-          </button>
+        <div class="platform-actions">
+          <div class="platform-salary">${escapeHtml(p.payout_notes.split('.')[0])}</div>
+          <div style="display: flex; gap: 0.5rem; align-items: center;">
+            <button class="btn-icon save-btn ${isSaved ? 'saved' : ''}" data-slug="${p.slug}" title="Save">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="${isSaved ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2">
+                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+              </svg>
+            </button>
+            <a href="go/${p.slug}.html" target="_blank" rel="noopener" class="btn btn-primary">
+              Apply
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+            </a>
+          </div>
         </div>
-      </div>
-      
-      <p class="card-description">${escapeHtml(platform.description)}</p>
-      
-      <div class="card-tags">
-        ${platform.best_for.map(bf => `<span class="tag tag--best-for">${escapeHtml(bf)}</span>`).join('')}
-        ${platform.tags.slice(0, 3).map(tag => `<span class="tag">${escapeHtml(tag)}</span>`).join('')}
-        <span class="difficulty-badge difficulty-badge--${difficultyClass}">${escapeHtml(platform.difficulty)}</span>
-      </div>
-      
-      <p class="card-payout">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="12" y1="1" x2="12" y2="23"></line>
-          <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-        </svg>
-        ${escapeHtml(platform.payout_notes)}
-      </p>
-      
-      <div class="card-actions">
-        <a href="platform.html?slug=${platform.slug}" class="btn btn--secondary btn--sm">More info</a>
-        <a href="go/${platform.slug}.html" target="_blank" rel="noopener" class="btn btn--primary btn--sm">
-          Let's Go
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-            <polyline points="15 3 21 3 21 9"></polyline>
-            <line x1="10" y1="14" x2="21" y2="3"></line>
-          </svg>
-        </a>
-      </div>
-    </article>
-  `;
+      </article>
+    `;
+  }).join('');
 }
 
 // Utilities
+function getEmoji(category) {
+  const emojis = {
+    '🎧 Customer Support': '🎧',
+    '💻 Tech & Dev': '💻',
+    '🔥 Competitive (High Pay)': '🔥',
+    '📋 Remote Job Boards & Agencies': '📋',
+    '🧪 Testing & Research': '🧪',
+    '📚 Teaching & Mentoring': '📚',
+    '🤖 AI Training': '🤖',
+    '🪙 Crypto & Web3': '🪙',
+    '🏢 SaaS Companies': '🏢',
+    '🌍 Freelance Marketplaces': '🌍',
+    '✍️ Writing & Transcription': '✍️'
+  };
+  return emojis[category] || null;
+}
+
+function getDifficultyLabel(diff) {
+  const labels = {
+    'Easy': '🟢 Entry Level',
+    'Medium': '🟡 Intermediate',
+    'Hard': '🔴 Competitive'
+  };
+  return labels[diff] || diff;
+}
+
 function escapeHtml(text) {
   const div = document.createElement('div');
   div.textContent = text;
@@ -342,13 +375,8 @@ function debounce(func, wait) {
 }
 
 function showError(message) {
-  platformsGrid.innerHTML = `
+  platformsList.innerHTML = `
     <div class="empty-state">
-      <svg class="empty-state-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-        <circle cx="12" cy="12" r="10"></circle>
-        <line x1="12" y1="8" x2="12" y2="12"></line>
-        <line x1="12" y1="16" x2="12.01" y2="16"></line>
-      </svg>
       <h3>Haibo! Something went wrong</h3>
       <p>${escapeHtml(message)}</p>
     </div>
