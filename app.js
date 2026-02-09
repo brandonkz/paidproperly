@@ -251,47 +251,43 @@ function render() {
 }
 
 function renderPopular() {
-  // Show entry-level/beginner-friendly platforms for "Best Chances"
-  // Prioritize: Somewhere (featured), then other Easy difficulty platforms
-  const entryLevel = filteredPlatforms.filter(p => 
-    p.difficulty === 'Easy' || p.tier === 'entry-level'
-  );
+  // Show ONLY Somewhere.com - the best chance for entry-level SA remote work
+  const somewhere = filteredPlatforms.find(p => p.slug === 'somewhere');
   
-  // Ensure Somewhere is first if it's in the list
-  const somewhereIndex = entryLevel.findIndex(p => p.slug === 'somewhere');
-  if (somewhereIndex > 0) {
-    const somewhere = entryLevel.splice(somewhereIndex, 1)[0];
-    entryLevel.unshift(somewhere);
-  }
-  
-  const popular = entryLevel.slice(0, 4);
-
-  if (popular.length === 0) {
+  if (!somewhere) {
     popularGrid.innerHTML = '';
     return;
   }
 
-  popularGrid.innerHTML = popular.map(p => {
-    const isSaved = preferences.liked.includes(p.slug);
-    const initial = p.name.charAt(0).toUpperCase();
-    const diffClass = p.difficulty.toLowerCase();
+  const isSaved = preferences.liked.includes(somewhere.slug);
+  const initial = somewhere.name.charAt(0).toUpperCase();
+  const diffClass = somewhere.difficulty.toLowerCase();
 
-    return `
-      <a href="platform.html?slug=${p.slug}" class="popular-card">
-        <button class="save-btn popular-card-bookmark ${isSaved ? 'saved' : ''}" data-slug="${p.slug}">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="${isSaved ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2">
-            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
-          </svg>
-        </button>
-        <div class="popular-card-logo">${getEmoji(p.category) || initial}</div>
-        <div class="popular-card-company">${escapeHtml(p.category)}</div>
-        <div class="popular-card-title">${escapeHtml(p.name)}</div>
-        <div class="popular-card-meta">
-          <span class="popular-card-difficulty difficulty-${diffClass}">${getDifficultyLabel(p.difficulty)}</span>
-        </div>
-      </a>
-    `;
-  }).join('');
+  popularGrid.innerHTML = `
+    <a href="go/${somewhere.slug}.html" target="_blank" rel="noopener" class="popular-card featured-platform">
+      <button class="save-btn popular-card-bookmark ${isSaved ? 'saved' : ''}" data-slug="${somewhere.slug}">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="${isSaved ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2">
+          <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+        </svg>
+      </button>
+      <div class="popular-card-logo">${getEmoji(somewhere.category) || initial}</div>
+      <div class="popular-card-company">${escapeHtml(somewhere.category)}</div>
+      <div class="popular-card-title">${escapeHtml(somewhere.name)}</div>
+      <p class="popular-card-description">${escapeHtml(somewhere.description)}</p>
+      <div class="popular-card-meta">
+        <span class="popular-card-difficulty difficulty-${diffClass}">${getDifficultyLabel(somewhere.difficulty)}</span>
+        <span class="popular-card-badge">🇿🇦 Perfect for SA</span>
+      </div>
+      <div class="popular-card-cta">
+        <strong>Apply Now</strong>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+          <polyline points="15 3 21 3 21 9"></polyline>
+          <line x1="10" y1="14" x2="21" y2="3"></line>
+        </svg>
+      </div>
+    </a>
+  `;
 }
 
 function renderPlatformsList() {
