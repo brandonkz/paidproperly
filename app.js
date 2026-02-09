@@ -42,10 +42,10 @@ function updateHeroStats() {
   const totalEl = document.getElementById('total-platforms');
   const totalHeroEl = document.getElementById('total-platforms-hero');
   const entryEl = document.getElementById('entry-level-count');
-  
+
   const totalCount = platforms.length;
   const entryCount = platforms.filter(p => p.difficulty === 'Easy').length;
-  
+
   if (totalEl) totalEl.textContent = totalCount;
   if (totalHeroEl) totalHeroEl.textContent = totalCount;
   if (entryEl) entryEl.textContent = entryCount;
@@ -107,7 +107,7 @@ function populateFilters() {
       <span>${escapeHtml(cat)}</span>
     </label>
   `).join('');
-  
+
   // Best For
   const bestForSet = new Set();
   platforms.forEach(p => p.best_for.forEach(bf => bestForSet.add(bf)));
@@ -119,7 +119,7 @@ function populateFilters() {
       <span>${escapeHtml(bf)}</span>
     </label>
   `).join('');
-  
+
   // Update counts
   updateFilterCounts();
 }
@@ -128,7 +128,7 @@ function updateFilterCounts() {
   const easyCnt = platforms.filter(p => p.difficulty === 'Easy').length;
   const medCnt = platforms.filter(p => p.difficulty === 'Medium').length;
   const hardCnt = platforms.filter(p => p.difficulty === 'Hard').length;
-  
+
   document.querySelector('[data-difficulty="Easy"]').textContent = easyCnt;
   document.querySelector('[data-difficulty="Medium"]').textContent = medCnt;
   document.querySelector('[data-difficulty="Hard"]').textContent = hardCnt;
@@ -138,7 +138,7 @@ function updateFilterCounts() {
 function setupEventListeners() {
   // Search
   searchInput.addEventListener('input', debounce(applyFilters, 200));
-  
+
   // Quick pills
   quickPills.forEach(pill => {
     pill.addEventListener('click', () => {
@@ -148,7 +148,7 @@ function setupEventListeners() {
       applyFilters();
     });
   });
-  
+
   // Difficulty checkboxes
   document.querySelectorAll('.difficulty-check').forEach(cb => {
     cb.addEventListener('change', () => {
@@ -156,25 +156,25 @@ function setupEventListeners() {
       applyFilters();
     });
   });
-  
+
   // Category checkboxes
   categoryFiltersContainer.addEventListener('change', () => {
     selectedCategories = [...document.querySelectorAll('.category-check:checked')].map(c => c.value);
     applyFilters();
   });
-  
+
   // Best For checkboxes
   bestForFiltersContainer.addEventListener('change', () => {
     selectedBestFor = [...document.querySelectorAll('.bestfor-check:checked')].map(c => c.value);
     applyFilters();
   });
-  
+
   // SA Friendly toggle
   saFriendlyToggle.addEventListener('change', applyFilters);
-  
+
   // Reset filters
   resetFiltersBtn.addEventListener('click', resetFilters);
-  
+
   // Save buttons (delegated)
   document.addEventListener('click', (e) => {
     const saveBtn = e.target.closest('.save-btn');
@@ -192,15 +192,15 @@ function resetFilters() {
   selectedCategories = [];
   selectedBestFor = [];
   activeQuickFilter = 'all';
-  
+
   document.querySelectorAll('.difficulty-check').forEach(cb => cb.checked = true);
   document.querySelectorAll('.category-check').forEach(cb => cb.checked = false);
   document.querySelectorAll('.bestfor-check').forEach(cb => cb.checked = false);
   saFriendlyToggle.checked = true;
-  
+
   quickPills.forEach(p => p.classList.remove('active'));
   document.querySelector('[data-filter="all"]').classList.add('active');
-  
+
   applyFilters();
 }
 
@@ -208,7 +208,7 @@ function resetFilters() {
 function applyFilters() {
   const searchTerm = searchInput.value.toLowerCase().trim();
   const saFriendlyOnly = saFriendlyToggle.checked;
-  
+
   filteredPlatforms = platforms.filter(p => {
     // Quick filter
     if (activeQuickFilter === 'entry' && p.difficulty !== 'Easy') return false;
@@ -218,28 +218,28 @@ function applyFilters() {
     }
     if (activeQuickFilter === 'tech' && !p.best_for.includes('Dev')) return false;
     if (activeQuickFilter === 'competitive' && p.difficulty !== 'Hard') return false;
-    
+
     // Difficulty
     if (!selectedDifficulties.includes(p.difficulty)) return false;
-    
+
     // Category
     if (selectedCategories.length > 0 && !selectedCategories.includes(p.category)) return false;
-    
+
     // Best For
     if (selectedBestFor.length > 0 && !p.best_for.some(bf => selectedBestFor.includes(bf))) return false;
-    
+
     // SA Friendly
     if (saFriendlyOnly && !p.sa_friendly) return false;
-    
+
     // Search
     if (searchTerm) {
       const searchable = [p.name, p.description, p.category, ...p.tags, ...p.best_for].join(' ').toLowerCase();
       if (!searchable.includes(searchTerm)) return false;
     }
-    
+
     return true;
   });
-  
+
   render();
 }
 
@@ -251,18 +251,31 @@ function render() {
 }
 
 function renderPopular() {
-  const popular = filteredPlatforms.slice(0, 4);
+  // Show entry-level/beginner-friendly platforms for "Best Chances"
+  // Prioritize: Somewhere (featured), then other Easy difficulty platforms
+  const entryLevel = filteredPlatforms.filter(p => 
+    p.difficulty === 'Easy' || p.tier === 'entry-level'
+  );
   
+  // Ensure Somewhere is first if it's in the list
+  const somewhereIndex = entryLevel.findIndex(p => p.slug === 'somewhere');
+  if (somewhereIndex > 0) {
+    const somewhere = entryLevel.splice(somewhereIndex, 1)[0];
+    entryLevel.unshift(somewhere);
+  }
+  
+  const popular = entryLevel.slice(0, 4);
+
   if (popular.length === 0) {
     popularGrid.innerHTML = '';
     return;
   }
-  
+
   popularGrid.innerHTML = popular.map(p => {
     const isSaved = preferences.liked.includes(p.slug);
     const initial = p.name.charAt(0).toUpperCase();
     const diffClass = p.difficulty.toLowerCase();
-    
+
     return `
       <a href="platform.html?slug=${p.slug}" class="popular-card">
         <button class="save-btn popular-card-bookmark ${isSaved ? 'saved' : ''}" data-slug="${p.slug}">
@@ -295,12 +308,12 @@ function renderPlatformsList() {
     `;
     return;
   }
-  
+
   platformsList.innerHTML = filteredPlatforms.map(p => {
     const isSaved = preferences.liked.includes(p.slug);
     const initial = p.name.charAt(0).toUpperCase();
     const diffClass = p.difficulty.toLowerCase();
-    
+
     return `
       <article class="platform-card">
         <div class="platform-logo">${initial}</div>

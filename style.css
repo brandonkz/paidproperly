@@ -313,8 +313,15 @@ body {
 .section-title {
   font-size: 1.1rem;
   font-weight: 700;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   color: var(--color-text);
+}
+
+.section-subtitle {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 1.5rem;
+  margin-top: 0;
 }
 
 /* Popular Grid */
