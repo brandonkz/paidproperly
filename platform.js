@@ -26,6 +26,24 @@ async function init() {
     renderPlatform(platform);
     document.title = `${platform.name} - PaidProperly`;
     
+    // Update meta description dynamically
+    let metaDesc = document.querySelector('meta[name="description"]');
+    if (!metaDesc) {
+      metaDesc = document.createElement('meta');
+      metaDesc.name = 'description';
+      document.head.appendChild(metaDesc);
+    }
+    metaDesc.content = `${platform.name}: ${platform.description} ${platform.sa_friendly ? 'SA-friendly.' : ''} Difficulty: ${platform.difficulty}. Min payment: ${platform.payout_notes}`;
+    
+    // Update canonical URL
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.rel = 'canonical';
+      document.head.appendChild(canonical);
+    }
+    canonical.href = `https://paidproperly.co.za/platform.html?slug=${platform.slug}`;
+    
   } catch (error) {
     console.error('Failed to load platform:', error);
     showError('Failed to load platform details. Please try again.');
