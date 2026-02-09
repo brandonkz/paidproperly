@@ -40,10 +40,15 @@ async function init() {
 
 function updateHeroStats() {
   const totalEl = document.getElementById('total-platforms');
+  const totalHeroEl = document.getElementById('total-platforms-hero');
   const entryEl = document.getElementById('entry-level-count');
   
-  if (totalEl) totalEl.textContent = platforms.length;
-  if (entryEl) entryEl.textContent = platforms.filter(p => p.difficulty === 'Easy').length;
+  const totalCount = platforms.length;
+  const entryCount = platforms.filter(p => p.difficulty === 'Easy').length;
+  
+  if (totalEl) totalEl.textContent = totalCount;
+  if (totalHeroEl) totalHeroEl.textContent = totalCount;
+  if (entryEl) entryEl.textContent = entryCount;
 }
 
 // Data Loading
