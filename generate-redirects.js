@@ -1,11 +1,29 @@
-<!DOCTYPE html>
+#!/usr/bin/env node
+/**
+ * Generate aesthetic redirect pages for all platforms
+ */
+
+const fs = require('fs');
+const path = require('path');
+
+// Load platforms data
+const platforms = JSON.parse(
+  fs.readFileSync(path.join(__dirname, 'data/platforms.json'), 'utf8')
+);
+
+// Template for redirect pages
+function generateRedirectPage(platform) {
+  const emoji = getCategoryEmoji(platform.category);
+  const tips = generateTips(platform);
+  
+  return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="refresh" content="3; url=https://modsquad.com/join-the-mods">
+  <meta http-equiv="refresh" content="3; url=${platform.ref_url}">
   <meta name="robots" content="noindex, nofollow">
-  <title>You're on your way to ModSquad - PaidProperly</title>
+  <title>You're on your way to ${escapeHtml(platform.name)} - PaidProperly</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -236,15 +254,15 @@
   <div class="bg-shape"></div>
   
   <div class="container">
-    <div class="logo">🎧</div>
+    <div class="logo">${emoji}</div>
     
     <div class="brand">
       <span class="brand-icon">✓</span>
       <span>From PaidProperly</span>
     </div>
     
-    <h1>You're on your way to ModSquad!</h1>
-    <p class="subtitle">Digital engagement company hiring community managers, content moderators, and customer support agents. Flexible remote work.</p>
+    <h1>You're on your way to ${escapeHtml(platform.name)}!</h1>
+    <p class="subtitle">${escapeHtml(platform.description)}</p>
     
     <div class="tips">
       <div class="tips-title">
@@ -252,9 +270,7 @@
         <span>Pro Tips:</span>
       </div>
       <ul>
-        <li>Perfect for beginners - no advanced experience needed</li>
-        <li>Read platform guidelines before starting</li>
-        <li>Set up payment methods early to avoid delays</li>
+        ${tips.map(tip => `<li>${escapeHtml(tip)}</li>`).join('\n        ')}
       </ul>
     </div>
     
@@ -267,8 +283,8 @@
       </div>
     </div>
     
-    <a href="https://modsquad.com/join-the-mods" class="manual-link">
-      Continue to ModSquad
+    <a href="${escapeHtml(platform.ref_url)}" class="manual-link">
+      Continue to ${escapeHtml(platform.name)}
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <path d="M5 12h14M12 5l7 7-7 7"/>
       </svg>
@@ -286,9 +302,93 @@
       timerEl.textContent = seconds;
       if (seconds <= 0) {
         clearInterval(countdown);
-        window.location.href = "https://modsquad.com/join-the-mods";
+        window.location.href = "${escapeHtml(platform.ref_url)}";
       }
     }, 1000);
   </script>
 </body>
-</html>
+</html>`;
+}
+
+function getCategoryEmoji(category) {
+  const emojis = {
+    '🎧 Customer Support': '🎧',
+    '💻 Tech & Dev': '💻',
+    '🔥 Competitive (High Pay)': '🔥',
+    '📋 Remote Job Boards & Agencies': '📋',
+    '🧪 Testing & Research': '🧪',
+    '📚 Teaching & Mentoring': '📚',
+    '🤖 AI Training': '🤖',
+    '🪙 Crypto & Web3': '🪙',
+    '🏢 SaaS Companies': '🏢',
+    '🌍 Freelance Marketplaces': '🌍',
+    '✍️ Writing & Transcription': '✍️'
+  };
+  return emojis[category] || '🚀';
+}
+
+function generateTips(platform) {
+  const tips = [];
+  
+  // Difficulty-based tips
+  if (platform.difficulty === 'Easy') {
+    tips.push('Perfect for beginners - no advanced experience needed');
+  } else if (platform.difficulty === 'Medium') {
+    tips.push('Build a strong profile highlighting your skills');
+  } else if (platform.difficulty === 'Hard') {
+    tips.push('Competition is fierce - showcase your best work');
+  }
+  
+  // Payout-based tips
+  if (platform.payout_notes.toLowerCase().includes('usd')) {
+    tips.push('Get paid in USD - great for SA exchange rates');
+  }
+  
+  // Category-specific tips
+  if (platform.category.includes('Remote Job Boards')) {
+    tips.push('Apply early and tailor your application to each role');
+  } else if (platform.category.includes('Freelance')) {
+    tips.push('Start with competitive rates to build reviews');
+  } else if (platform.category.includes('Testing')) {
+    tips.push('Complete tests thoroughly and speak your thoughts aloud');
+  } else if (platform.category.includes('Teaching')) {
+    tips.push('Create a welcoming profile and flexible schedule');
+  } else if (platform.category.includes('AI Training')) {
+    tips.push('Follow instructions carefully for consistent payouts');
+  }
+  
+  // Fill to 3 tips if needed
+  if (tips.length < 3) {
+    tips.push('Read platform guidelines before starting');
+  }
+  if (tips.length < 3) {
+    tips.push('Set up payment methods early to avoid delays');
+  }
+  
+  return tips.slice(0, 3);
+}
+
+function escapeHtml(text) {
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+// Generate all redirect pages
+const goDir = path.join(__dirname, 'go');
+if (!fs.existsSync(goDir)) {
+  fs.mkdirSync(goDir);
+}
+
+let generated = 0;
+platforms.forEach(platform => {
+  const filename = path.join(goDir, `${platform.slug}.html`);
+  const html = generateRedirectPage(platform);
+  fs.writeFileSync(filename, html, 'utf8');
+  generated++;
+});
+
+console.log(`✅ Generated ${generated} redirect pages`);
