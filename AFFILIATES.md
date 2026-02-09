@@ -17,7 +17,7 @@ Last updated: 2026-02-07
 |----------|--------|------------|--------------|---------------------|
 | Toptal | ⬜ TODO | $500-2,000/placement | https://www.toptal.com (login → referrals) | |
 | Fiverr | ⬜ TODO | $15-150/first buyer | https://affiliates.fiverr.com | |
-| Respondent | ⬜ TODO | $20-50/referral | In-app after login | |
+| Respondent | ✅ APPROVED | $20-50/referral | In-app after login | https://app.respondent.io/r/brandonkatz-28807d50a084 |
 | Preply | ⬜ TODO | 50% first payment | https://preply.com/en/affiliate | |
 | Italki | ⬜ TODO | $10/new student | https://www.italki.com/affiliateprogram | |
 | Hubstaff | ⬜ TODO | 30% recurring | https://hubstaff.com/affiliate | |
@@ -32,6 +32,7 @@ Last updated: 2026-02-07
 |----------|-----------------|-------|
 | Somewhere | referral_referred_by=brandonkz@gmail.com | ✅ Active |
 | Remote Rocketship | ?ref=brandon1d | ✅ Active |
+| Respondent | /r/brandonkatz-28807d50a084 | ✅ Active - $20-50/referral |
 
 ### 🎯 High Priority (Likely Have Programs)
 | Platform | Category | Status | Affiliate Link | Notes |
