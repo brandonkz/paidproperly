@@ -18,15 +18,67 @@
     </script>
 </head>
 <body>
-    <nav>
-        <div class="nav-container">
-            <a href="../" class="logo">PaidProperly</a>
-            <div class="nav-links">
-                <a href="../">Home</a>
-                <a href="../blog/" class="active">Blog</a>
+    <nav class="blog-nav">
+        <div class="blog-nav-inner">
+            <a href="../" class="blog-logo">
+                <span style="color: #2563eb; font-size: 1.2rem;">✓</span>
+                <span style="font-weight: 600;">PaidProperly</span>
+            </a>
+            <div class="blog-nav-links">
+                <a href="../">Platforms</a>
+                <a href="../blog/" style="color: #2563eb; font-weight: 500;">Blog</a>
             </div>
         </div>
     </nav>
+
+    <style>
+        .blog-nav {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 1rem 0;
+        }
+
+        .blog-nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .blog-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: #111;
+            font-size: 1.1rem;
+        }
+
+        .blog-logo:hover {
+            color: #2563eb;
+        }
+
+        .blog-nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .blog-nav-links a {
+            text-decoration: none;
+            color: #666;
+            font-weight: 400;
+            transition: color 0.2s;
+        }
+
+        .blog-nav-links a:hover {
+            color: #2563eb;
+        }
+    </style>
 
     <main>
         <section class="hero">
