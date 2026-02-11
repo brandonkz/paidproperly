@@ -768,6 +768,12 @@ body {
   padding-right: 2rem !important;
 }
 
+/* Newsletter Section */
+.newsletter-section {
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
+}
+
 /* FAQ Section */
 .faq-section {
   background: white;
@@ -868,7 +874,8 @@ body {
   }
   
   .about-section,
-  .employers-section {
+  .employers-section,
+  .newsletter-section {
     padding-left: 1.25rem !important;
     padding-right: 1.25rem !important;
   }
