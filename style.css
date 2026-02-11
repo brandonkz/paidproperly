@@ -751,6 +751,13 @@ body {
   color: var(--color-text);
 }
 
+/* About Section */
+.about-section .container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
 /* FAQ Section */
 .faq-section {
   background: white;
@@ -762,6 +769,7 @@ body {
   gap: 1.5rem;
   max-width: 900px;
   margin: 0 auto;
+  padding: 0 2rem;
 }
 
 .faq-item {
@@ -847,6 +855,11 @@ body {
   
   .main-layout {
     padding: 1.25rem;
+  }
+  
+  .about-section .container,
+  .faq-grid {
+    padding: 0 1.25rem;
   }
   
   .popular-grid {
