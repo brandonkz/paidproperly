@@ -1,33 +1,5 @@
 [
   {
-    "id": 11,
-    "name": "Hubstaff Talent",
-    "slug": "hubstaff-talent",
-    "url": "https://talent.hubstaff.com",
-    "ref_url": "https://talent.hubstaff.com",
-    "category": "🌍 Freelance Marketplaces",
-    "description": "Free remote job board where companies hire directly. No fees for freelancers or employers - you deal directly with the company.",
-    "best_for": [
-      "Dev",
-      "Design",
-      "Admin",
-      "Marketing"
-    ],
-    "payout_notes": "Direct client payments. No platform fees.",
-    "difficulty": "Easy",
-    "tags": [
-      "job board",
-      "free",
-      "remote",
-      "no fees",
-      "beginner-friendly"
-    ],
-    "sa_friendly": true,
-    "recommended_rank": 1,
-    "featured": false,
-    "tier": "entry-level"
-  },
-  {
     "id": 17,
     "name": "UserTesting",
     "slug": "usertesting",

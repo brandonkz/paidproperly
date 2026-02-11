@@ -47,7 +47,7 @@ Last updated: 2026-02-07
 | Italki | Teaching | ⬜ TODO | | |
 | UserTesting | Testing | ⬜ TODO | | |
 | Respondent | Testing | ⬜ TODO | | |
-| Hubstaff Talent | Freelance | ⬜ TODO | | |
+| Hubstaff Talent | Freelance | 🗑️ REMOVED | | Removed Feb 11 - poor website quality |
 | Zapier | SaaS | ⬜ TODO | | Check via Impact |
 | Shopify | SaaS | ⬜ TODO | | Check via Impact |
 
