@@ -762,6 +762,12 @@ body {
   margin: 0 auto;
 }
 
+/* Employers Section */
+.employers-section {
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
+}
+
 /* FAQ Section */
 .faq-section {
   background: white;
@@ -861,7 +867,8 @@ body {
     padding: 1.25rem;
   }
   
-  .about-section {
+  .about-section,
+  .employers-section {
     padding-left: 1.25rem !important;
     padding-right: 1.25rem !important;
   }
