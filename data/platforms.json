@@ -430,33 +430,6 @@
     "tier": "intermediate"
   },
   {
-    "id": 2,
-    "name": "FreedomJobs",
-    "slug": "freedomjobs",
-    "url": "https://freedomjobs.co.za",
-    "ref_url": "https://freedomjobs.co.za",
-    "category": "📋 Remote Job Boards & Agencies",
-    "description": "SA-based agency placing local talent with US and UK companies. They know the local market and what international companies want from Mzansi talent.",
-    "best_for": [
-      "Ops",
-      "Admin",
-      "Support",
-      "Dev"
-    ],
-    "payout_notes": "Varies by placement. USD/GBP rates.",
-    "difficulty": "Medium",
-    "tags": [
-      "SA-based",
-      "US companies",
-      "UK companies",
-      "beginner-friendly"
-    ],
-    "sa_friendly": true,
-    "recommended_rank": 19,
-    "featured": false,
-    "tier": "intermediate"
-  },
-  {
     "id": 3,
     "name": "JobRack",
     "slug": "jobrack",
