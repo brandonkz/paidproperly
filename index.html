@@ -510,14 +510,97 @@
   <script src="app.js"></script>
 
   <!-- Newsletter Modal -->
-  <div id="newsletter-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 9999; align-items: center; justify-content: center;">
-    <div style="background: white; border-radius: 16px; max-width: 600px; width: 90%; max-height: 90vh; overflow-y: auto; position: relative; box-shadow: 0 20px 60px rgba(0,0,0,0.3);">
-      <button id="close-modal" style="position: absolute; top: 1rem; right: 1rem; background: transparent; border: none; font-size: 1.5rem; color: var(--color-text-light); cursor: pointer; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: all 0.2s;" onmouseover="this.style.background='var(--color-background)'" onmouseout="this.style.background='transparent'">×</button>
-      <div style="padding: 2.5rem 2rem;">
+  <style>
+    #newsletter-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    
+    #newsletter-modal-content {
+      background: white;
+      border-radius: 16px;
+      max-width: 600px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    
+    #close-modal {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      background: rgba(255,255,255,0.9);
+      border: none;
+      font-size: 1.75rem;
+      color: var(--color-text);
+      cursor: pointer;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: all 0.2s;
+      z-index: 10;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    
+    #close-modal:hover {
+      background: var(--color-background);
+      transform: scale(1.1);
+    }
+    
+    #newsletter-modal-inner {
+      padding: 2.5rem 2rem;
+    }
+    
+    @media (max-width: 640px) {
+      #newsletter-modal {
+        padding: 0.5rem;
+      }
+      
+      #newsletter-modal-content {
+        border-radius: 12px;
+        max-height: 85vh;
+      }
+      
+      #newsletter-modal-inner {
+        padding: 2rem 1.25rem 1.5rem;
+      }
+      
+      #newsletter-modal h2 {
+        font-size: 1.35rem !important;
+      }
+      
+      #newsletter-modal p {
+        font-size: 0.9rem !important;
+      }
+      
+      #newsletter-modal .beehiiv-embed {
+        height: 280px !important;
+      }
+    }
+  </style>
+  
+  <div id="newsletter-modal">
+    <div id="newsletter-modal-content">
+      <button id="close-modal">×</button>
+      <div id="newsletter-modal-inner">
         <div style="text-align: center; margin-bottom: 1.5rem;">
-          <div style="font-size: 3rem; margin-bottom: 1rem;">💌</div>
+          <div style="font-size: 2.5rem; margin-bottom: 0.75rem;">💌</div>
           <h2 style="font-size: 1.75rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--color-text);">Get New Opportunities in Your Inbox</h2>
-          <p style="font-size: 1rem; color: var(--color-text-light); line-height: 1.6;">New SA-friendly platforms, application tips, and success stories delivered straight to you.</p>
+          <p style="font-size: 1rem; color: var(--color-text-light); line-height: 1.6;">New SA-friendly platforms, application tips, and success stories.</p>
         </div>
         <div style="display: flex; justify-content: center;">
           <script async src="https://subscribe-forms.beehiiv.com/embed.js"></script>
