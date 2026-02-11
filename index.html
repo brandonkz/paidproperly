@@ -400,18 +400,6 @@
         </div>
       </section>
 
-      <!-- Email Signup (Beehiiv) -->
-      <section class="section" style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
-        <div style="text-align: center; margin-bottom: 1rem;">
-          <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--color-text);">💌 New Opportunities in Your Inbox</h3>
-          <p style="font-size: 0.85rem; color: var(--color-text-light); max-width: 450px; margin: 0 auto; line-height: 1.5;">Get SA-friendly platforms and tips delivered to you.</p>
-        </div>
-        <div style="display: flex; justify-content: center;">
-          <script async src="https://subscribe-forms.beehiiv.com/embed.js"></script>
-          <iframe src="https://subscribe-forms.beehiiv.com/f96d4cb4-c78f-47b1-a2af-5c209b6db369" class="beehiiv-embed" data-test-id="beehiiv-embed" frameborder="0" scrolling="no" style="width: 480px; height: 280px; margin: 0; border-radius: 6px !important; background-color: transparent; box-shadow: 0 0 #0000; max-width: 100%; transform: scale(0.9);"></iframe>
-        </div>
-      </section>
-
       <!-- All Platforms -->
       <section class="section">
         <h2 class="section-title">All Platforms</h2>
@@ -520,5 +508,63 @@
   </footer>
 
   <script src="app.js"></script>
+
+  <!-- Newsletter Modal -->
+  <div id="newsletter-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 9999; align-items: center; justify-content: center;">
+    <div style="background: white; border-radius: 16px; max-width: 600px; width: 90%; max-height: 90vh; overflow-y: auto; position: relative; box-shadow: 0 20px 60px rgba(0,0,0,0.3);">
+      <button id="close-modal" style="position: absolute; top: 1rem; right: 1rem; background: transparent; border: none; font-size: 1.5rem; color: var(--color-text-light); cursor: pointer; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: all 0.2s;" onmouseover="this.style.background='var(--color-background)'" onmouseout="this.style.background='transparent'">×</button>
+      <div style="padding: 2.5rem 2rem;">
+        <div style="text-align: center; margin-bottom: 1.5rem;">
+          <div style="font-size: 3rem; margin-bottom: 1rem;">💌</div>
+          <h2 style="font-size: 1.75rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--color-text);">Get New Opportunities in Your Inbox</h2>
+          <p style="font-size: 1rem; color: var(--color-text-light); line-height: 1.6;">New SA-friendly platforms, application tips, and success stories delivered straight to you.</p>
+        </div>
+        <div style="display: flex; justify-content: center;">
+          <script async src="https://subscribe-forms.beehiiv.com/embed.js"></script>
+          <iframe src="https://subscribe-forms.beehiiv.com/f96d4cb4-c78f-47b1-a2af-5c209b6db369" class="beehiiv-embed" data-test-id="beehiiv-embed" frameborder="0" scrolling="no" style="width: 100%; height: 315px; margin: 0; border-radius: 8px !important; background-color: transparent; box-shadow: 0 0 #0000;"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Show newsletter modal after 15 seconds
+    (function() {
+      const modal = document.getElementById('newsletter-modal');
+      const closeBtn = document.getElementById('close-modal');
+      
+      // Check if user already dismissed the modal
+      if (localStorage.getItem('newsletter-modal-dismissed')) {
+        return;
+      }
+      
+      // Show modal after 15 seconds
+      setTimeout(function() {
+        modal.style.display = 'flex';
+      }, 15000);
+      
+      // Close modal on button click
+      closeBtn.addEventListener('click', function() {
+        modal.style.display = 'none';
+        localStorage.setItem('newsletter-modal-dismissed', 'true');
+      });
+      
+      // Close modal on backdrop click
+      modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+          modal.style.display = 'none';
+          localStorage.setItem('newsletter-modal-dismissed', 'true');
+        }
+      });
+      
+      // Close modal on Escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.style.display === 'flex') {
+          modal.style.display = 'none';
+          localStorage.setItem('newsletter-modal-dismissed', 'true');
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
