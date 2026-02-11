@@ -874,6 +874,7 @@ body {
 .hero-inner {
   max-width: 800px;
   margin: 0 auto;
+  padding: 0 2rem;
   text-align: center;
 }
 
@@ -950,6 +951,10 @@ body {
 @media (max-width: 640px) {
   .hero {
     padding: 2rem 1.25rem;
+  }
+  
+  .hero-inner {
+    padding: 0 1.25rem;
   }
   
   .hero h1 {
