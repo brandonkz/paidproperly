@@ -7,7 +7,7 @@ Last updated: 2026-02-07
 ### Affiliate Networks (Do These First)
 | Network | Status | Commission | Sign Up Link | Notes |
 |---------|--------|------------|--------------|-------|
-| Impact Radius | ⬜ TODO | Varies by program | https://impact.com | Shopify, Canva, many SaaS |
+| Impact Radius | ❌ REJECTED | N/A | N/A | Need more traffic/established site |
 | PartnerStack | ⬜ TODO | Varies by program | https://partnerstack.com/partners | B2B SaaS programs |
 | Awin | ⬜ TODO | Varies by program | https://www.awin.com/us/publishers | Absorbed ShareASale |
 | CJ Affiliate | ⬜ TODO | Varies by program | https://www.cj.com/publisher | Large network |
