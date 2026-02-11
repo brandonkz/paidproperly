@@ -538,33 +538,6 @@
     "tier": "intermediate"
   },
   {
-    "id": 12,
-    "name": "LatHire",
-    "slug": "lathire",
-    "url": "https://lathire.com",
-    "ref_url": "https://lathire.com",
-    "category": "📋 Remote Job Boards & Agencies",
-    "description": "Offshore remote placements agency. Originally focused on LatAm but open to global talent including SA.",
-    "best_for": [
-      "Ops",
-      "Admin",
-      "Support",
-      "Dev"
-    ],
-    "payout_notes": "Competitive rates. Regular payments.",
-    "difficulty": "Medium",
-    "tags": [
-      "offshore",
-      "remote",
-      "placements",
-      "beginner-friendly"
-    ],
-    "sa_friendly": true,
-    "recommended_rank": 24,
-    "featured": false,
-    "tier": "intermediate"
-  },
-  {
     "id": 13,
     "name": "Malt",
     "slug": "malt",
