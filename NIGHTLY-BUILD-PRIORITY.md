@@ -10,25 +10,28 @@
 **Structure:**
 1. **Hook** - Real results upfront (R40k more per month, 3x applications)
 2. **The Problem** - Manual Upwork applications are slow (5-10 per day max)
-3. **The Solution** - OpenClaw + ChatGPT workflow
-4. **My Exact Workflow**
-   - Morning: OpenClaw scans Upwork RSS/email for new jobs
-   - ChatGPT analyzes job posting, customizes proposal template
-   - OpenClaw auto-submits via Upwork API (or prepares draft)
-   - I review + send (5 min instead of 30 min per proposal)
-5. **Tools I Use**
-   - OpenClaw (free, self-hosted on Hetzner)
-   - ChatGPT Plus ($20/mo)
-   - Upwork RSS feed
-   - Custom proposal templates (link to waitlist for full pack)
-6. **Real Results**
-   - Before: 5 applications/day, 10% response rate
-   - After: 30-50 applications/day, 35% response rate
-   - Income: R40k → R80k per month
-7. **How You Can Start**
-   - Option 1: OpenClaw setup (link to coming soon page)
-   - Option 2: Just ChatGPT templates (link to waitlist)
-   - Join waitlist for full AI Starter Pack
+3. **The Breakthrough** - "I discovered AI could do this for me"
+4. **What Changed (High-Level)**
+   - Morning routine: 5 minutes vs 2 hours
+   - AI handles the repetitive parts
+   - I focus on the high-value work (client calls, actual projects)
+   - Screenshot of my dashboard (blurred/cropped to hide details)
+5. **The Results (Specific Numbers)**
+   - Before: 5 applications/day, 10% response rate, R40k/month
+   - After: 30-50 applications/day, 35% response rate, R80k/month
+   - Time saved: 10-15 hours per week
+6. **What I Learned**
+   - Most freelancers waste 80% of time on stuff AI can do
+   - The right tools + workflow = game changer
+   - You don't need to be technical (I'm not a dev)
+7. **Why I'm Not Sharing The Exact Setup**
+   - Took me 3 months to figure out
+   - If everyone does this, competition increases
+   - But I will help people who are serious (hint at paid option)
+8. **Next Steps**
+   - Join waitlist for AI Starter Pack (limited spots)
+   - Case studies from other SA freelancers coming soon
+   - Or book a consulting call (link to brandon@paidproperly.co.za)
 
 **Tone:** Personal, honest, dry humor (Brandon's voice). Not a tutorial, more like "here's what worked for me."
 

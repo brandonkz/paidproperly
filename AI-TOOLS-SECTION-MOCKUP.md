@@ -207,6 +207,31 @@ manage clients, and earn 3x more in the same hours. Here's how to join them.
 3. **Monetization is Clear** - Affiliates + digital product + consulting
 4. **Future-Proof** - Positions PaidProperly ahead of AI disruption
 5. **Competitive Moat** - No one else in SA is teaching this yet
+6. **Scarcity Strategy** - Show results, gate the methods. Creates FOMO, not education.
+
+## Content Strategy: Results Over Methods
+
+**FREE Content (Blog/YouTube):**
+- ✅ Case studies with specific numbers (R40k → R80k)
+- ✅ Before/after comparisons (5 apps/day → 50 apps/day)
+- ✅ Tool comparisons (ChatGPT vs Claude - surface level)
+- ✅ Problem/solution stories (pain points + transformation)
+- ✅ Screenshots of dashboards/results (blurred to hide details)
+- ✅ "What I learned" insights (general principles)
+
+**PAID Content (AI Starter Pack / Consulting):**
+- 💰 Exact OpenClaw setup steps
+- 💰 ChatGPT prompt templates that work
+- 💰 Automation code/integrations
+- 💰 API connections and workflows
+- 💰 Private community with detailed help
+- 💰 Done-for-you setup service
+
+**Why This Works:**
+- Free content creates desire ("I want those results")
+- Paid content delivers transformation ("Here's exactly how")
+- People who DIY struggle → upgrade to consulting
+- Creates urgency ("limited spots", "before competition catches on")
 
 ## Quick Win: This Week
 
