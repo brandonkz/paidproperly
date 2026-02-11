@@ -16,7 +16,7 @@ Last updated: 2026-02-07
 | Platform | Status | Commission | Sign Up Link | Your Affiliate Link |
 |----------|--------|------------|--------------|---------------------|
 | Toptal | ⬜ TODO | $500-2,000/placement | https://www.toptal.com (login → referrals) | |
-| Fiverr | ⬜ TODO | $15-150/first buyer | https://affiliates.fiverr.com | |
+| Fiverr | ❌ REJECTED | N/A | N/A | Application rejected - too well known anyway |
 | Respondent | ✅ APPROVED | $20-50/referral | In-app after login | https://app.respondent.io/r/brandonkatz-28807d50a084 |
 | Preply | ⬜ TODO | 50% first payment | https://preply.com/en/affiliate | |
 | Italki | ⬜ TODO | $10/new student | https://www.italki.com/affiliateprogram | |
@@ -41,7 +41,7 @@ Last updated: 2026-02-07
 | Turing | Tech & Dev | ⬜ TODO | | |
 | Proxify | Tech & Dev | ⬜ TODO | | |
 | Crossover | Competitive | ⬜ TODO | | |
-| Fiverr | Marketplace | ⬜ TODO | | Not on site yet - consider adding |
+| Fiverr | Marketplace | ❌ REJECTED | | Application rejected |
 | Upwork | Marketplace | ⬜ TODO | | Not on site yet - consider adding |
 | Preply | Teaching | ⬜ TODO | | |
 | Italki | Teaching | ⬜ TODO | | |
@@ -106,7 +106,7 @@ These often have generous referral programs:
 ## Workflow
 
 1. **Sign up for networks first** (Impact, PartnerStack, Awin)
-2. **Apply to high-value direct programs** (Toptal, Fiverr, etc.)
+2. **Apply to high-value direct programs** (Toptal, Upwork, etc.)
 3. **Update this doc** with status and your affiliate links
 4. **Tell Milan** when you have links — I'll update platforms.json and regenerate /go/ pages
 
