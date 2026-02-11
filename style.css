@@ -752,10 +752,14 @@ body {
 }
 
 /* About Section */
+.about-section {
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
+}
+
 .about-section .container {
   max-width: 900px;
   margin: 0 auto;
-  padding: 0 2rem;
 }
 
 /* FAQ Section */
@@ -857,9 +861,13 @@ body {
     padding: 1.25rem;
   }
   
-  .about-section .container,
+  .about-section {
+    padding-left: 1.25rem !important;
+    padding-right: 1.25rem !important;
+  }
+  
   .faq-grid {
-    padding: 0 1.25rem;
+    padding: 0 1.25rem !important;
   }
   
   .popular-grid {
