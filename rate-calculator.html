@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Freelance Rate Calculator - Calculate Your Hourly Rate | PaidProperly</title>
+  <meta name="description" content="Calculate your freelance hourly rate with South Africa's most accurate rate calculator. Factor in taxes, expenses, time off, and admin work to price your services properly.">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .calculator-container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    .calc-section {
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    
+    .calc-section:last-child {
+      border-bottom: none;
+    }
+    
+    .calc-section h3 {
+      color: #047857;
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+    }
+    
+    .input-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .input-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #374151;
+    }
+    
+    .input-group input,
+    .input-group select {
+      width: 100%;
+      padding: 0.75rem;
+      border: 2px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.2s;
+    }
+    
+    .input-group input:focus,
+    .input-group select:focus {
+      outline: none;
+      border-color: #047857;
+    }
+    
+    .input-hint {
+      font-size: 0.875rem;
+      color: #6b7280;
+      margin-top: 0.25rem;
+    }
+    
+    .results-box {
+      background: linear-gradient(135deg, #047857 0%, #059669 100%);
+      color: white;
+      padding: 2rem;
+      border-radius: 12px;
+      margin-top: 2rem;
+    }
+    
+    .results-box h3 {
+      color: white;
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    
+    .result-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+    
+    .result-item:last-child {
+      border-bottom: none;
+    }
+    
+    .result-label {
+      font-weight: 500;
+    }
+    
+    .result-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+    
+    .breakdown-box {
+      background: #f9fafb;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-top: 2rem;
+    }
+    
+    .breakdown-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      color: #374151;
+    }
+    
+    .tooltip {
+      position: relative;
+      display: inline-block;
+      cursor: help;
+      color: #047857;
+      font-weight: 600;
+      margin-left: 0.25rem;
+    }
+    
+    .tooltip:hover::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 0.5rem;
+      background: #1f2937;
+      color: white;
+      font-size: 0.875rem;
+      white-space: nowrap;
+      border-radius: 4px;
+      z-index: 10;
+    }
+    
+    .calculate-btn {
+      width: 100%;
+      padding: 1rem;
+      background: #047857;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.125rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    
+    .calculate-btn:hover {
+      background: #059669;
+    }
+    
+    @media (max-width: 768px) {
+      .calculator-container {
+        padding: 1.25rem;
+      }
+      
+      .result-value {
+        font-size: 1.25rem;
+      }
+    }
+  </style>
+  
+  <!-- Beehiiv Attribution Tracker -->
+  <script>
+    (function() {
+      const params = new URLSearchParams(window.location.search);
+      const ref = params.get('ref');
+      if (ref) {
+        localStorage.setItem('beehiiv_ref', ref);
+      }
+    })();
+  </script>
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <h1 class="logo"><a href="index.html" style="color: inherit; text-decoration: none;">💰 PaidProperly</a></h1>
+      <nav class="nav">
+        <a href="index.html">Platforms</a>
+        <a href="for-employers.html">For Employers</a>
+        <a href="net-salary-calculator.html">Salary Calculator</a>
+        <a href="rate-calculator.html" class="active">Rate Calculator</a>
+        <a href="ai-tools.html">AI Tools <span class="badge-new">NEW</span></a>
+        <a href="blog/index.html">Blog</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="calculator-container">
+      <h2 style="color: #047857; margin-bottom: 1rem;">Freelance Rate Calculator</h2>
+      <p style="color: #6b7280; margin-bottom: 2rem;">Calculate your hourly rate based on your desired income, working hours, and business expenses. This calculator factors in South African taxes, time off, and non-billable admin work.</p>
+      
+      <!-- Income Section -->
+      <div class="calc-section">
+        <h3>Your Income Goals</h3>
+        
+        <div class="input-group">
+          <label for="desiredIncome">Desired Annual Income (Before Tax)</label>
+          <input type="number" id="desiredIncome" value="720000" step="10000">
+          <div class="input-hint">R60,000/month = R720,000/year</div>
+        </div>
+      </div>
+      
+      <!-- Working Time Section -->
+      <div class="calc-section">
+        <h3>Your Working Schedule</h3>
+        
+        <div class="input-group">
+          <label for="hoursPerWeek">Billable Hours Per Week</label>
+          <input type="number" id="hoursPerWeek" value="30" step="1" min="10" max="60">
+          <div class="input-hint">Most freelancers bill 25-35 hours/week (rest is admin, sales, breaks)</div>
+        </div>
+        
+        <div class="input-group">
+          <label for="weeksOff">Weeks Off Per Year (Vacation + Sick)</label>
+          <input type="number" id="weeksOff" value="4" step="1" min="0" max="12">
+          <div class="input-hint">4 weeks = 1 month off per year</div>
+        </div>
+      </div>
+      
+      <!-- Expenses Section -->
+      <div class="calc-section">
+        <h3>Business Expenses</h3>
+        
+        <div class="input-group">
+          <label for="monthlyExpenses">Monthly Business Expenses</label>
+          <input type="number" id="monthlyExpenses" value="5000" step="500">
+          <div class="input-hint">Internet, software, hardware, insurance, accounting (R3k-R10k typical)</div>
+        </div>
+        
+        <div class="input-group">
+          <label for="taxPercentage">Estimated Tax Rate (%)</label>
+          <input type="number" id="taxPercentage" value="30" step="1" min="18" max="45">
+          <div class="input-hint">Use 30% as default (SA marginal rates: 18%-45%)</div>
+        </div>
+      </div>
+      
+      <!-- Buffer Section -->
+      <div class="calc-section">
+        <h3>Safety Buffer</h3>
+        
+        <div class="input-group">
+          <label for="bufferPercentage">Rate Buffer (%)</label>
+          <input type="number" id="bufferPercentage" value="20" step="5" min="0" max="50">
+          <div class="input-hint">20% buffer for dry months, late payments, scope creep</div>
+        </div>
+      </div>
+      
+      <button class="calculate-btn" onclick="calculateRate()">Calculate My Rate</button>
+      
+      <!-- Results -->
+      <div class="results-box" id="results" style="display: none;">
+        <h3>Your Recommended Rates</h3>
+        <div class="result-item">
+          <span class="result-label">Hourly Rate</span>
+          <span class="result-value" id="hourlyRate">-</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">Day Rate (8 hours)</span>
+          <span class="result-value" id="dayRate">-</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">Monthly Retainer (Full-time)</span>
+          <span class="result-value" id="monthlyRetainer">-</span>
+        </div>
+      </div>
+      
+      <!-- Breakdown -->
+      <div class="breakdown-box" id="breakdown" style="display: none;">
+        <h4 style="color: #047857; margin-bottom: 1rem;">How We Calculate Your Rate</h4>
+        <div class="breakdown-item">
+          <span>Desired annual income:</span>
+          <span id="breakdownIncome">-</span>
+        </div>
+        <div class="breakdown-item">
+          <span>+ Annual business expenses:</span>
+          <span id="breakdownExpenses">-</span>
+        </div>
+        <div class="breakdown-item">
+          <span>+ Tax provision (<span id="breakdownTaxPct">-</span>):</span>
+          <span id="breakdownTax">-</span>
+        </div>
+        <div class="breakdown-item">
+          <span>+ Safety buffer (<span id="breakdownBufferPct">-</span>):</span>
+          <span id="breakdownBuffer">-</span>
+        </div>
+        <div class="breakdown-item" style="border-top: 2px solid #d1d5db; padding-top: 1rem; margin-top: 1rem; font-weight: 600;">
+          <span>Total revenue needed:</span>
+          <span id="breakdownTotal">-</span>
+        </div>
+        <div class="breakdown-item">
+          <span>÷ Billable hours per year:</span>
+          <span id="breakdownHours">-</span>
+        </div>
+        <div class="breakdown-item" style="border-top: 2px solid #047857; padding-top: 1rem; margin-top: 1rem; font-weight: 700; color: #047857;">
+          <span>= Your hourly rate:</span>
+          <span id="breakdownRate">-</span>
+        </div>
+      </div>
+      
+      <!-- Tips -->
+      <div style="margin-top: 3rem; padding: 2rem; background: #fffbeb; border-left: 4px solid #f59e0b; border-radius: 8px;">
+        <h4 style="color: #b45309; margin-bottom: 1rem;">💡 Rate-Setting Tips</h4>
+        <ul style="color: #78350f; line-height: 1.8;">
+          <li><strong>Start higher than you think:</strong> Clients respect higher rates. You can always negotiate down, but never up.</li>
+          <li><strong>Different rates for different clients:</strong> Charge premium clients more. Offer discounts for long-term retainers.</li>
+          <li><strong>Review every 6 months:</strong> Increase rates 10-20% annually to keep pace with inflation and your growing skills.</li>
+          <li><strong>Project pricing beats hourly:</strong> Once you're experienced, switch to fixed-price projects for better margins.</li>
+          <li><strong>Value > time:</strong> Charge based on the value you deliver, not just hours worked. A 2-hour fix that saves R100k is worth more than R400.</li>
+        </ul>
+      </div>
+      
+      <!-- Platform Comparison -->
+      <div style="margin-top: 2rem; padding: 2rem; background: #f0fdf4; border-radius: 8px;">
+        <h4 style="color: #047857; margin-bottom: 1rem;">How Do Platform Rates Compare?</h4>
+        <p style="color: #065f46; margin-bottom: 1rem;">Different remote work platforms have different rate expectations. Here's what real SA freelancers charge:</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: 1rem;">
+          <div style="padding: 1rem; background: white; border-radius: 8px;">
+            <strong style="color: #047857;">Upwork</strong>
+            <p style="color: #6b7280; font-size: 0.875rem; margin-top: 0.5rem;">R200-R800/hour<br>High competition, need portfolio</p>
+          </div>
+          <div style="padding: 1rem; background: white; border-radius: 8px;">
+            <strong style="color: #047857;">Toptal</strong>
+            <p style="color: #6b7280; font-size: 0.875rem; margin-top: 0.5rem;">R600-R1,500/hour<br>Vetted talent, premium clients</p>
+          </div>
+          <div style="padding: 1rem; background: white; border-radius: 8px;">
+            <strong style="color: #047857;">Direct clients</strong>
+            <p style="color: #6b7280; font-size: 0.875rem; margin-top: 0.5rem;">R500-R2,000/hour<br>No platform fees, negotiate freely</p>
+          </div>
+        </div>
+        <p style="color: #065f46; margin-top: 1rem; font-size: 0.875rem;"><a href="index.html" style="color: #047857; font-weight: 600;">Browse all platforms →</a></p>
+      </div>
+    </div>
+    
+    <!-- Newsletter Signup -->
+    <div style="max-width: 900px; margin: 3rem auto; padding: 2rem; background: linear-gradient(135deg, #047857 0%, #059669 100%); border-radius: 12px; color: white; text-align: center;">
+      <h3 style="color: white; margin-bottom: 1rem;">Get More Remote Work Tips</h3>
+      <p style="margin-bottom: 1.5rem; opacity: 0.9;">Weekly insights on finding better clients, raising your rates, and building a sustainable freelance business.</p>
+      <div id="newsletter-embed"></div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 PaidProperly. Helping South African remote workers get paid properly.</p>
+      <p style="margin-top: 0.5rem; font-size: 0.875rem;">
+        <a href="mailto:brandon@paidproperly.co.za" style="color: #10b981;">Contact</a> | 
+        <a href="for-employers.html" style="color: #10b981;">For Employers</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    function calculateRate() {
+      // Get inputs
+      const desiredIncome = parseFloat(document.getElementById('desiredIncome').value) || 0;
+      const hoursPerWeek = parseFloat(document.getElementById('hoursPerWeek').value) || 0;
+      const weeksOff = parseFloat(document.getElementById('weeksOff').value) || 0;
+      const monthlyExpenses = parseFloat(document.getElementById('monthlyExpenses').value) || 0;
+      const taxPercentage = parseFloat(document.getElementById('taxPercentage').value) || 0;
+      const bufferPercentage = parseFloat(document.getElementById('bufferPercentage').value) || 0;
+      
+      // Calculate working time
+      const weeksWorked = 52 - weeksOff;
+      const billableHoursPerYear = hoursPerWeek * weeksWorked;
+      
+      // Calculate expenses
+      const annualExpenses = monthlyExpenses * 12;
+      
+      // Calculate pre-tax revenue needed (before applying buffer)
+      const preBufferRevenue = desiredIncome + annualExpenses;
+      
+      // Calculate tax on pre-buffer revenue
+      const taxAmount = preBufferRevenue * (taxPercentage / 100);
+      
+      // Add tax to revenue needed
+      const revenueBeforeBuffer = preBufferRevenue + taxAmount;
+      
+      // Apply buffer
+      const bufferAmount = revenueBeforeBuffer * (bufferPercentage / 100);
+      const totalRevenueNeeded = revenueBeforeBuffer + bufferAmount;
+      
+      // Calculate hourly rate
+      const hourlyRate = totalRevenueNeeded / billableHoursPerYear;
+      const dayRate = hourlyRate * 8;
+      const monthlyRetainer = hourlyRate * hoursPerWeek * 4.33; // Average weeks per month
+      
+      // Format currency
+      const formatCurrency = (amount) => {
+        return 'R' + Math.round(amount).toLocaleString('en-ZA');
+      };
+      
+      // Display results
+      document.getElementById('hourlyRate').textContent = formatCurrency(hourlyRate);
+      document.getElementById('dayRate').textContent = formatCurrency(dayRate);
+      document.getElementById('monthlyRetainer').textContent = formatCurrency(monthlyRetainer);
+      
+      // Display breakdown
+      document.getElementById('breakdownIncome').textContent = formatCurrency(desiredIncome);
+      document.getElementById('breakdownExpenses').textContent = formatCurrency(annualExpenses);
+      document.getElementById('breakdownTaxPct').textContent = taxPercentage + '%';
+      document.getElementById('breakdownTax').textContent = formatCurrency(taxAmount);
+      document.getElementById('breakdownBufferPct').textContent = bufferPercentage + '%';
+      document.getElementById('breakdownBuffer').textContent = formatCurrency(bufferAmount);
+      document.getElementById('breakdownTotal').textContent = formatCurrency(totalRevenueNeeded);
+      document.getElementById('breakdownHours').textContent = Math.round(billableHoursPerYear).toLocaleString('en-ZA') + ' hours';
+      document.getElementById('breakdownRate').textContent = formatCurrency(hourlyRate);
+      
+      // Show results
+      document.getElementById('results').style.display = 'block';
+      document.getElementById('breakdown').style.display = 'block';
+      
+      // Scroll to results
+      document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+    
+    // Calculate on page load with defaults
+    window.addEventListener('DOMContentLoaded', () => {
+      calculateRate();
+    });
+    
+    // Beehiiv Newsletter Embed
+    window.addEventListener('DOMContentLoaded', () => {
+      const embed = document.getElementById('newsletter-embed');
+      const ref = localStorage.getItem('beehiiv_ref') || '';
+      embed.innerHTML = `
+        <form action="https://your-beehiiv-url.com/subscribe" method="post" target="_blank" style="display: flex; gap: 0.5rem; max-width: 500px; margin: 0 auto; flex-wrap: wrap; justify-content: center;">
+          <input type="email" name="email" placeholder="your@email.com" required style="flex: 1; min-width: 200px; padding: 0.75rem 1rem; border: 2px solid rgba(255,255,255,0.3); border-radius: 8px; font-size: 1rem; background: rgba(255,255,255,0.9);">
+          <input type="hidden" name="ref" value="${ref}">
+          <button type="submit" style="padding: 0.75rem 2rem; background: white; color: #047857; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap;">Subscribe</button>
+        </form>
+        <p style="margin-top: 1rem; font-size: 0.875rem; opacity: 0.8;">Get remote work opportunities in your inbox. Unsubscribe anytime.</p>
+      `;
+    });
+  </script>
+</body>
+</html>
