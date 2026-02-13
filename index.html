@@ -60,12 +60,28 @@
   }
   </script>
   
-  <!-- FAQ Schema for AI Search -->
+  <!-- FAQ Schema for AI Search (MERGED - Single FAQPage) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is PaidProperly?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "PaidProperly is a curated directory of legitimate platforms that accept and pay South African remote workers. We vet every platform to ensure they actually pay out and don't ghost South Africans at withdrawal time."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do these platforms really pay South Africans?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! Every platform listed here has been verified to accept South African users and process payments. We exclude platforms with poor payout histories or those that restrict access from South Africa."
+        }
+      },
       {
         "@type": "Question",
         "name": "How do South Africans get paid for remote work?",
@@ -113,50 +129,6 @@
           "@type": "Answer",
           "text": "Yes, if you use verified platforms. PaidProperly lists 56+ platforms that are confirmed to accept and pay South Africans as of 2026. Avoid: platforms asking for upfront fees, no online reviews, promises of 'easy money', or requests for personal ID before work. Stick to established names like Upwork, Toptal, Somewhere, and UserTesting."
         }
-      }
-    ]
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    "name": "Remote Work Platforms for South Africans",
-    "description": "Vetted list of platforms that accept and pay South African remote workers",
-    "numberOfItems": "56",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "item": {
-          "@type": "Organization",
-          "name": "Remote Work Platforms",
-          "description": "Platforms offering remote work opportunities for South Africans"
-        }
-      }
-    ]
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "What is PaidProperly?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "PaidProperly is a curated directory of legitimate platforms that accept and pay South African remote workers. We vet every platform to ensure they actually pay out and don't ghost South Africans at withdrawal time."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Do these platforms really pay South Africans?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes! Every platform listed here has been verified to accept South African users and process payments. We exclude platforms with poor payout histories or those that restrict access from South Africa."
-        }
       },
       {
         "@type": "Question",
@@ -188,6 +160,26 @@
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "Yes, PaidProperly is completely free. We may earn commissions when you sign up through our links, which helps us keep the site running and up-to-date."
+        }
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Remote Work Platforms for South Africans",
+    "description": "Vetted list of platforms that accept and pay South African remote workers",
+    "numberOfItems": "56",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@type": "Organization",
+          "name": "Remote Work Platforms",
+          "description": "Platforms offering remote work opportunities for South Africans"
         }
       }
     ]
@@ -679,6 +671,50 @@
           localStorage.setItem('newsletter-modal-dismissed', 'true');
         }
       });
+    })();
+  </script>
+  
+  <!-- Affiliate Link Tracking -->
+  <script>
+    (function() {
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initTracking);
+      } else {
+        initTracking();
+      }
+
+      function initTracking() {
+        const externalLinks = document.querySelectorAll('a[href^="http"]');
+        
+        externalLinks.forEach(link => {
+          const href = link.href;
+          const hostname = new URL(href).hostname;
+          const currentHostname = window.location.hostname;
+          
+          if (hostname === currentHostname || hostname.includes('sorted')) {
+            return;
+          }
+          
+          link.addEventListener('click', function(e) {
+            if (typeof gtag !== 'undefined') {
+              gtag('event', 'affiliate_click', {
+                'link_url': href,
+                'link_text': this.textContent.trim().substring(0, 50),
+                'link_domain': hostname,
+                'page_location': window.location.pathname,
+                'page_title': document.title
+              });
+            }
+            
+            if (!e.ctrlKey && !e.metaKey && !e.shiftKey) {
+              e.preventDefault();
+              setTimeout(() => {
+                window.open(href, link.target || '_self');
+              }, 100);
+            }
+          });
+        });
+      }
     })();
   </script>
 </body>
