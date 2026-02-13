@@ -338,6 +338,42 @@
         </div>
         <p style="color: #065f46; margin-top: 1rem; font-size: 0.875rem;"><a href="index.html" style="color: #047857; font-weight: 600;">Browse all platforms →</a></p>
       </div>
+      
+      <!-- Next Steps -->
+      <div id="next-steps" style="display: none; margin-top: 2rem; padding: 2rem; background: white; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+        <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; color: #1f2937;">
+          💡 What to Do Next
+        </h3>
+        
+        <div style="display: grid; gap: 1rem;">
+          <a href="/index.html" style="display: flex; align-items: center; gap: 1rem; padding: 1.25rem; background: white; border: 1px solid #e5e7eb; border-radius: 8px; text-decoration: none; color: inherit; transition: all 0.2s;" onmouseover="this.style.borderColor='#047857'; this.style.boxShadow='0 4px 6px rgba(4, 120, 87, 0.1)'; this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='#e5e7eb'; this.style.boxShadow='none'; this.style.transform='translateY(0)'">
+            <div style="font-size: 2rem; flex-shrink: 0;">🏢</div>
+            <div style="flex: 1;">
+              <div style="font-size: 1rem; font-weight: 600; color: #1f2937; margin-bottom: 0.25rem;">Browse 56+ Remote Work Platforms</div>
+              <div style="font-size: 0.875rem; color: #6b7280;">Find platforms that match your rate and skills</div>
+            </div>
+            <div style="font-size: 1.5rem; color: #047857; flex-shrink: 0;">→</div>
+          </a>
+          
+          <a href="/net-salary-calculator.html" style="display: flex; align-items: center; gap: 1rem; padding: 1.25rem; background: white; border: 1px solid #e5e7eb; border-radius: 8px; text-decoration: none; color: inherit; transition: all 0.2s;" onmouseover="this.style.borderColor='#047857'; this.style.boxShadow='0 4px 6px rgba(4, 120, 87, 0.1)'; this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='#e5e7eb'; this.style.boxShadow='none'; this.style.transform='translateY(0)'">
+            <div style="font-size: 2rem; flex-shrink: 0;">💵</div>
+            <div style="flex: 1;">
+              <div style="font-size: 1rem; font-weight: 600; color: #1f2937; margin-bottom: 0.25rem;">Calculate Your Net Salary</div>
+              <div style="font-size: 0.875rem; color: #6b7280;">See your actual take-home after tax and deductions</div>
+            </div>
+            <div style="font-size: 1.5rem; color: #047857; flex-shrink: 0;">→</div>
+          </a>
+          
+          <a href="/blog/sa-freelancer-ai-50-applications-day.html" style="display: flex; align-items: center; gap: 1rem; padding: 1.25rem; background: white; border: 1px solid #e5e7eb; border-radius: 8px; text-decoration: none; color: inherit; transition: all 0.2s;" onmouseover="this.style.borderColor='#047857'; this.style.boxShadow='0 4px 6px rgba(4, 120, 87, 0.1)'; this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='#e5e7eb'; this.style.boxShadow='none'; this.style.transform='translateY(0)'">
+            <div style="font-size: 2rem; flex-shrink: 0;">🤖</div>
+            <div style="flex: 1;">
+              <div style="font-size: 1rem; font-weight: 600; color: #1f2937; margin-bottom: 0.25rem;">Read: How AI Helps SA Freelancers Win More Work</div>
+              <div style="font-size: 0.875rem; color: #6b7280;">Real story of applying to 50 jobs per day with AI</div>
+            </div>
+            <div style="font-size: 1.5rem; color: #047857; flex-shrink: 0;">→</div>
+          </a>
+        </div>
+      </div>
     </div>
     
     <!-- Newsletter Signup -->
@@ -417,6 +453,7 @@
       // Show results
       document.getElementById('results').style.display = 'block';
       document.getElementById('breakdown').style.display = 'block';
+      document.getElementById('next-steps').style.display = 'block';
       
       // Scroll to results
       document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
