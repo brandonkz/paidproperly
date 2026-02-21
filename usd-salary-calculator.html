@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>USD to ZAR Remote Work Salary Calculator (2026) | PaidProperly</title>
+  <meta name="description" content="Calculate your take-home pay from USD remote work in South Africa. Includes SARS tax, UIF, and freelancer vs employee comparison. Updated for 2026 tax year.">
+  <link rel="canonical" href="https://paidproperly.co.za/usd-salary-calculator.html">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f8fafc; color: #1e293b; line-height: 1.6; }
+    .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+    h1 { font-size: 2rem; font-weight: 800; color: #0f172a; margin-bottom: 8px; }
+    .subtitle { color: #64748b; margin-bottom: 32px; font-size: 1.05rem; }
+    
+    .calc-card { background: white; border-radius: 16px; padding: 32px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); margin-bottom: 24px; }
+    .input-group { margin-bottom: 24px; }
+    label { display: block; font-weight: 600; color: #334155; margin-bottom: 8px; font-size: 0.95rem; }
+    input, select { width: 100%; padding: 12px 16px; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 1rem; transition: all 0.2s; }
+    input:focus, select:focus { outline: none; border-color: #3b82f6; }
+    
+    .radio-group { display: flex; gap: 16px; margin-top: 8px; }
+    .radio-option { display: flex; align-items: center; gap: 8px; }
+    .radio-option input[type="radio"] { width: auto; }
+    
+    .btn-calc { background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; padding: 14px 32px; border: none; border-radius: 10px; font-size: 1.05rem; font-weight: 700; cursor: pointer; width: 100%; transition: all 0.2s; }
+    .btn-calc:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(59, 130, 246, 0.4); }
+    
+    .results { display: none; }
+    .results.show { display: block; }
+    
+    .result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+    .result-box { background: linear-gradient(135deg, #f8fafc, #f1f5f9); border-radius: 12px; padding: 20px; border-left: 4px solid #3b82f6; }
+    .result-label { font-size: 0.85rem; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+    .result-value { font-size: 1.75rem; font-weight: 900; color: #0f172a; }
+    .result-sub { font-size: 0.9rem; color: #64748b; margin-top: 4px; }
+    
+    .breakdown { background: #fefce8; border: 1px solid #fde047; border-radius: 12px; padding: 20px; margin-top: 24px; }
+    .breakdown h3 { font-size: 1.1rem; margin-bottom: 12px; color: #854d0e; }
+    .breakdown-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #fef08a; }
+    .breakdown-item:last-child { border-bottom: none; }
+    
+    .alert { background: #dbeafe; border-left: 4px solid #3b82f6; padding: 16px; border-radius: 8px; margin-top: 20px; }
+    .alert.warning { background: #fef3c7; border-left-color: #f59e0b; }
+    .alert h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 6px; }
+    .alert p { font-size: 0.9rem; color: #475569; }
+    
+    .comparison { margin-top: 32px; }
+    .comparison h3 { font-size: 1.25rem; font-weight: 800; margin-bottom: 16px; }
+    .comp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .comp-card { background: white; border: 2px solid #e2e8f0; border-radius: 12px; padding: 20px; }
+    .comp-card.winner { border-color: #10b981; background: #f0fdf4; }
+    .comp-card h4 { font-size: 1.1rem; font-weight: 700; margin-bottom: 12px; }
+    .comp-value { font-size: 1.5rem; font-weight: 900; color: #10b981; margin-bottom: 8px; }
+    .comp-item { display: flex; justify-content: space-between; font-size: 0.9rem; padding: 6px 0; }
+    
+    .note { background: #f1f5f9; padding: 20px; border-radius: 12px; margin-top: 32px; font-size: 0.9rem; color: #475569; }
+    
+    @media (max-width: 600px) {
+      .result-grid, .comp-grid { grid-template-columns: 1fr; }
+      h1 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>💵 USD Remote Work Salary Calculator</h1>
+    <p class="subtitle">Calculate your take-home pay from USD remote work in South Africa. Includes SARS tax, UIF, and exchange rates. Updated for 2026.</p>
+    
+    <div class="calc-card">
+      <div class="input-group">
+        <label for="usdSalary">💰 Monthly USD Salary (before tax)</label>
+        <input type="number" id="usdSalary" placeholder="e.g., 5000" min="0" step="100">
+      </div>
+      
+      <div class="input-group">
+        <label for="exchangeRate">💱 USD/ZAR Exchange Rate (leave blank for live rate)</label>
+        <input type="number" id="exchangeRate" placeholder="Auto-fetch live rate" step="0.01">
+      </div>
+      
+      <div class="input-group">
+        <label>👔 Employment Status</label>
+        <div class="radio-group">
+          <div class="radio-option">
+            <input type="radio" name="status" value="employee" id="employee" checked>
+            <label for="employee" style="margin: 0;">Employee (PAYE)</label>
+          </div>
+          <div class="radio-option">
+            <input type="radio" name="status" value="freelancer" id="freelancer">
+            <label for="freelancer" style="margin: 0;">Freelancer/Contractor</label>
+          </div>
+        </div>
+      </div>
+      
+      <div class="input-group">
+        <label for="medicalAid">🏥 Monthly Medical Aid Contribution (ZAR)</label>
+        <input type="number" id="medicalAid" placeholder="e.g., 2500" min="0" step="100" value="0">
+      </div>
+      
+      <div class="input-group">
+        <label for="retirementAnnuity">📊 Monthly Retirement Annuity (ZAR)</label>
+        <input type="number" id="retirementAnnuity" placeholder="e.g., 3000" min="0" step="100" value="0">
+      </div>
+      
+      <button class="btn-calc" onclick="calculate()">Calculate Take-Home Pay 🚀</button>
+    </div>
+    
+    <div class="results" id="results">
+      <div class="calc-card">
+        <h2 style="margin-bottom: 20px;">📊 Your Take-Home Breakdown</h2>
+        
+        <div class="result-grid">
+          <div class="result-box">
+            <div class="result-label">Gross Monthly (ZAR)</div>
+            <div class="result-value" id="grossZar">-</div>
+            <div class="result-sub" id="grossUsd">-</div>
+          </div>
+          
+          <div class="result-box">
+            <div class="result-label">Net Take-Home (ZAR)</div>
+            <div class="result-value" id="netZar">-</div>
+            <div class="result-sub" id="netUsd">-</div>
+          </div>
+        </div>
+        
+        <div class="breakdown">
+          <h3>💸 Deductions Breakdown</h3>
+          <div class="breakdown-item">
+            <span>SARS Income Tax</span>
+            <strong id="taxAmount">-</strong>
+          </div>
+          <div class="breakdown-item" id="uifRow">
+            <span>UIF (1%)</span>
+            <strong id="uifAmount">-</strong>
+          </div>
+          <div class="breakdown-item" id="medicalRow" style="display:none;">
+            <span>Medical Aid</span>
+            <strong id="medicalAmount">-</strong>
+          </div>
+          <div class="breakdown-item" id="raRow" style="display:none;">
+            <span>Retirement Annuity</span>
+            <strong id="raAmount">-</strong>
+          </div>
+          <div class="breakdown-item" style="border-top: 2px solid #854d0e; margin-top: 8px; padding-top: 12px;">
+            <span><strong>Total Deductions</strong></span>
+            <strong id="totalDeductions">-</strong>
+          </div>
+        </div>
+        
+        <div id="vatAlert" style="display:none;">
+          <div class="alert warning">
+            <h4>⚠️ VAT Registration Threshold Alert</h4>
+            <p>Your annual income exceeds <strong>R1 million</strong>. You may be required to register for VAT with SARS. Consult a tax practitioner.</p>
+          </div>
+        </div>
+        
+        <div id="provisionalAlert" style="display:none;">
+          <div class="alert">
+            <h4>📅 Provisional Tax Reminder</h4>
+            <p>As a freelancer, you must pay <strong>provisional tax twice a year</strong> (August 31 & February 28). Budget approximately <strong id="provisionalAmount">-</strong> per payment.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="comparison" id="comparison">
+        <div class="calc-card">
+          <h3>🤔 Employee vs Freelancer Comparison</h3>
+          <p style="margin-bottom: 16px; color: #64748b; font-size: 0.95rem;">Based on the same gross income</p>
+          
+          <div class="comp-grid">
+            <div class="comp-card" id="empCard">
+              <h4>👔 As Employee</h4>
+              <div class="comp-value" id="empNet">-</div>
+              <div class="comp-item"><span>PAYE Tax</span><span id="empTax">-</span></div>
+              <div class="comp-item"><span>UIF</span><span id="empUif">-</span></div>
+              <div class="comp-item"><span>No VAT</span><span>✅</span></div>
+            </div>
+            
+            <div class="comp-card" id="freelCard">
+              <h4>💼 As Freelancer</h4>
+              <div class="comp-value" id="freelNet">-</div>
+              <div class="comp-item"><span>Income Tax</span><span id="freelTax">-</span></div>
+              <div class="comp-item"><span>No UIF</span><span>-</span></div>
+              <div class="comp-item"><span>Tax Deductions</span><span>✅</span></div>
+            </div>
+          </div>
+          
+          <div class="alert" style="margin-top: 16px;">
+            <h4>💡 Key Difference</h4>
+            <p id="compNote">-</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="note">
+        <strong>📌 Disclaimer:</strong> This calculator provides estimates based on 2026 SARS tax tables. Actual tax may vary based on rebates, deductions, and individual circumstances. Consult a registered tax practitioner for personalized advice. Exchange rates updated daily.
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // 2026 SARS Tax Brackets (Annual)
+    const taxBrackets = [
+      { max: 237100, rate: 0.18, base: 0 },
+      { max: 370500, rate: 0.26, base: 42678 },
+      { max: 512800, rate: 0.31, base: 77362 },
+      { max: 673000, rate: 0.36, base: 121475 },
+      { max: 857900, rate: 0.39, base: 179147 },
+      { max: 1817000, rate: 0.41, base: 251258 },
+      { max: Infinity, rate: 0.45, base: 644489 }
+    ];
+    
+    const primaryRebate = 17235; // 2026
+    const medicalRebate = 364 * 12; // per month x 12
+    
+    async function fetchExchangeRate() {
+      try {
+        const res = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
+        const data = await res.json();
+        return data.rates.ZAR || 18.5;
+      } catch {
+        return 18.5; // fallback
+      }
+    }
+    
+    function calculateTax(annualIncome, medicalAid = 0, ra = 0) {
+      // Apply deductions
+      const raDeduction = Math.min(ra * 12, annualIncome * 0.275); // 27.5% cap
+      const taxableIncome = Math.max(0, annualIncome - raDeduction);
+      
+      let tax = 0;
+      for (const bracket of taxBrackets) {
+        if (taxableIncome > bracket.max) {
+          tax = bracket.base + (taxableIncome - bracket.max) * bracket.rate;
+        }
+      }
+      
+      // Apply rebates
+      const medicalRebateAmount = medicalAid > 0 ? medicalRebate : 0;
+      tax = Math.max(0, tax - primaryRebate - medicalRebateAmount);
+      
+      return tax;
+    }
+    
+    async function calculate() {
+      const usdSalary = parseFloat(document.getElementById('usdSalary').value) || 0;
+      const manualRate = parseFloat(document.getElementById('exchangeRate').value);
+      const status = document.querySelector('input[name="status"]:checked').value;
+      const medicalAid = parseFloat(document.getElementById('medicalAid').value) || 0;
+      const ra = parseFloat(document.getElementById('retirementAnnuity').value) || 0;
+      
+      if (usdSalary <= 0) {
+        alert('Please enter a valid USD salary');
+        return;
+      }
+      
+      // Get exchange rate
+      const rate = manualRate || await fetchExchangeRate();
+      const grossMonthlyZar = usdSalary * rate;
+      const grossAnnualZar = grossMonthlyZar * 12;
+      
+      // Calculate tax
+      const annualTax = calculateTax(grossAnnualZar, medicalAid, ra);
+      const monthlyTax = annualTax / 12;
+      
+      // Calculate UIF (employees only, capped at R177.12/month)
+      const uif = status === 'employee' ? Math.min(grossMonthlyZar * 0.01, 177.12) : 0;
+      
+      // Total deductions
+      const totalDeduct = monthlyTax + uif + medicalAid + ra;
+      const netMonthly = grossMonthlyZar - totalDeduct;
+      const netUsd = netMonthly / rate;
+      
+      // Display results
+      document.getElementById('grossZar').textContent = 'R' + grossMonthlyZar.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+      document.getElementById('grossUsd').textContent = '$' + usdSalary.toFixed(2) + ' USD × R' + rate.toFixed(2);
+      document.getElementById('netZar').textContent = 'R' + netMonthly.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+      document.getElementById('netUsd').textContent = '≈ $' + netUsd.toFixed(2) + ' USD';
+      
+      document.getElementById('taxAmount').textContent = 'R' + monthlyTax.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+      document.getElementById('uifAmount').textContent = 'R' + uif.toFixed(2);
+      document.getElementById('totalDeductions').textContent = 'R' + totalDeduct.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+      
+      // Show/hide rows
+      document.getElementById('uifRow').style.display = status === 'employee' ? 'flex' : 'none';
+      document.getElementById('medicalRow').style.display = medicalAid > 0 ? 'flex' : 'none';
+      document.getElementById('raRow').style.display = ra > 0 ? 'flex' : 'none';
+      
+      if (medicalAid > 0) document.getElementById('medicalAmount').textContent = 'R' + medicalAid.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+      if (ra > 0) document.getElementById('raAmount').textContent = 'R' + ra.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+      
+      // VAT alert
+      document.getElementById('vatAlert').style.display = grossAnnualZar > 1000000 ? 'block' : 'none';
+      
+      // Provisional tax alert
+      if (status === 'freelancer') {
+        document.getElementById('provisionalAlert').style.display = 'block';
+        document.getElementById('provisionalAmount').textContent = 'R' + (annualTax / 2).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+      } else {
+        document.getElementById('provisionalAlert').style.display = 'none';
+      }
+      
+      // Comparison
+      const empTax = calculateTax(grossAnnualZar, medicalAid, ra) / 12;
+      const empUif = Math.min(grossMonthlyZar * 0.01, 177.12);
+      const empNet = grossMonthlyZar - empTax - empUif - medicalAid - ra;
+      
+      const freelTax = calculateTax(grossAnnualZar, medicalAid, ra) / 12;
+      const freelNet = grossMonthlyZar - freelTax - medicalAid - ra;
+      
+      document.getElementById('empNet').textContent = 'R' + empNet.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+      document.getElementById('empTax').textContent = 'R' + empTax.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+      document.getElementById('empUif').textContent = 'R' + empUif.toFixed(2);
+      
+      document.getElementById('freelNet').textContent = 'R' + freelNet.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+      document.getElementById('freelTax').textContent = 'R' + freelTax.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+      
+      const diff = Math.abs(empNet - freelNet);
+      const winner = freelNet > empNet ? 'freelancer' : 'employee';
+      
+      document.getElementById('empCard').classList.toggle('winner', winner === 'employee');
+      document.getElementById('freelCard').classList.toggle('winner', winner === 'freelancer');
+      
+      document.getElementById('compNote').textContent = winner === 'freelancer' 
+        ? `Freelancers save R${diff.toFixed(2)} by not paying UIF, but must manage provisional tax and have no UIF benefits.`
+        : `Employees pay R${diff.toFixed(2)} more due to UIF, but get unemployment insurance and simpler tax admin.`;
+      
+      // Show results
+      document.getElementById('results').classList.add('show');
+      document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    
+    // Auto-fetch exchange rate on load
+    window.addEventListener('load', async () => {
+      const rate = await fetchExchangeRate();
+      document.getElementById('exchangeRate').placeholder = `Live rate: R${rate.toFixed(2)}`;
+    });
+  </script>
+</body>
+</html>
