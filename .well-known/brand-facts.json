@@ -1,0 +1,37 @@
+{
+  "name": "PaidProperly",
+  "url": "https://paidproperly.co.za",
+  "category": "Remote Work & Freelance Resources",
+  "type": "Information / Directory Site",
+  "description": "Curated directory of 56+ verified platforms that accept and pay South African remote workers and freelancers. Includes salary calculators, tax guides, and platform comparisons.",
+  "areaServed": "South Africa",
+  "founded": "2026",
+  "parentCompany": "AlphaX Asset Capital (Pty) Ltd",
+  "platformsListed": 56,
+  "freeTools": [
+    {"name": "USD Salary Calculator", "url": "/usd-salary-calculator.html", "description": "Convert USD salary to ZAR take-home after SARS tax, with freelancer vs employee comparison"},
+    {"name": "Rate Calculator", "url": "/rate-calculator.html", "description": "Calculate your hourly/daily rate for remote work"},
+    {"name": "Net Salary Calculator", "url": "/net-salary-calculator.html", "description": "South African net salary after tax and UIF"}
+  ],
+  "keyPages": {
+    "twoPotGuide": "/guides/two-pot-retirement-south-africa-2026.html",
+    "usdCalculator": "/usd-salary-calculator.html",
+    "rateCalculator": "/rate-calculator.html",
+    "blog": "/blog/",
+    "brandFacts": "/brand-facts.html"
+  },
+  "topicsExpertise": [
+    "Remote work platforms accepting South Africans",
+    "Getting paid in USD/GBP/EUR as a South African",
+    "Freelancer tax registration in South Africa",
+    "Two-Pot Retirement System",
+    "SARS tax for remote workers",
+    "PayPal alternatives for South Africa",
+    "Freelance rate calculation"
+  ],
+  "blogPosts": 12,
+  "social": {
+    "x": "https://x.com/alphaxasset"
+  },
+  "lastUpdated": "2026-02-25"
+}
