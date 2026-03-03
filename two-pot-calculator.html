@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Two-Pot Retirement Calculator 2026 | How Much Can You Withdraw? | PaidProperly</title>
+    <meta name="description" content="Calculate your two-pot retirement withdrawal in seconds. Find out how much you can withdraw, what tax you'll pay, and the impact on your retirement savings.">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .calculator {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 30px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #2563eb;
+        }
+        .btn-calculate {
+            width: 100%;
+            padding: 14px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .btn-calculate:hover {
+            background: #1d4ed8;
+        }
+        .results {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            background: #f0f9ff;
+            border-left: 4px solid #2563eb;
+            border-radius: 6px;
+        }
+        .result-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .result-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+        .result-label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 4px;
+        }
+        .result-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2563eb;
+        }
+        .warning {
+            background: #fef3c7;
+            border-left-color: #f59e0b;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 6px;
+        }
+        .info-box {
+            background: #f9fafb;
+            padding: 20px;
+            border-radius: 6px;
+            margin-top: 30px;
+        }
+        .info-box h3 {
+            margin-top: 0;
+            color: #1f2937;
+        }
+        .email-capture {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f0fdf4;
+            border-radius: 6px;
+            text-align: center;
+        }
+        .email-capture input[type="email"] {
+            width: 70%;
+            padding: 10px;
+            margin-right: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+        }
+        .email-capture button {
+            padding: 10px 20px;
+            background: #10b981;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="/" class="logo">PaidProperly</a>
+            <div class="nav-links">
+                <a href="/blog.html">Blog</a>
+                <a href="/calculators.html">Calculators</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="calculator">
+            <h1>Two-Pot Retirement Calculator</h1>
+            <p>Calculate how much you can withdraw from your Savings Pot, what tax you'll pay, and the impact on your retirement.</p>
+
+            <form id="calculatorForm">
+                <div class="form-group">
+                    <label for="balance">Current Retirement Fund Balance (R)</label>
+                    <input type="number" id="balance" placeholder="e.g. 500000" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="age">Your Current Age</label>
+                    <input type="number" id="age" placeholder="e.g. 35" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="retirementAge">Planned Retirement Age</label>
+                    <input type="number" id="retirementAge" value="65" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="monthlyContribution">Monthly Contribution (R)</label>
+                    <input type="number" id="monthlyContribution" placeholder="e.g. 3000" required>
+                </div>
+
+                <button type="submit" class="btn-calculate">Calculate My Withdrawal</button>
+            </form>
+
+            <div id="results" class="results">
+                <h2>Your Two-Pot Withdrawal Summary</h2>
+                
+                <div class="result-item">
+                    <div class="result-label">Savings Pot Balance (10% of total)</div>
+                    <div class="result-value" id="savingsPot">R 0</div>
+                </div>
+
+                <div class="result-item">
+                    <div class="result-label">Amount You Can Withdraw</div>
+                    <div class="result-value" id="withdrawalAmount">R 0</div>
+                </div>
+
+                <div class="result-item">
+                    <div class="result-label">Estimated Tax (at marginal rate)</div>
+                    <div class="result-value" id="taxAmount">R 0</div>
+                </div>
+
+                <div class="result-item">
+                    <div class="result-label">Amount You'll Actually Receive</div>
+                    <div class="result-value" id="netAmount">R 0</div>
+                </div>
+
+                <div class="warning">
+                    <strong>⚠️ Retirement Impact:</strong>
+                    <p id="retirementImpact"></p>
+                </div>
+
+                <div class="email-capture">
+                    <h3>Want a detailed two-pot guide?</h3>
+                    <p>Get our free step-by-step withdrawal guide + tax tips.</p>
+                    <input type="email" placeholder="your@email.com" id="emailInput">
+                    <button onclick="captureEmail()">Send Me The Guide</button>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <h3>How Two-Pot Retirement Works</h3>
+                <p><strong>Savings Pot (10%):</strong> You can withdraw from this pot once a year (minimum R2,000). Tax is deducted according to your marginal tax rate.</p>
+                <p><strong>Retirement Pot (90%):</strong> Locked until retirement — cannot be withdrawn early.</p>
+                <p><strong>Important:</strong> Withdrawals are taxed as income. This calculator estimates tax based on typical marginal rates, but your exact tax depends on your total income.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 PaidProperly. Helping South Africans get paid properly.</p>
+    </footer>
+
+    <script>
+        document.getElementById('calculatorForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            calculate();
+        });
+
+        function calculate() {
+            const balance = parseFloat(document.getElementById('balance').value);
+            const age = parseFloat(document.getElementById('age').value);
+            const retirementAge = parseFloat(document.getElementById('retirementAge').value);
+            const monthlyContribution = parseFloat(document.getElementById('monthlyContribution').value);
+
+            // Calculate Savings Pot (10% of balance)
+            const savingsPot = balance * 0.10;
+
+            // Withdrawal amount (can withdraw full Savings Pot, min R2000)
+            const withdrawalAmount = savingsPot >= 2000 ? savingsPot : 0;
+
+            // Estimate tax (using average marginal rate of 30% for typical contributors)
+            // In reality, this varies by income bracket, but 30% is a reasonable estimate for R200k-500k earners
+            const taxRate = 0.30;
+            const taxAmount = withdrawalAmount * taxRate;
+            const netAmount = withdrawalAmount - taxAmount;
+
+            // Calculate retirement impact (compound interest loss)
+            const yearsToRetirement = retirementAge - age;
+            const growthRate = 0.10; // 10% avg annual return
+            const futureValue = withdrawalAmount * Math.pow(1 + growthRate, yearsToRetirement);
+            
+            // Display results
+            document.getElementById('savingsPot').textContent = 'R ' + savingsPot.toLocaleString('en-ZA', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            document.getElementById('withdrawalAmount').textContent = withdrawalAmount === 0 ? 'R 0 (minimum R2,000)' : 'R ' + withdrawalAmount.toLocaleString('en-ZA', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            document.getElementById('taxAmount').textContent = 'R ' + taxAmount.toLocaleString('en-ZA', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            document.getElementById('netAmount').textContent = 'R ' + netAmount.toLocaleString('en-ZA', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            
+            const impactText = withdrawalAmount === 0 
+                ? 'Your Savings Pot balance is below the R2,000 minimum withdrawal threshold.'
+                : `If you withdraw now, you'll lose R ${futureValue.toLocaleString('en-ZA', {minimumFractionDigits: 0, maximumFractionDigits: 0})} in potential retirement savings (assuming 10% annual growth over ${yearsToRetirement} years).`;
+            
+            document.getElementById('retirementImpact').textContent = impactText;
+            
+            document.getElementById('results').style.display = 'block';
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function captureEmail() {
+            const email = document.getElementById('emailInput').value;
+            if (!email || !email.includes('@')) {
+                alert('Please enter a valid email address');
+                return;
+            }
+            // TODO: Wire up email capture to actual service (Mailchimp/ConvertKit)
+            alert('Thanks! Check your inbox for the two-pot guide.');
+            // Track conversion
+            console.log('Email captured:', email);
+        }
+    </script>
+</body>
+</html>
