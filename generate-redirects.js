@@ -24,6 +24,19 @@ function generateRedirectPage(platform) {
   <meta http-equiv="refresh" content="3; url=${platform.ref_url}">
   <meta name="robots" content="noindex, nofollow">
   <title>You're on your way to ${escapeHtml(platform.name)} - PaidProperly</title>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8RPC987YL8"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-8RPC987YL8');
+    gtag('event', 'affiliate_redirect', {
+      platform_slug: ${JSON.stringify(platform.slug)},
+      platform_name: ${JSON.stringify(platform.name)},
+      platform_category: ${JSON.stringify(platform.category)},
+      destination_url: ${JSON.stringify(platform.ref_url)}
+    });
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -283,7 +296,7 @@ function generateRedirectPage(platform) {
       </div>
     </div>
     
-    <a href="${escapeHtml(platform.ref_url)}" class="manual-link">
+    <a href="${escapeHtml(platform.ref_url)}" class="manual-link" onclick="if (typeof gtag !== 'undefined') { gtag('event', 'affiliate_redirect_manual_click', { platform_slug: ${JSON.stringify(platform.slug)}, platform_name: ${JSON.stringify(platform.name)} }); }">
       Continue to ${escapeHtml(platform.name)}
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <path d="M5 12h14M12 5l7 7-7 7"/>

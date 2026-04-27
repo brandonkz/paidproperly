@@ -183,6 +183,12 @@ function setupEventListeners() {
       e.stopPropagation();
       toggleSave(saveBtn.dataset.slug);
     }
+
+    const actionBtn = e.target.closest('[data-filter-action]');
+    if (actionBtn) {
+      e.preventDefault();
+      runQuickStartAction(actionBtn.dataset.filterAction, actionBtn.dataset.scrollTarget);
+    }
   });
 }
 
@@ -202,6 +208,60 @@ function resetFilters() {
   document.querySelector('[data-filter="all"]').classList.add('active');
 
   applyFilters();
+}
+
+function syncFilterInputs() {
+  document.querySelectorAll('.difficulty-check').forEach(cb => {
+    cb.checked = selectedDifficulties.includes(cb.value);
+  });
+
+  document.querySelectorAll('.category-check').forEach(cb => {
+    cb.checked = selectedCategories.includes(cb.value);
+  });
+
+  document.querySelectorAll('.bestfor-check').forEach(cb => {
+    cb.checked = selectedBestFor.includes(cb.value);
+  });
+
+  quickPills.forEach(p => p.classList.remove('active'));
+  const activePill = document.querySelector(`[data-filter="${activeQuickFilter}"]`);
+  if (activePill) activePill.classList.add('active');
+}
+
+function runQuickStartAction(action, scrollTarget) {
+  searchInput.value = '';
+  saFriendlyToggle.checked = true;
+  selectedBestFor = [];
+
+  switch (action) {
+    case 'entry-testing':
+      activeQuickFilter = 'entry';
+      selectedDifficulties = ['Easy'];
+      selectedCategories = ['🧪 Testing & Research'];
+      break;
+    case 'full-time-remote':
+      activeQuickFilter = 'all';
+      selectedDifficulties = ['Easy', 'Medium', 'Hard'];
+      selectedCategories = ['📋 Remote Job Boards & Agencies'];
+      break;
+    case 'high-pay-freelance':
+      activeQuickFilter = 'competitive';
+      selectedDifficulties = ['Medium', 'Hard'];
+      selectedCategories = ['💻 Tech & Dev', '🔥 Competitive (High Pay)', '🌍 Freelance Marketplaces'];
+      break;
+    default:
+      return;
+  }
+
+  syncFilterInputs();
+  applyFilters();
+
+  if (scrollTarget) {
+    const target = document.querySelector(scrollTarget);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
 }
 
 // Filtering

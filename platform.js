@@ -23,7 +23,7 @@ async function init() {
       return;
     }
     
-    renderPlatform(platform);
+    renderPlatform(platform, platforms);
     document.title = `${platform.name} - PaidProperly`;
     
     // Update meta description dynamically
@@ -61,9 +61,10 @@ async function loadPlatforms() {
   return response.json();
 }
 
-function renderPlatform(platform) {
+function renderPlatform(platform, allPlatforms) {
   const difficultyClass = platform.difficulty.toLowerCase();
   const difficultyLabel = platform.difficulty === 'Easy' ? 'Chilled' : platform.difficulty === 'Hard' ? 'Hectic' : platform.difficulty;
+  const relatedPlatforms = getRelatedPlatforms(platform, allPlatforms);
   
   platformContent.innerHTML = `
     <a href="index.html" class="back-link">
@@ -113,11 +114,38 @@ function renderPlatform(platform) {
         ${platform.tags.map(tag => `<span class="tag">${escapeHtml(tag)}</span>`).join('')}
       </div>
     </section>
+
+    ${relatedPlatforms.length ? `
+    <section class="detail-section">
+      <div class="detail-section-header">
+        <div>
+          <h2>More options like this</h2>
+          <p class="detail-section-copy">If ${escapeHtml(platform.name)} isn’t quite the fit, these are the next best places to check.</p>
+        </div>
+      </div>
+      <div class="related-grid">
+        ${relatedPlatforms.map(item => `
+          <article class="related-card">
+            <div class="related-card-top">
+              <span class="tag tag--best-for">${escapeHtml(item.category)}</span>
+              <span class="platform-badge difficulty-${item.difficulty.toLowerCase()}">${getDifficultyLabel(item.difficulty)}</span>
+            </div>
+            <h3>${escapeHtml(item.name)}</h3>
+            <p>${escapeHtml(item.description)}</p>
+            <div class="related-card-actions">
+              <a href="platform.html?slug=${item.slug}" class="btn btn-outline">View details</a>
+              <a href="go/${item.slug}.html" target="_blank" rel="noopener" class="btn btn-primary">Apply</a>
+            </div>
+          </article>
+        `).join('')}
+      </div>
+    </section>
+    ` : ''}
     
     <div class="detail-cta">
       <h3>Ready to check it out?</h3>
       <p>Visit ${escapeHtml(platform.name)} and see if it's your vibe.</p>
-      <a href="go/${platform.slug}.html" target="_blank" rel="noopener" class="btn btn--primary btn--lg">
+      <a href="go/${platform.slug}.html" target="_blank" rel="noopener" class="btn btn-primary">
         Let's Go to ${escapeHtml(platform.name)}
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
@@ -136,6 +164,36 @@ function renderPlatform(platform) {
       <span>Some links might earn us a small referral fee. No stress though - it doesn't change what we recommend.</span>
     </div>
   `;
+}
+
+function getRelatedPlatforms(platform, allPlatforms) {
+  return allPlatforms
+    .filter(item => item.slug !== platform.slug)
+    .map(item => {
+      let score = 0;
+      if (item.category === platform.category) score += 3;
+      const sharedBestFor = item.best_for.filter(tag => platform.best_for.includes(tag)).length;
+      const sharedTags = item.tags.filter(tag => platform.tags.includes(tag)).length;
+      score += sharedBestFor * 2;
+      score += sharedTags;
+      if (item.sa_friendly === platform.sa_friendly) score += 1;
+      return { ...item, score };
+    })
+    .filter(item => item.score > 0)
+    .sort((a, b) => {
+      if (b.score !== a.score) return b.score - a.score;
+      return a.recommended_rank - b.recommended_rank;
+    })
+    .slice(0, 3);
+}
+
+function getDifficultyLabel(diff) {
+  const labels = {
+    Easy: '🟢 Entry Level',
+    Medium: '🟡 Intermediate',
+    Hard: '🔴 Competitive'
+  };
+  return labels[diff] || diff;
 }
 
 function escapeHtml(text) {
@@ -162,7 +220,7 @@ function showError(message) {
       </svg>
       <h3>Eish!</h3>
       <p>${escapeHtml(message)}</p>
-      <a href="index.html" class="btn btn--primary mt-md">Back to the list</a>
+      <a href="index.html" class="btn btn-primary">Back to the list</a>
     </div>
   `;
 }

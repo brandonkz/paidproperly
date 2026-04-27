@@ -315,6 +315,39 @@
     </div>
   </section>
 
+  <!-- Quick Start Section -->
+  <section class="quick-start-section">
+    <div class="quick-start-inner">
+      <div class="quick-start-heading">
+        <span class="quick-start-kicker">Start here</span>
+        <h2>Pick the lane that matches your goal</h2>
+        <p>Don’t scroll 56+ platforms blind. Start with the bucket most likely to pay off for you.</p>
+      </div>
+      <div class="quick-start-grid">
+        <article class="quick-start-card">
+          <div class="quick-start-icon">⚡</div>
+          <h3>Need money fast</h3>
+          <p>Start with beginner-friendly testing and research gigs. Fastest route to your first dollars.</p>
+          <button type="button" class="btn btn-primary" data-filter-action="entry-testing" data-scroll-target="#platforms-list" data-cta="quickstart-entry-testing">Show easiest wins</button>
+        </article>
+
+        <article class="quick-start-card quick-start-card--featured">
+          <div class="quick-start-icon">💼</div>
+          <h3>Want a real remote salary</h3>
+          <p>Jump straight to the full-time and agency-style options that are more likely to replace a paycheck.</p>
+          <button type="button" class="btn btn-primary" data-filter-action="full-time-remote" data-scroll-target="#platforms-list" data-cta="quickstart-fulltime">Show salary-style roles</button>
+        </article>
+
+        <article class="quick-start-card">
+          <div class="quick-start-icon">🚀</div>
+          <h3>Already freelancing</h3>
+          <p>Filter down to the higher-pay, more competitive platforms if you already have skills and proof of work.</p>
+          <button type="button" class="btn btn-primary" data-filter-action="high-pay-freelance" data-scroll-target="#platforms-list" data-cta="quickstart-highpay">Show high-pay options</button>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <!-- USD Salary Calculator CTA -->
   <section style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); padding: 2rem 0; border-top: 3px solid #60a5fa;">
     <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 1.5rem;">
@@ -444,6 +477,20 @@
         <p class="section-subtitle">Our #1 recommendation for South Africans looking to break into US remote work</p>
         <div class="popular-grid" id="popular-grid">
           <!-- Populated by JS -->
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="inline-growth-cta">
+          <div class="inline-growth-copy">
+            <span class="inline-growth-kicker">Build the moat</span>
+            <h3>Get the weekly SA remote work shortlist</h3>
+            <p>New platforms, payout warnings, and no-BS application tips for South Africans — before the good opportunities get crowded.</p>
+          </div>
+          <div class="inline-growth-actions">
+            <button type="button" class="btn btn-primary" data-open-newsletter data-cta="inline-newsletter">Join the shortlist</button>
+            <a href="/usd-salary-calculator.html" class="btn btn-outline" data-cta="inline-usd-calculator">Estimate take-home pay</a>
+          </div>
         </div>
       </section>
 
@@ -636,9 +683,6 @@
         font-size: 0.9rem !important;
       }
       
-      #newsletter-modal .beehiiv-embed {
-        height: 280px !important;
-      }
     }
   </style>
   
@@ -649,11 +693,23 @@
         <div style="text-align: center; margin-bottom: 1.5rem;">
           <div style="font-size: 2.5rem; margin-bottom: 0.75rem;">💌</div>
           <h2 style="font-size: 1.75rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--color-text);">Get New Opportunities in Your Inbox</h2>
-          <p style="font-size: 1rem; color: var(--color-text-light); line-height: 1.6;">New SA-friendly platforms, application tips, and success stories.</p>
+          <p style="font-size: 1rem; color: var(--color-text-light); line-height: 1.6; max-width: 460px; margin: 0 auto 1.25rem;">New SA-friendly platforms, application tips, and success stories — without the junk.</p>
         </div>
-        <div style="display: flex; justify-content: center;">
-          <script async src="https://subscribe-forms.beehiiv.com/embed.js"></script>
-          <iframe src="https://subscribe-forms.beehiiv.com/f96d4cb4-c78f-47b1-a2af-5c209b6db369" class="beehiiv-embed" data-test-id="beehiiv-embed" frameborder="0" scrolling="no" style="width: 100%; height: 315px; margin: 0; border-radius: 8px !important; background-color: transparent; box-shadow: 0 0 #0000;"></iframe>
+        <div style="background: var(--color-background); border: 1px solid var(--color-border); border-radius: 14px; padding: 1.25rem; margin-bottom: 1rem; text-align: left;">
+          <div style="font-weight: 700; color: var(--color-text); margin-bottom: 0.5rem;">What you’ll get</div>
+          <ul style="margin: 0; padding-left: 1.1rem; color: var(--color-text-light); line-height: 1.7;">
+            <li>new SA-friendly platforms worth checking</li>
+            <li>payout warnings and scam avoidance</li>
+            <li>application tips that improve your odds</li>
+          </ul>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+          <a href="https://subscribe-forms.beehiiv.com/f96d4cb4-c78f-47b1-a2af-5c209b6db369" target="_blank" rel="noopener" class="btn btn-primary" data-cta="newsletter-modal-subscribe" style="justify-content: center; width: 100%; padding: 0.95rem 1.2rem;">
+            Open signup form
+          </a>
+          <button type="button" id="close-modal-secondary" class="btn btn-outline" style="justify-content: center; width: 100%;">
+            Maybe later
+          </button>
         </div>
       </div>
     </div>
@@ -664,36 +720,53 @@
     (function() {
       const modal = document.getElementById('newsletter-modal');
       const closeBtn = document.getElementById('close-modal');
+      const closeSecondaryBtn = document.getElementById('close-modal-secondary');
+
+      function openModal() {
+        modal.style.display = 'flex';
+      }
+
+      function closeModal() {
+        modal.style.display = 'none';
+        localStorage.setItem('newsletter-modal-dismissed', 'true');
+      }
+
+      window.openNewsletterModal = openModal;
       
       // Check if user already dismissed the modal
       if (localStorage.getItem('newsletter-modal-dismissed')) {
+        document.querySelectorAll('[data-open-newsletter]').forEach(btn => {
+          btn.addEventListener('click', openModal);
+        });
         return;
       }
       
       // Show modal after 15 seconds
       setTimeout(function() {
-        modal.style.display = 'flex';
+        openModal();
       }, 15000);
+
+      document.querySelectorAll('[data-open-newsletter]').forEach(btn => {
+        btn.addEventListener('click', openModal);
+      });
       
       // Close modal on button click
-      closeBtn.addEventListener('click', function() {
-        modal.style.display = 'none';
-        localStorage.setItem('newsletter-modal-dismissed', 'true');
-      });
+      closeBtn.addEventListener('click', closeModal);
+      if (closeSecondaryBtn) {
+        closeSecondaryBtn.addEventListener('click', closeModal);
+      }
       
       // Close modal on backdrop click
       modal.addEventListener('click', function(e) {
         if (e.target === modal) {
-          modal.style.display = 'none';
-          localStorage.setItem('newsletter-modal-dismissed', 'true');
+          closeModal();
         }
       });
       
       // Close modal on Escape key
       document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && modal.style.display === 'flex') {
-          modal.style.display = 'none';
-          localStorage.setItem('newsletter-modal-dismissed', 'true');
+          closeModal();
         }
       });
     })();
@@ -710,6 +783,19 @@
 
       function initTracking() {
         const externalLinks = document.querySelectorAll('a[href^="http"]');
+        const trackedCtas = document.querySelectorAll('[data-cta]');
+
+        trackedCtas.forEach(el => {
+          el.addEventListener('click', function() {
+            if (typeof gtag !== 'undefined') {
+              gtag('event', 'cta_click', {
+                'cta_name': this.dataset.cta,
+                'page_location': window.location.pathname,
+                'page_title': document.title
+              });
+            }
+          });
+        });
         
         externalLinks.forEach(link => {
           const href = link.href;
