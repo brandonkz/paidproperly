@@ -9,6 +9,14 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f8fafc; color: #1e293b; line-height: 1.6; }
+    .top-nav { position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,0.96); border-bottom: 1px solid #e2e8f0; backdrop-filter: blur(12px); }
+    .top-nav-inner { max-width: 1100px; margin: 0 auto; padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .top-brand { color: #0f172a; text-decoration: none; font-weight: 800; display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+    .top-brand-mark { width: 28px; height: 28px; border-radius: 8px; background: #2d6a4f; color: #fff; display: grid; place-items: center; }
+    .top-nav-links { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
+    .top-nav-links::-webkit-scrollbar { display: none; }
+    .top-nav-links a { flex: 0 0 auto; color: #64748b; text-decoration: none; font-weight: 700; font-size: 0.88rem; padding: 8px 11px; border-radius: 999px; }
+    .top-nav-links a:hover, .top-nav-links a.active { background: #eaf4ef; color: #2d6a4f; }
     .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
     h1 { font-size: 2rem; font-weight: 800; color: #0f172a; margin-bottom: 8px; }
     .subtitle { color: #64748b; margin-bottom: 32px; font-size: 1.05rem; }
@@ -57,12 +65,26 @@
     .note { background: #f1f5f9; padding: 20px; border-radius: 12px; margin-top: 32px; font-size: 0.9rem; color: #475569; }
     
     @media (max-width: 600px) {
+      .top-nav-inner { align-items: flex-start; flex-direction: column; gap: 10px; }
+      .top-nav-links { width: 100%; }
       .result-grid, .comp-grid { grid-template-columns: 1fr; }
       h1 { font-size: 1.5rem; }
     }
   </style>
 </head>
 <body>
+  <nav class="top-nav">
+    <div class="top-nav-inner">
+      <a class="top-brand" href="index.html"><span class="top-brand-mark">✓</span> PaidProperly</a>
+      <div class="top-nav-links" aria-label="Primary navigation">
+        <a href="index.html">Platforms</a>
+        <a href="blog/">Blog</a>
+        <a href="usd-salary-calculator.html" class="active">USD Calculator</a>
+        <a href="rate-calculator.html">Rate Calculator</a>
+        <a href="ai-tools.html">AI Tools</a>
+      </div>
+    </div>
+  </nav>
   <div class="container">
     <h1>💵 USD Remote Work Salary Calculator</h1>
     <p class="subtitle">Calculate your take-home pay from USD remote work in South Africa. Includes SARS tax, UIF, and exchange rates. Updated for 2026.</p>

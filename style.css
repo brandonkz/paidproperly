@@ -27,6 +27,11 @@
   padding: 0;
 }
 
+html,
+body {
+  overflow-x: hidden;
+}
+
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   background: var(--color-background);
@@ -843,8 +848,43 @@ body {
     display: block;
   }
   
+  .header-inner {
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    overflow: hidden;
+  }
+
+  .brand {
+    flex: 0 0 auto;
+  }
+
   .header-nav {
+    order: 3;
+    flex: 0 0 100%;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    padding-bottom: 0.25rem;
+    scrollbar-width: none;
+  }
+
+  .header-nav::-webkit-scrollbar {
     display: none;
+  }
+
+  .nav-link {
+    flex: 0 0 auto;
+    padding: 0.5rem 0.75rem;
+    white-space: nowrap;
+    font-size: 0.85rem;
+  }
+
+  .header-location {
+    margin-left: auto;
   }
   
   .platform-card {
