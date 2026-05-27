@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Calculate how much each partner should pay into a joint account after existing debit orders and shared bills are included. Free tool for South African couples.">
+  <link rel="canonical" href="https://paidproperly.co.za/joint-account-calculator.html">
+  <title>Joint Account Calculator for Couples | PaidProperly</title>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%232d6a4f' width='100' height='100' rx='20'/><text x='50' y='72' font-size='60' text-anchor='middle' fill='white' font-weight='bold'>R</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8RPC987YL8"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-8RPC987YL8');
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Joint Account Calculator",
+    "applicationCategory": "FinanceApplication",
+    "url": "https://paidproperly.co.za/joint-account-calculator.html",
+    "description": "Calculate fair joint account contributions for couples after direct debit orders and shared bills are included.",
+    "operatingSystem": "Any",
+    "isAccessibleForFree": true,
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "ZAR"
+    }
+  }
+  </script>
+
+  <style>
+    .calculator-page {
+      max-width: 1180px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+    }
+
+    .calculator-card,
+    .results-card,
+    .info-panel {
+      background: white;
+      border-radius: 14px;
+      padding: 2rem;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      margin-bottom: 1.5rem;
+    }
+
+    .page-title {
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      line-height: 1.05;
+      color: #064e3b;
+      margin: 0 0 1rem;
+      letter-spacing: 0;
+    }
+
+    .page-subtitle {
+      color: #4b5563;
+      font-size: 1.12rem;
+      line-height: 1.7;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .hero-panel {
+      text-align: center;
+      padding: 3rem 1.5rem 1rem;
+    }
+
+    .section-kicker {
+      color: #6b7280;
+      line-height: 1.6;
+      margin: -0.25rem 0 1.5rem;
+    }
+
+    .input-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+
+    .input-group {
+      margin-bottom: 1rem;
+    }
+
+    .input-label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 0.45rem;
+      color: #374151;
+    }
+
+    .input-field,
+    .select-field {
+      width: 100%;
+      min-height: 46px;
+      padding: 0.8rem;
+      border: 2px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 1rem;
+      background: white;
+    }
+
+    .input-field:focus,
+    .select-field:focus {
+      outline: none;
+      border-color: #047857;
+      box-shadow: 0 0 0 3px rgba(4, 120, 87, 0.12);
+    }
+
+    .split-controls {
+      display: grid;
+      grid-template-columns: minmax(220px, 1fr) minmax(220px, 1fr);
+      gap: 1rem;
+      align-items: end;
+      margin-top: 1rem;
+    }
+
+    .expense-table-wrap {
+      overflow-x: auto;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+    }
+
+    .expense-table {
+      width: 100%;
+      min-width: 760px;
+      border-collapse: collapse;
+      background: white;
+    }
+
+    .expense-table th,
+    .expense-table td {
+      padding: 0.75rem;
+      border-bottom: 1px solid #e5e7eb;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .expense-table th {
+      background: #f9fafb;
+      color: #374151;
+      font-size: 0.9rem;
+      font-weight: 800;
+    }
+
+    .expense-table tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .row-action {
+      width: 42px;
+      height: 42px;
+      border: 0;
+      border-radius: 8px;
+      background: #f3f4f6;
+      color: #991b1b;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+
+    .row-action:hover {
+      background: #fee2e2;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .btn-action {
+      padding: 0.85rem 1.1rem;
+      border: 0;
+      border-radius: 8px;
+      background: #047857;
+      color: white;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .btn-action.secondary {
+      background: #374151;
+    }
+
+    .btn-action.light {
+      background: #e5e7eb;
+      color: #111827;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .metric {
+      background: #f9fafb;
+      border-radius: 12px;
+      padding: 1.25rem;
+    }
+
+    .metric-label {
+      color: #6b7280;
+      font-size: 0.9rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .metric-value {
+      color: #047857;
+      font-size: 1.65rem;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    .partner-results {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .partner-card {
+      border: 2px solid #d1fae5;
+      border-radius: 12px;
+      padding: 1.25rem;
+      background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 78%);
+    }
+
+    .partner-name {
+      font-weight: 800;
+      font-size: 1.15rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .result-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.55rem 0;
+      border-bottom: 1px solid #edf0f2;
+    }
+
+    .result-line:last-child {
+      border-bottom: 0;
+    }
+
+    .result-line strong {
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .top-up {
+      font-size: 1.75rem;
+      color: #047857;
+      font-weight: 800;
+      margin-top: 0.35rem;
+    }
+
+    .note-box {
+      background: #fffbeb;
+      border-left: 4px solid #f59e0b;
+      border-radius: 8px;
+      color: #78350f;
+      padding: 1rem;
+      margin-top: 1rem;
+      line-height: 1.6;
+    }
+
+    .breakdown-row {
+      display: grid;
+      grid-template-columns: 1.4fr 0.8fr 0.8fr 0.8fr;
+      gap: 0.75rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid #e5e7eb;
+      align-items: center;
+    }
+
+    .breakdown-row.header {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: #6b7280;
+      margin-top: 1rem;
+    }
+
+    .breakdown-row:last-child {
+      border-bottom: 0;
+    }
+
+    .muted,
+    .form-helper {
+      color: #6b7280;
+    }
+
+    .form-helper {
+      font-size: 0.9rem;
+      margin-top: 0.75rem;
+      line-height: 1.6;
+    }
+
+    .form-error {
+      display: none;
+      background: #fee2e2;
+      color: #991b1b;
+      border-radius: 8px;
+      padding: 0.9rem;
+      margin-top: 1rem;
+      font-weight: 700;
+    }
+
+    .form-error.show {
+      display: block;
+    }
+
+    .results-card {
+      display: none;
+    }
+
+    .results-card.show {
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      .calculator-card,
+      .results-card,
+      .info-panel {
+        padding: 1.25rem;
+      }
+
+      .split-controls {
+        grid-template-columns: 1fr;
+      }
+
+      .breakdown-row {
+        grid-template-columns: 1fr;
+        gap: 0.2rem;
+      }
+
+      .breakdown-row.header {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="brand">
+        <span class="brand-icon">R</span>
+        <span class="brand-name">PaidProperly</span>
+      </a>
+      <nav class="header-nav">
+        <a href="index.html" class="nav-link">Platforms</a>
+        <a href="blog/" class="nav-link">Blog</a>
+        <a href="usd-salary-calculator.html" class="nav-link">USD Calculator</a>
+        <a href="rate-calculator.html" class="nav-link">Rate Calculator</a>
+        <a href="joint-account-calculator.html" class="nav-link active">Joint Account</a>
+        <a href="ai-tools.html" class="nav-link">AI Tools</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero-panel">
+      <h1 class="page-title">Joint Account Calculator</h1>
+      <p class="page-subtitle">Work out how much each person should pay into the joint account after rent, medical aid, school fees, groceries, and personal debit orders are already being paid by one partner.</p>
+    </section>
+
+    <div class="calculator-page">
+      <section class="calculator-card">
+        <h2>1. Income and Split Method</h2>
+        <p class="section-kicker">Use net monthly income. For many couples, proportional to income is fairer than forcing a 50/50 split.</p>
+
+        <div class="input-grid">
+          <div class="input-group">
+            <label class="input-label" for="partner-a-name">Partner 1 name</label>
+            <input class="input-field" id="partner-a-name" value="Partner 1">
+          </div>
+          <div class="input-group">
+            <label class="input-label" for="partner-b-name">Partner 2 name</label>
+            <input class="input-field" id="partner-b-name" value="Partner 2">
+          </div>
+          <div class="input-group">
+            <label class="input-label" for="partner-a-income">Partner 1 net income</label>
+            <input class="input-field currency-input" id="partner-a-income" placeholder="R 50,000">
+          </div>
+          <div class="input-group">
+            <label class="input-label" for="partner-b-income">Partner 2 net income</label>
+            <input class="input-field currency-input" id="partner-b-income" placeholder="R 35,000">
+          </div>
+        </div>
+
+        <div class="split-controls">
+          <div class="input-group">
+            <label class="input-label" for="split-method">Fair split method</label>
+            <select class="select-field" id="split-method">
+              <option value="income">Proportional to income</option>
+              <option value="equal">50/50</option>
+              <option value="custom">Custom percentage</option>
+            </select>
+          </div>
+          <div class="input-group" id="custom-split-wrap" style="display:none;">
+            <label class="input-label" for="custom-a-percent">Partner 1 custom share</label>
+            <input class="input-field" id="custom-a-percent" type="number" min="0" max="100" value="60">
+            <div class="form-helper">Partner 2 pays the remaining share.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="calculator-card">
+        <h2>2. Shared Bills and Current Payments</h2>
+        <p class="section-kicker">Add each shared bill and mark who currently pays it. Choose "Joint account" for bills already coming off the shared account.</p>
+
+        <div class="expense-table-wrap">
+          <table class="expense-table">
+            <thead>
+              <tr>
+                <th>Expense</th>
+                <th>Amount</th>
+                <th>Currently paid by</th>
+                <th>Notes</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="expense-rows"></tbody>
+          </table>
+        </div>
+
+        <div class="button-row">
+          <button type="button" class="btn-action light" id="add-row">Add Expense</button>
+          <button type="button" class="btn-action secondary" id="load-example">Load Example</button>
+          <button type="button" class="btn-action" id="calculate">Calculate Contributions</button>
+        </div>
+        <div class="form-helper">Example: if medical aid is a debit order from the husband's bank account, set "Currently paid by" to that partner. The calculator credits that person before calculating joint account top-ups.</div>
+        <div class="form-error" id="form-error" role="alert"></div>
+      </section>
+
+      <section class="results-card" id="results">
+        <h2>Recommended Joint Account Contributions</h2>
+        <p class="section-kicker" id="split-summary"></p>
+
+        <div class="summary-grid">
+          <div class="metric">
+            <div class="metric-label">Total shared bills</div>
+            <div class="metric-value" id="total-expenses">R 0</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">Bills already paid personally</div>
+            <div class="metric-value" id="personal-paid">R 0</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">Bills still paid from joint account</div>
+            <div class="metric-value" id="joint-paid">R 0</div>
+          </div>
+        </div>
+
+        <div class="partner-results">
+          <div class="partner-card">
+            <div class="partner-name" id="partner-a-result-name">Partner 1</div>
+            <div class="result-line"><span>Fair share of total bills</span><strong id="partner-a-fair">R 0</strong></div>
+            <div class="result-line"><span>Already paying personally</span><strong id="partner-a-paid">R 0</strong></div>
+            <div class="result-line"><span>Pay into joint account</span><strong id="partner-a-topup">R 0</strong></div>
+            <div class="top-up" id="partner-a-action">R 0/month</div>
+          </div>
+          <div class="partner-card">
+            <div class="partner-name" id="partner-b-result-name">Partner 2</div>
+            <div class="result-line"><span>Fair share of total bills</span><strong id="partner-b-fair">R 0</strong></div>
+            <div class="result-line"><span>Already paying personally</span><strong id="partner-b-paid">R 0</strong></div>
+            <div class="result-line"><span>Pay into joint account</span><strong id="partner-b-topup">R 0</strong></div>
+            <div class="top-up" id="partner-b-action">R 0/month</div>
+          </div>
+        </div>
+
+        <div class="note-box" id="reconciliation-note"></div>
+
+        <h3 style="margin-top:1.5rem;">Current Payment Breakdown</h3>
+        <div class="breakdown-row header">
+          <span>Expense</span>
+          <span>Amount</span>
+          <span>Currently paid by</span>
+          <span>Notes</span>
+        </div>
+        <div id="breakdown-list"></div>
+
+        <div class="button-row">
+          <button class="btn-action secondary" id="share-whatsapp">Share on WhatsApp</button>
+          <button class="btn-action light" id="copy-results">Copy Results</button>
+        </div>
+      </section>
+
+      <section class="info-panel">
+        <h2>Why This Belongs on PaidProperly</h2>
+        <p class="muted">The real question is not only "what is fair?" It is "what cash actually moves this month?" This calculator handles both: it keeps existing debit orders visible, then tells each person what they still need to transfer into the joint account.</p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>Made in Mzansi - <a href="https://github.com/brandonkz/paidproperly" target="_blank" rel="noopener">GitHub</a></p>
+  </footer>
+
+  <script>
+    const defaultExpenses = [
+      ['Rent / Bond', 22000, 'joint', 'Paid from joint account'],
+      ['Medical aid', 6200, 'a', 'Debit order from Partner 1'],
+      ['Groceries', 9000, 'joint', 'Card spend from joint account'],
+      ['School fees', 4500, 'b', 'Debit order from Partner 2'],
+      ['Insurance', 1800, 'a', 'Debit order from Partner 1']
+    ];
+
+    function parseMoney(value) {
+      const parsed = Number(String(value || '').replace(/[^0-9.-]/g, ''));
+      return Number.isFinite(parsed) ? parsed : 0;
+    }
+
+    function money(value) {
+      return 'R ' + Math.round(value || 0).toLocaleString('en-ZA');
+    }
+
+    function bindCurrencyInput(input) {
+      input.setAttribute('inputmode', 'numeric');
+      input.addEventListener('focus', () => {
+        const value = parseMoney(input.value);
+        input.value = value ? String(Math.round(value)) : '';
+      });
+      input.addEventListener('blur', () => {
+        const value = parseMoney(input.value);
+        input.value = value ? money(value) : '';
+      });
+      input.addEventListener('input', calculate);
+    }
+
+    function getCurrency(id) {
+      return parseMoney(document.getElementById(id).value);
+    }
+
+    function escapeHtml(value) {
+      return String(value || '').replace(/[&<>"']/g, (char) => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+      })[char]);
+    }
+
+    function addExpenseRow(values) {
+      const rowValues = values || ['', '', 'joint', ''];
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td><input class="input-field expense-name" value="${escapeHtml(rowValues[0])}" placeholder="Medical aid"></td>
+        <td><input class="input-field expense-amount currency-input" value="${rowValues[1] ? money(rowValues[1]) : ''}" placeholder="R 5,000"></td>
+        <td>
+          <select class="select-field expense-payer">
+            <option value="joint"${rowValues[2] === 'joint' ? ' selected' : ''}>Joint account</option>
+            <option value="a"${rowValues[2] === 'a' ? ' selected' : ''}>Partner 1</option>
+            <option value="b"${rowValues[2] === 'b' ? ' selected' : ''}>Partner 2</option>
+          </select>
+        </td>
+        <td><input class="input-field expense-note" value="${escapeHtml(rowValues[3])}" placeholder="Debit order, card, EFT"></td>
+        <td><button type="button" class="row-action" aria-label="Remove expense">x</button></td>
+      `;
+      document.getElementById('expense-rows').appendChild(row);
+      bindCurrencyInput(row.querySelector('.expense-amount'));
+
+      row.querySelector('.row-action').addEventListener('click', () => {
+        row.remove();
+        if (document.querySelectorAll('#expense-rows tr').length === 0) addExpenseRow();
+        calculate();
+      });
+
+      row.querySelectorAll('input, select').forEach((input) => {
+        input.addEventListener('input', calculate);
+        input.addEventListener('change', calculate);
+      });
+    }
+
+    function readExpenses() {
+      return Array.from(document.querySelectorAll('#expense-rows tr')).map((row) => ({
+        name: row.querySelector('.expense-name').value.trim() || 'Shared expense',
+        amount: parseMoney(row.querySelector('.expense-amount').value),
+        payer: row.querySelector('.expense-payer').value,
+        note: row.querySelector('.expense-note').value.trim()
+      })).filter((expense) => expense.amount > 0);
+    }
+
+    function getSplit(incomeA, incomeB) {
+      const method = document.getElementById('split-method').value;
+      if (method === 'equal') return { a: 0.5, b: 0.5, label: '50/50 split' };
+      if (method === 'custom') {
+        const customA = Math.min(100, Math.max(0, Number(document.getElementById('custom-a-percent').value) || 0));
+        return { a: customA / 100, b: (100 - customA) / 100, label: `${customA}% / ${100 - customA}% custom split` };
+      }
+      const totalIncome = incomeA + incomeB;
+      if (totalIncome <= 0) return { a: 0.5, b: 0.5, label: '50/50 split because no income was entered' };
+      const aShare = incomeA / totalIncome;
+      return {
+        a: aShare,
+        b: 1 - aShare,
+        label: `${Math.round(aShare * 100)}% / ${Math.round((1 - aShare) * 100)}% income-based split`
+      };
+    }
+
+    function setText(id, value) {
+      document.getElementById(id).textContent = value;
+    }
+
+    function showError(message) {
+      const error = document.getElementById('form-error');
+      error.textContent = message;
+      error.classList.add('show');
+    }
+
+    function clearError() {
+      const error = document.getElementById('form-error');
+      error.textContent = '';
+      error.classList.remove('show');
+    }
+
+    function calculate() {
+      clearError();
+      const nameA = document.getElementById('partner-a-name').value.trim() || 'Partner 1';
+      const nameB = document.getElementById('partner-b-name').value.trim() || 'Partner 2';
+      const incomeA = getCurrency('partner-a-income');
+      const incomeB = getCurrency('partner-b-income');
+      const expenses = readExpenses();
+      const totalExpenses = expenses.reduce((sum, expense) => sum + expense.amount, 0);
+
+      if (!totalExpenses) {
+        document.getElementById('results').classList.remove('show');
+        showError('Add at least one shared monthly expense to calculate the joint account contribution.');
+        return;
+      }
+
+      const split = getSplit(incomeA, incomeB);
+      const paidA = expenses.filter((expense) => expense.payer === 'a').reduce((sum, expense) => sum + expense.amount, 0);
+      const paidB = expenses.filter((expense) => expense.payer === 'b').reduce((sum, expense) => sum + expense.amount, 0);
+      const paidJoint = expenses.filter((expense) => expense.payer === 'joint').reduce((sum, expense) => sum + expense.amount, 0);
+      const fairA = totalExpenses * split.a;
+      const fairB = totalExpenses * split.b;
+      const topupA = fairA - paidA;
+      const topupB = fairB - paidB;
+
+      setText('partner-a-result-name', nameA);
+      setText('partner-b-result-name', nameB);
+      setText('split-summary', `Using ${split.label}. Personal debit orders are credited before calculating what each person still owes the shared account.`);
+      setText('total-expenses', money(totalExpenses));
+      setText('personal-paid', money(paidA + paidB));
+      setText('joint-paid', money(paidJoint));
+      setText('partner-a-fair', money(fairA));
+      setText('partner-b-fair', money(fairB));
+      setText('partner-a-paid', money(paidA));
+      setText('partner-b-paid', money(paidB));
+      setText('partner-a-topup', money(Math.max(0, topupA)));
+      setText('partner-b-topup', money(Math.max(0, topupB)));
+      setText('partner-a-action', topupA >= 0 ? `${money(topupA)}/month` : `${money(Math.abs(topupA))} over fair share`);
+      setText('partner-b-action', topupB >= 0 ? `${money(topupB)}/month` : `${money(Math.abs(topupB))} over fair share`);
+
+      const notes = [];
+      if (topupA < 0) notes.push(`${nameA} is already paying ${money(Math.abs(topupA))} more than their fair share through personal debit orders. Reduce their joint account transfer or reimburse them.`);
+      if (topupB < 0) notes.push(`${nameB} is already paying ${money(Math.abs(topupB))} more than their fair share through personal debit orders. Reduce their joint account transfer or reimburse them.`);
+      if (!notes.length) notes.push(`Recommended transfer rule: ${nameA} pays ${money(topupA)} into the joint account and ${nameB} pays ${money(topupB)}. This covers bills still paid from the joint account while keeping the total split fair.`);
+      setText('reconciliation-note', notes.join(' '));
+
+      const payerLabel = { a: nameA, b: nameB, joint: 'Joint account' };
+      document.getElementById('breakdown-list').innerHTML = expenses.map((expense) => `
+        <div class="breakdown-row">
+          <span><strong>${escapeHtml(expense.name)}</strong></span>
+          <span>${money(expense.amount)}</span>
+          <span>${payerLabel[expense.payer]}</span>
+          <span class="muted">${escapeHtml(expense.note || '-')}</span>
+        </div>
+      `).join('');
+
+      document.getElementById('results').classList.add('show');
+      if (typeof gtag === 'function') {
+        gtag('event', 'calculator_use', {
+          calculator_name: 'joint-account',
+          page_location: window.location.pathname
+        });
+      }
+    }
+
+    function loadExample() {
+      document.getElementById('partner-a-name').value = 'Husband';
+      document.getElementById('partner-b-name').value = 'Wife';
+      document.getElementById('partner-a-income').value = money(58000);
+      document.getElementById('partner-b-income').value = money(42000);
+      document.getElementById('split-method').value = 'income';
+      document.getElementById('custom-split-wrap').style.display = 'none';
+      document.getElementById('expense-rows').innerHTML = '';
+      defaultExpenses.forEach(addExpenseRow);
+      calculate();
+    }
+
+    function buildShareText() {
+      const a = document.getElementById('partner-a-result-name').textContent;
+      const b = document.getElementById('partner-b-result-name').textContent;
+      return [
+        'Joint account contribution plan',
+        `${a}: ${document.getElementById('partner-a-action').textContent}`,
+        `${b}: ${document.getElementById('partner-b-action').textContent}`,
+        `Total shared bills: ${document.getElementById('total-expenses').textContent}`,
+        'Calculate yours: https://paidproperly.co.za/joint-account-calculator.html'
+      ].join('\n');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.currency-input').forEach(bindCurrencyInput);
+      addExpenseRow(['Rent / Bond', '', 'joint', '']);
+      addExpenseRow(['Medical aid', '', 'a', 'Debit order']);
+      addExpenseRow(['Groceries', '', 'joint', '']);
+
+      document.getElementById('add-row').addEventListener('click', () => addExpenseRow());
+      document.getElementById('load-example').addEventListener('click', loadExample);
+      document.getElementById('calculate').addEventListener('click', calculate);
+      document.getElementById('split-method').addEventListener('change', (event) => {
+        document.getElementById('custom-split-wrap').style.display = event.target.value === 'custom' ? 'block' : 'none';
+        calculate();
+      });
+      document.querySelectorAll('#partner-a-name, #partner-b-name, #custom-a-percent').forEach((input) => {
+        input.addEventListener('input', calculate);
+      });
+      document.getElementById('share-whatsapp').addEventListener('click', () => {
+        window.open('https://wa.me/?text=' + encodeURIComponent(buildShareText()), '_blank');
+      });
+      document.getElementById('copy-results').addEventListener('click', async () => {
+        await navigator.clipboard.writeText(buildShareText());
+        document.getElementById('copy-results').textContent = 'Copied';
+        setTimeout(() => { document.getElementById('copy-results').textContent = 'Copy Results'; }, 1600);
+      });
+    });
+  </script>
+</body>
+</html>
