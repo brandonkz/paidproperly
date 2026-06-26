@@ -724,20 +724,20 @@
       <div id="newsletter-modal-inner">
         <div style="text-align: center; margin-bottom: 1.5rem;">
           <div style="font-size: 2.5rem; margin-bottom: 0.75rem;">💌</div>
-          <h2 style="font-size: 1.75rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--color-text);">Get New Opportunities in Your Inbox</h2>
-          <p style="font-size: 1rem; color: var(--color-text-light); line-height: 1.6; max-width: 460px; margin: 0 auto 1.25rem;">New SA-friendly platforms, application tips, and success stories — without the junk.</p>
+          <h2 style="font-size: 1.75rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--color-text);">Get the SA Remote Work Shortlist</h2>
+          <p style="font-size: 1rem; color: var(--color-text-light); line-height: 1.6; max-width: 460px; margin: 0 auto 1.25rem;">A weekly shortlist of platforms, payout warnings, and practical application angles for South Africans trying to earn online.</p>
         </div>
         <div style="background: var(--color-background); border: 1px solid var(--color-border); border-radius: 14px; padding: 1.25rem; margin-bottom: 1rem; text-align: left;">
           <div style="font-weight: 700; color: var(--color-text); margin-bottom: 0.5rem;">What you’ll get</div>
           <ul style="margin: 0; padding-left: 1.1rem; color: var(--color-text-light); line-height: 1.7;">
-            <li>new SA-friendly platforms worth checking</li>
-            <li>payout warnings and scam avoidance</li>
-            <li>application tips that improve your odds</li>
+            <li>SA-friendly platforms worth checking this week</li>
+            <li>payout warnings before you waste time applying</li>
+            <li>application angles for testing, remote jobs, and freelance work</li>
           </ul>
         </div>
         <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-          <a href="https://subscribe-forms.beehiiv.com/f96d4cb4-c78f-47b1-a2af-5c209b6db369" target="_blank" rel="noopener" class="btn btn-primary" data-cta="newsletter-modal-subscribe" style="justify-content: center; width: 100%; padding: 0.95rem 1.2rem;">
-            Open signup form
+          <a href="https://subscribe-forms.beehiiv.com/f96d4cb4-c78f-47b1-a2af-5c209b6db369?utm_source=paidproperly.co.za&utm_medium=modal&utm_campaign=sa_remote_work_shortlist" target="_blank" rel="noopener" class="btn btn-primary" data-cta="newsletter-modal-subscribe" style="justify-content: center; width: 100%; padding: 0.95rem 1.2rem;">
+            Join the shortlist
           </a>
           <button type="button" id="close-modal-secondary" class="btn btn-outline" style="justify-content: center; width: 100%;">
             Maybe later
@@ -804,7 +804,7 @@
     })();
   </script>
   
-  <!-- Affiliate Link Tracking -->
+  <!-- CTA and outbound link tracking -->
   <script>
     (function() {
       if (document.readyState === 'loading') {
@@ -831,7 +831,8 @@
         
         externalLinks.forEach(link => {
           const href = link.href;
-          const hostname = new URL(href).hostname;
+          const url = new URL(href);
+          const hostname = url.hostname;
           const currentHostname = window.location.hostname;
           
           if (hostname === currentHostname || hostname.includes('sorted')) {
@@ -840,12 +841,14 @@
           
           link.addEventListener('click', function(e) {
             if (typeof gtag !== 'undefined') {
-              gtag('event', 'affiliate_click', {
+              const isNewsletter = hostname === 'subscribe-forms.beehiiv.com';
+              gtag('event', isNewsletter ? 'newsletter_click' : 'affiliate_click', {
                 'link_url': href,
                 'link_text': this.textContent.trim().substring(0, 50),
                 'link_domain': hostname,
                 'page_location': window.location.pathname,
-                'page_title': document.title
+                'page_title': document.title,
+                'newsletter_source': isNewsletter ? (url.searchParams.get('utm_medium') || 'beehiiv') : undefined
               });
             }
             
