@@ -425,7 +425,8 @@ function getEmoji(category) {
     '🪙 Crypto & Web3': '🪙',
     '🏢 SaaS Companies': '🏢',
     '🌍 Freelance Marketplaces': '🌍',
-    '✍️ Writing & Transcription': '✍️'
+    '✍️ Writing & Transcription': '✍️',
+    '🎨 Print-on-Demand & Stock Content': '🎨'
   };
   return emojis[category] || null;
 }

@@ -1,29 +1,11 @@
-#!/usr/bin/env node
-/**
- * Generate aesthetic redirect pages for all platforms
- */
-
-const fs = require('fs');
-const path = require('path');
-
-// Load platforms data
-const platforms = JSON.parse(
-  fs.readFileSync(path.join(__dirname, 'data/platforms.json'), 'utf8')
-);
-
-// Template for redirect pages
-function generateRedirectPage(platform) {
-  const emoji = getCategoryEmoji(platform.category);
-  const tips = generateTips(platform);
-  
-  return `<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="refresh" content="3; url=${platform.ref_url}">
+  <meta http-equiv="refresh" content="3; url=https://waywithwordsjobs.com/">
   <meta name="robots" content="noindex, nofollow">
-  <title>You're on your way to ${escapeHtml(platform.name)} - PaidProperly</title>
+  <title>You're on your way to Way With Words - PaidProperly</title>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-8RPC987YL8"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -31,10 +13,10 @@ function generateRedirectPage(platform) {
     gtag('js', new Date());
     gtag('config', 'G-8RPC987YL8');
     gtag('event', 'affiliate_redirect', {
-      platform_slug: ${JSON.stringify(platform.slug)},
-      platform_name: ${JSON.stringify(platform.name)},
-      platform_category: ${JSON.stringify(platform.category)},
-      destination_url: ${JSON.stringify(platform.ref_url)}
+      platform_slug: "way-with-words",
+      platform_name: "Way With Words",
+      platform_category: "✍️ Writing & Transcription",
+      destination_url: "https://waywithwordsjobs.com/"
     });
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -46,7 +28,7 @@ function generateRedirectPage(platform) {
       margin: 0;
       padding: 0;
     }
-    
+
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       min-height: 100vh;
@@ -59,14 +41,14 @@ function generateRedirectPage(platform) {
       position: relative;
       overflow: hidden;
     }
-    
+
     .bg-shape {
       position: absolute;
       border-radius: 50%;
       opacity: 0.1;
       animation: float 20s infinite ease-in-out;
     }
-    
+
     .bg-shape:nth-child(1) {
       width: 300px;
       height: 300px;
@@ -75,7 +57,7 @@ function generateRedirectPage(platform) {
       left: -100px;
       animation-delay: 0s;
     }
-    
+
     .bg-shape:nth-child(2) {
       width: 200px;
       height: 200px;
@@ -84,7 +66,7 @@ function generateRedirectPage(platform) {
       right: -50px;
       animation-delay: 5s;
     }
-    
+
     .bg-shape:nth-child(3) {
       width: 150px;
       height: 150px;
@@ -93,13 +75,13 @@ function generateRedirectPage(platform) {
       right: 10%;
       animation-delay: 10s;
     }
-    
+
     @keyframes float {
       0%, 100% { transform: translate(0, 0) scale(1); }
       33% { transform: translate(30px, -30px) scale(1.1); }
       66% { transform: translate(-20px, 20px) scale(0.9); }
     }
-    
+
     .container {
       max-width: 500px;
       text-align: center;
@@ -112,7 +94,7 @@ function generateRedirectPage(platform) {
       padding: 3rem 2rem;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     }
-    
+
     .logo {
       width: 80px;
       height: 80px;
@@ -125,7 +107,7 @@ function generateRedirectPage(platform) {
       font-size: 2.5rem;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     }
-    
+
     .brand {
       display: flex;
       align-items: center;
@@ -135,7 +117,7 @@ function generateRedirectPage(platform) {
       opacity: 0.8;
       font-size: 0.9rem;
     }
-    
+
     .brand-icon {
       width: 24px;
       height: 24px;
@@ -146,21 +128,21 @@ function generateRedirectPage(platform) {
       justify-content: center;
       font-size: 0.875rem;
     }
-    
+
     h1 {
       font-size: 2rem;
       font-weight: 700;
       margin-bottom: 1rem;
       line-height: 1.2;
     }
-    
+
     .subtitle {
       font-size: 1.1rem;
       margin-bottom: 2rem;
       opacity: 0.9;
       line-height: 1.6;
     }
-    
+
     .tips {
       background: rgba(255, 255, 255, 0.15);
       border-radius: 16px;
@@ -168,7 +150,7 @@ function generateRedirectPage(platform) {
       margin-bottom: 2rem;
       text-align: left;
     }
-    
+
     .tips-title {
       font-weight: 600;
       margin-bottom: 0.75rem;
@@ -177,12 +159,12 @@ function generateRedirectPage(platform) {
       align-items: center;
       gap: 0.5rem;
     }
-    
+
     .tips ul {
       list-style: none;
       padding: 0;
     }
-    
+
     .tips li {
       padding: 0.5rem 0;
       font-size: 0.9rem;
@@ -191,18 +173,18 @@ function generateRedirectPage(platform) {
       align-items: flex-start;
       gap: 0.5rem;
     }
-    
+
     .tips li::before {
       content: "✓";
       color: #a7f3d0;
       font-weight: 700;
       flex-shrink: 0;
     }
-    
+
     .progress-container {
       margin-bottom: 2rem;
     }
-    
+
     .progress-bar {
       width: 100%;
       height: 6px;
@@ -211,30 +193,30 @@ function generateRedirectPage(platform) {
       overflow: hidden;
       margin-bottom: 0.75rem;
     }
-    
+
     .progress-fill {
       height: 100%;
       background: white;
       border-radius: 10px;
       animation: progress 3s ease-in-out forwards;
     }
-    
+
     @keyframes progress {
       0% { width: 0%; }
       100% { width: 100%; }
     }
-    
+
     .countdown {
       font-size: 0.9rem;
       opacity: 0.8;
     }
-    
+
     .countdown strong {
       font-size: 1.5rem;
       display: inline-block;
       margin: 0 0.25rem;
     }
-    
+
     a.manual-link {
       display: inline-flex;
       align-items: center;
@@ -248,12 +230,12 @@ function generateRedirectPage(platform) {
       transition: all 0.2s;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
-    
+
     a.manual-link:hover {
       transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
     }
-    
+
     .footnote {
       margin-top: 2rem;
       font-size: 0.8rem;
@@ -265,28 +247,30 @@ function generateRedirectPage(platform) {
   <div class="bg-shape"></div>
   <div class="bg-shape"></div>
   <div class="bg-shape"></div>
-  
+
   <div class="container">
-    <div class="logo">${emoji}</div>
-    
+    <div class="logo">✍️</div>
+
     <div class="brand">
       <span class="brand-icon">✓</span>
       <span>From PaidProperly</span>
     </div>
-    
-    <h1>You're on your way to ${escapeHtml(platform.name)}!</h1>
-    <p class="subtitle">${escapeHtml(platform.description)}</p>
-    
+
+    <h1>You're on your way to Way With Words!</h1>
+    <p class="subtitle">Transcription jobs from a company with South African roots and global clients. Better for accurate English typing and careful formatting.</p>
+
     <div class="tips">
       <div class="tips-title">
         <span>💡</span>
         <span>Pro Tips:</span>
       </div>
       <ul>
-        ${tips.map(tip => `<li>${escapeHtml(tip)}</li>`).join('\n        ')}
+        <li>Build a strong profile highlighting your skills</li>
+        <li>Read platform guidelines before starting</li>
+        <li>Set up payment methods early to avoid delays</li>
       </ul>
     </div>
-    
+
     <div class="progress-container">
       <div class="progress-bar">
         <div class="progress-fill"></div>
@@ -295,114 +279,29 @@ function generateRedirectPage(platform) {
         Redirecting in <strong id="timer">3</strong> seconds...
       </div>
     </div>
-    
-    <a href="${escapeHtml(platform.ref_url)}" class="manual-link" onclick="if (typeof gtag !== 'undefined') { gtag('event', 'affiliate_redirect_manual_click', { platform_slug: ${JSON.stringify(platform.slug)}, platform_name: ${JSON.stringify(platform.name)} }); }">
-      Continue to ${escapeHtml(platform.name)}
+
+    <a href="https://waywithwordsjobs.com/" class="manual-link" onclick="if (typeof gtag !== 'undefined') { gtag('event', 'affiliate_redirect_manual_click', { platform_slug: "way-with-words", platform_name: "Way With Words" }); }">
+      Continue to Way With Words
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <path d="M5 12h14M12 5l7 7-7 7"/>
       </svg>
     </a>
-    
+
     <p class="footnote">Verified by PaidProperly • 100% Safe</p>
   </div>
-  
+
   <script>
     let seconds = 3;
     const timerEl = document.getElementById('timer');
-    
+
     const countdown = setInterval(() => {
       seconds--;
       timerEl.textContent = seconds;
       if (seconds <= 0) {
         clearInterval(countdown);
-        window.location.href = "${escapeHtml(platform.ref_url)}";
+        window.location.href = "https://waywithwordsjobs.com/";
       }
     }, 1000);
   </script>
 </body>
-</html>`;
-}
-
-function getCategoryEmoji(category) {
-  const emojis = {
-    '🎧 Customer Support': '🎧',
-    '💻 Tech & Dev': '💻',
-    '🔥 Competitive (High Pay)': '🔥',
-    '📋 Remote Job Boards & Agencies': '📋',
-    '🧪 Testing & Research': '🧪',
-    '📚 Teaching & Mentoring': '📚',
-    '🤖 AI Training': '🤖',
-    '🪙 Crypto & Web3': '🪙',
-    '🏢 SaaS Companies': '🏢',
-    '🌍 Freelance Marketplaces': '🌍',
-    '✍️ Writing & Transcription': '✍️',
-    '🎨 Print-on-Demand & Stock Content': '🎨'
-  };
-  return emojis[category] || '🚀';
-}
-
-function generateTips(platform) {
-  const tips = [];
-  
-  // Difficulty-based tips
-  if (platform.difficulty === 'Easy') {
-    tips.push('Perfect for beginners - no advanced experience needed');
-  } else if (platform.difficulty === 'Medium') {
-    tips.push('Build a strong profile highlighting your skills');
-  } else if (platform.difficulty === 'Hard') {
-    tips.push('Competition is fierce - showcase your best work');
-  }
-  
-  // Payout-based tips
-  if (platform.payout_notes.toLowerCase().includes('usd')) {
-    tips.push('Get paid in USD - great for SA exchange rates');
-  }
-  
-  // Category-specific tips
-  if (platform.category.includes('Remote Job Boards')) {
-    tips.push('Apply early and tailor your application to each role');
-  } else if (platform.category.includes('Freelance')) {
-    tips.push('Start with competitive rates to build reviews');
-  } else if (platform.category.includes('Testing')) {
-    tips.push('Complete tests thoroughly and speak your thoughts aloud');
-  } else if (platform.category.includes('Teaching')) {
-    tips.push('Create a welcoming profile and flexible schedule');
-  } else if (platform.category.includes('AI Training')) {
-    tips.push('Follow instructions carefully for consistent payouts');
-  }
-  
-  // Fill to 3 tips if needed
-  if (tips.length < 3) {
-    tips.push('Read platform guidelines before starting');
-  }
-  if (tips.length < 3) {
-    tips.push('Set up payment methods early to avoid delays');
-  }
-  
-  return tips.slice(0, 3);
-}
-
-function escapeHtml(text) {
-  return text
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
-}
-
-// Generate all redirect pages
-const goDir = path.join(__dirname, 'go');
-if (!fs.existsSync(goDir)) {
-  fs.mkdirSync(goDir);
-}
-
-let generated = 0;
-platforms.forEach(platform => {
-  const filename = path.join(goDir, `${platform.slug}.html`);
-  const html = generateRedirectPage(platform);
-  fs.writeFileSync(filename, html, 'utf8');
-  generated++;
-});
-
-console.log(`✅ Generated ${generated} redirect pages`);
+</html>

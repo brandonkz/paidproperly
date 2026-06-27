@@ -1578,5 +1578,757 @@
     "recommended_rank": 61,
     "featured": false,
     "tier": "intermediate"
+  },
+  {
+    "id": 65,
+    "name": "OneForma",
+    "slug": "oneforma",
+    "url": "https://www.oneforma.com/jobs/",
+    "ref_url": "https://www.oneforma.com/jobs/",
+    "category": "🤖 AI Training",
+    "description": "AI data collection, annotation, translation, and UHRS-style crowd projects. Good for detail-oriented South Africans who want flexible AI training tasks.",
+    "best_for": [
+      "Anyone",
+      "Research"
+    ],
+    "payout_notes": "$5-$25/hr varies by project. PayPal and Payoneer; payments usually twice a month.",
+    "difficulty": "Easy",
+    "tags": [
+      "AI training",
+      "data labeling",
+      "translation",
+      "flexible"
+    ],
+    "sa_friendly": true,
+    "recommended_rank": 62,
+    "featured": false,
+    "tier": "entry-level"
+  },
+  {
+    "id": 66,
+    "name": "RWS TrainAI",
+    "slug": "rws-trainai",
+    "url": "https://www.rws.com/artificial-intelligence/train-ai-data-services/trainai-community/",
+    "ref_url": "https://www.rws.com/artificial-intelligence/train-ai-data-services/trainai-community/",
+    "category": "🤖 AI Training",
+    "description": "Remote AI data specialist and language evaluation projects from RWS. South Africa-specific freelance AI roles appear through their TrainAI hiring pages.",
+    "best_for": [
+      "Writing",
+      "Research"
+    ],
+    "payout_notes": "$10-$30/hr varies by project. Contractor payments by approved RWS payment setup.",
+    "difficulty": "Medium",
+    "tags": [
+      "AI training",
+      "language",
+      "data labeling",
+      "flexible"
+    ],
+    "sa_friendly": true,
+    "recommended_rank": 63,
+    "featured": false,
+    "tier": "intermediate"
+  },
+  {
+    "id": 67,
+    "name": "Mindrift",
+    "slug": "mindrift",
+    "url": "https://mindrift.ai/apply",
+    "ref_url": "https://mindrift.ai/apply",
+    "category": "🤖 AI Training",
+    "description": "Freelance AI tutor and expert-rating work. Stronger fit if you can write clearly, judge AI answers, or bring subject-matter expertise.",
+    "best_for": [
+      "Writing",
+      "Research",
+      "Experts"
+    ],
+    "payout_notes": "$15-$100/hr advertised depending on expertise. Bi-weekly payments.",
+    "difficulty": "Medium",
+    "tags": [
+      "AI training",
+      "expert",
+      "writing",
+      "flexible"
+    ],
+    "sa_friendly": true,
+    "recommended_rank": 64,
+    "featured": false,
+    "tier": "intermediate"
+  },
+  {
+    "id": 68,
+    "name": "Clickworker",
+    "slug": "clickworker",
+    "url": "https://www.clickworker.com/clickworker/",
+    "ref_url": "https://www.clickworker.com/clickworker/",
+    "category": "🤖 AI Training",
+    "description": "Microtasks, UHRS tasks, search evaluation, text work, and data projects. Best as side income rather than a full remote salary.",
+    "best_for": [
+      "Anyone"
+    ],
+    "payout_notes": "$3-$15/hr typical for available tasks. Weekly payouts via PayPal, Payoneer, AirTM, eWallet, ACH or SEPA where supported.",
+    "difficulty": "Easy",
+    "tags": [
+      "microtasks",
+      "AI training",
+      "UHRS",
+      "side income"
+    ],
+    "sa_friendly": true,
+    "recommended_rank": 65,
+    "featured": false,
+    "tier": "entry-level"
+  },
+  {
+    "id": 69,
+    "name": "TELUS Digital AI Community",
+    "slug": "telus-digital-ai",
+    "url": "https://www.telusinternational.ai/",
+    "ref_url": "https://www.telusinternational.ai/",
+    "category": "🤖 AI Training",
+    "description": "AI community roles including search, map, ads, and language-rating projects. Work is assessment-heavy but legitimate when openings match your locale.",
+    "best_for": [
+      "Research",
+      "Writing"
+    ],
+    "payout_notes": "$8-$20/hr varies by project and locale. Payments depend on the project contract.",
+    "difficulty": "Medium",
+    "tags": [
+      "AI training",
+      "search evaluation",
+      "language",
+      "part-time"
+    ],
+    "sa_friendly": true,
+    "recommended_rank": 66,
+    "featured": false,
+    "tier": "intermediate"
+  },
+  {
+    "id": 70,
+    "name": "20four7VA",
+    "slug": "20four7va",
+    "url": "https://20four7va.com/become-a-va/",
+    "ref_url": "https://20four7va.com/become-a-va/",
+    "category": "🟢 Entry Level",
+    "description": "Virtual assistant network that explicitly accepts applications from South Africa. Good for admin, customer support, and operations VA work.",
+    "best_for": [
+      "Admin",
+      "Ops",
+      "Support"
+    ],
+    "payout_notes": "$4-$12/hr typical VA range. Client-matched contractor payments.",
+    "difficulty": "Easy",
+    "tags": [
+      "virtual assistant",
+      "admin",
+      "customer support",
+      "flexible"
+    ],
+    "sa_friendly": true,
+    "recommended_rank": 67,
+    "featured": false,
+    "tier": "entry-level"
+  },
+  {
+    "id": 71,
+    "name": "Wing Assistant",
+    "slug": "wing-assistant",
+    "url": "https://wingassistant.com/careers/virtual-assistant/",
+    "ref_url": "https://wingassistant.com/careers/virtual-assistant/",
+    "category": "🟢 Entry Level",
+    "description": "Remote virtual assistant roles across admin, real estate, sales, and operations. South Africa-specific VA listings appear through remote job boards.",
+    "best_for": [
+      "Admin",
+      "Ops",
+      "Support"
+    ],
+    "payout_notes": "$4-$10/hr typical VA range. Remote contractor payments by role.",
+    "difficulty": "Easy",
+    "tags": [
+      "virtual assistant",
+      "admin",
+      "remote",
+      "customer support"
+    ],
+    "sa_friendly": true,
+    "recommended_rank": 68,
+    "featured": false,
+    "tier": "entry-level"
+  },
+  {
+    "id": 72,
+    "name": "VAConnect",
+    "slug": "vaconnect",
+    "url": "https://vaconnect.co.za/",
+    "ref_url": "https://vaconnect.co.za/",
+    "category": "🟢 Entry Level",
+    "description": "South African virtual assistant agency with pre-screened VA talent. Best for experienced admin, executive assistant, and operations profiles.",
+    "best_for": [
+      "Admin",
+      "Ops"
+    ],
+    "payout_notes": "ZAR or USD-equivalent VA rates vary by placement. SA-based talent platform.",
+    "difficulty": "Medium",
+    "tags": [
+      "virtual assistant",
+      "SA-focused",
+      "admin",
+      "experienced"
+    ],
+    "sa_friendly": true,
+    "recommended_rank": 69,
+    "featured": false,
+    "tier": "intermediate"
+  },
+  {
+    "id": 73,
+    "name": "Cherry Assistant",
+    "slug": "cherry-assistant",
+    "url": "https://www.cherryassistant.com/",
+    "ref_url": "https://www.cherryassistant.com/",
+    "category": "🟢 Entry Level",
+    "description": "Remote assistant staffing company sourcing talent from South Africa and the Philippines. Better fit for VA, admin, sales, and support experience.",
+    "best_for": [
+      "Admin",
+      "Sales",
+      "Support"
+    ],
+    "payout_notes": "$4-$12/hr typical assistant range. Placement-based remote work.",
+    "difficulty": "Easy",
+    "tags": [
+      "virtual assistant",
+      "SA-focused",
+      "admin",
+      "remote"
+    ],
+    "sa_friendly": true,
+    "recommended_rank": 70,
+    "featured": false,
+    "tier": "entry-level"
+  },
+  {
+    "id": 74,
+    "name": "1840 & Company",
+    "slug": "1840-company",
+    "url": "https://www.1840andco.com/south-africa",
+    "ref_url": "https://www.1840andco.com/south-africa",
+    "category": "📋 Remote Job Boards & Agencies",
+    "description": "Global staffing marketplace with a South Africa talent page. Covers VAs, data entry, customer support, IT support, and specialist remote roles.",
+    "best_for": [
+      "Admin",
+      "Support",
+      "Ops"
+    ],
+    "payout_notes": "$5-$12/hr typical offshore role range. Payment terms depend on placement.",
+    "difficulty": "Medium",
+    "tags": [
+      "virtual assistant",
+      "remote staff",
+      "SA-focused",
+      "customer support"
+    ],
+    "sa_friendly": true,
+    "recommended_rank": 71,
+    "featured": false,
+    "tier": "intermediate"
+  },
+  {
+    "id": 75,
+    "name": "Cambly",
+    "slug": "cambly",
+    "url": "https://tutorlanding.cambly.com/",
+    "ref_url": "https://tutorlanding.cambly.com/",
+    "category": "📚 Teaching & Mentoring",
+    "description": "Conversational English tutoring with flexible hours. Native English speakers from South Africa are commonly eligible when tutor applications are open.",
+    "best_for": [
+      "Teaching"
+    ],
+    "payout_notes": "$10.20/hr adult tutoring; Cambly Kids pays more. Weekly PayPal payouts.",
+    "difficulty": "Easy",
+    "tags": [
+      "teaching",
+      "languages",
+      "flexible",
+      "beginner-friendly"
+    ],
+    "sa_friendly": true,
+    "recommended_rank": 72,
+    "featured": false,
+    "tier": "entry-level"
+  },
+  {
+    "id": 76,
+    "name": "AmazingTalker",
+    "slug": "amazingtalker",
+    "url": "https://en.amazingtalker.com/teachers/apply",
+    "ref_url": "https://en.amazingtalker.com/teachers/apply",
+    "category": "📚 Teaching & Mentoring",
+    "description": "Online language tutoring marketplace where tutors set their own rates. Useful for English, Afrikaans, Zulu, or niche subject teaching.",
+    "best_for": [
+      "Teaching"
+    ],
+    "payout_notes": "$10-$30/hr typical. Withdraw via Wise, PayPal, or Payoneer.",
+    "difficulty": "Easy",
+    "tags": [
+      "teaching",
+      "languages",
+      "set own rates",
+      "flexible"
+    ],
+    "sa_friendly": true,
+    "recommended_rank": 73,
+    "featured": false,
+    "tier": "entry-level"
+  },
+  {
+    "id": 77,
+    "name": "Superprof South Africa",
+    "slug": "superprof-south-africa",
+    "url": "https://www.superprof.co.za/tutor/",
+    "ref_url": "https://www.superprof.co.za/tutor/",
+    "category": "📚 Teaching & Mentoring",
+    "description": "Local tutoring marketplace for South Africans teaching school subjects, languages, music, fitness, and skills online or in person.",
+    "best_for": [
+      "Teaching"
+    ],
+    "payout_notes": "Set your own ZAR rates. Superprof says tutors pay no commission.",
+    "difficulty": "Easy",
+    "tags": [
+      "teaching",
+      "SA-focused",
+      "set own rates",
+      "beginner-friendly"
+    ],
+    "sa_friendly": true,
+    "recommended_rank": 74,
+    "featured": false,
+    "tier": "entry-level"
+  },
+  {
+    "id": 78,
+    "name": "Verbling",
+    "slug": "verbling",
+    "url": "https://www.verbling.com/teach",
+    "ref_url": "https://www.verbling.com/teach",
+    "category": "📚 Teaching & Mentoring",
+    "description": "Language teaching platform for tutors with strong fluency or teaching experience. Good for English and multilingual South Africans.",
+    "best_for": [
+      "Teaching"
+    ],
+    "payout_notes": "$10-$35/hr typical. Cash out via PayPal, Wise, Payoneer, or Verbling Credit.",
+    "difficulty": "Medium",
+    "tags": [
+      "teaching",
+      "languages",
+      "set own rates",
+      "Payoneer"
+    ],
+    "sa_friendly": true,
+    "recommended_rank": 75,
+    "featured": false,
+    "tier": "intermediate"
+  },
+  {
+    "id": 79,
+    "name": "TutorOcean",
+    "slug": "tutorocean",
+    "url": "https://www.tutorocean.com/become-a-tutor",
+    "ref_url": "https://www.tutorocean.com/become-a-tutor",
+    "category": "📚 Teaching & Mentoring",
+    "description": "Online tutoring marketplace with South Africa tutor pages. Best for academic subjects, test prep, and homework help.",
+    "best_for": [
+      "Teaching"
+    ],
+    "payout_notes": "$15-$40/hr typical. Platform-managed online tutoring payouts.",
+    "difficulty": "Medium",
+    "tags": [
+      "teaching",
+      "academic",
+      "online tutoring",
+      "flexible"
+    ],
+    "sa_friendly": true,
+    "recommended_rank": 76,
+    "featured": false,
+    "tier": "intermediate"
+  },
+  {
+    "id": 80,
+    "name": "TranscribeMe",
+    "slug": "transcribeme",
+    "url": "https://www.transcribeme.com/freelancers/",
+    "ref_url": "https://www.transcribeme.com/freelancers/",
+    "category": "✍️ Writing & Transcription",
+    "description": "Beginner-friendly transcription platform with a public South African freelancer testimonial. Good for fast typists starting with audio work.",
+    "best_for": [
+      "Writing",
+      "Admin"
+    ],
+    "payout_notes": "$15-$22 per audio hour typical. PayPal payouts after passing the exam.",
+    "difficulty": "Easy",
+    "tags": [
+      "transcription",
+      "captions",
+      "beginner-friendly",
+      "PayPal"
+    ],
+    "sa_friendly": true,
+    "recommended_rank": 77,
+    "featured": false,
+    "tier": "entry-level"
+  },
+  {
+    "id": 81,
+    "name": "GoTranscript",
+    "slug": "gotranscript",
+    "url": "https://gotranscript.com/transcription-jobs",
+    "ref_url": "https://gotranscript.com/transcription-jobs",
+    "category": "✍️ Writing & Transcription",
+    "description": "Global transcription and captioning work with frequent language-specific openings. Good fallback when Rev applications are closed.",
+    "best_for": [
+      "Writing",
+      "Admin"
+    ],
+    "payout_notes": "Up to $0.60 per audio minute. Weekly payouts via PayPal, Payoneer, or USDC.",
+    "difficulty": "Easy",
+    "tags": [
+      "transcription",
+      "captions",
+      "Payoneer",
+      "flexible"
+    ],
+    "sa_friendly": true,
+    "recommended_rank": 78,
+    "featured": false,
+    "tier": "entry-level"
+  },
+  {
+    "id": 82,
+    "name": "Scribie",
+    "slug": "scribie",
+    "url": "https://scribie.com/freelance-transcription",
+    "ref_url": "https://scribie.com/freelance-transcription",
+    "category": "✍️ Writing & Transcription",
+    "description": "Short-file transcription marketplace for beginners. Low pay, but simple entry if you have PayPal and want flexible audio snippets.",
+    "best_for": [
+      "Writing",
+      "Admin"
+    ],
+    "payout_notes": "$5-$20 per audio hour. PayPal only; South Africans can receive PayPal via local withdrawal.",
+    "difficulty": "Easy",
+    "tags": [
+      "transcription",
+      "short tasks",
+      "PayPal",
+      "beginner-friendly"
+    ],
+    "sa_friendly": true,
+    "recommended_rank": 79,
+    "featured": false,
+    "tier": "entry-level"
+  },
+  {
+    "id": 83,
+    "name": "Way With Words",
+    "slug": "way-with-words",
+    "url": "https://waywithwordsjobs.com/",
+    "ref_url": "https://waywithwordsjobs.com/",
+    "category": "✍️ Writing & Transcription",
+    "description": "Transcription jobs from a company with South African roots and global clients. Better for accurate English typing and careful formatting.",
+    "best_for": [
+      "Writing",
+      "Admin"
+    ],
+    "payout_notes": "$0.40-$1.20 per audio minute advertised. Monthly PayPal payouts.",
+    "difficulty": "Medium",
+    "tags": [
+      "transcription",
+      "captions",
+      "PayPal",
+      "experienced"
+    ],
+    "sa_friendly": true,
+    "recommended_rank": 80,
+    "featured": false,
+    "tier": "intermediate"
+  },
+  {
+    "id": 84,
+    "name": "Happy Scribe",
+    "slug": "happy-scribe",
+    "url": "https://www.happyscribe.com/transcription-jobs",
+    "ref_url": "https://www.happyscribe.com/transcription-jobs",
+    "category": "✍️ Writing & Transcription",
+    "description": "Freelance transcription and subtitling platform. Openings are competitive, but payments through Wise can work well for South Africans.",
+    "best_for": [
+      "Writing"
+    ],
+    "payout_notes": "Rates vary by language and task. Pays on the 1st and 15th via Wise.",
+    "difficulty": "Medium",
+    "tags": [
+      "transcription",
+      "subtitles",
+      "Wise",
+      "flexible"
+    ],
+    "sa_friendly": true,
+    "recommended_rank": 81,
+    "featured": false,
+    "tier": "intermediate"
+  },
+  {
+    "id": 85,
+    "name": "Redbubble",
+    "slug": "redbubble",
+    "url": "https://www.redbubble.com/about/selling",
+    "ref_url": "https://www.redbubble.com/about/selling",
+    "category": "🎨 Print-on-Demand & Stock Content",
+    "description": "Upload designs to sell on stickers, shirts, prints, and homeware. Best for designers who can build many niche designs over time.",
+    "best_for": [
+      "Creative",
+      "Design"
+    ],
+    "payout_notes": "Royalty margin income. Monthly payouts after $10 threshold; South Africans use PayPal.",
+    "difficulty": "Easy",
+    "tags": [
+      "print-on-demand",
+      "creative",
+      "design",
+      "passive income"
+    ],
+    "sa_friendly": true,
+    "recommended_rank": 82,
+    "featured": false,
+    "tier": "entry-level"
+  },
+  {
+    "id": 86,
+    "name": "Shutterstock Contributor",
+    "slug": "shutterstock-contributor",
+    "url": "https://submit.shutterstock.com/",
+    "ref_url": "https://submit.shutterstock.com/",
+    "category": "🎨 Print-on-Demand & Stock Content",
+    "description": "Sell stock photos, vectors, illustrations, video, and music. Good for photographers and designers with original content libraries.",
+    "best_for": [
+      "Creative",
+      "Design"
+    ],
+    "payout_notes": "Royalties vary by license and level. Payouts via Payoneer, PayPal, or Skrill.",
+    "difficulty": "Medium",
+    "tags": [
+      "stock content",
+      "photography",
+      "design",
+      "Payoneer"
+    ],
+    "sa_friendly": true,
+    "recommended_rank": 83,
+    "featured": false,
+    "tier": "intermediate"
+  },
+  {
+    "id": 87,
+    "name": "Adobe Stock Contributor",
+    "slug": "adobe-stock-contributor",
+    "url": "https://contributor.stock.adobe.com/",
+    "ref_url": "https://contributor.stock.adobe.com/",
+    "category": "🎨 Print-on-Demand & Stock Content",
+    "description": "Sell stock photos, vectors, videos, templates, and AI-assisted assets through Adobe Stock. Strong fit for polished creative portfolios.",
+    "best_for": [
+      "Creative",
+      "Design"
+    ],
+    "payout_notes": "Royalties use USD credits. Payoneer is required for South Africa; payout after threshold.",
+    "difficulty": "Medium",
+    "tags": [
+      "stock content",
+      "photography",
+      "design",
+      "Payoneer"
+    ],
+    "sa_friendly": true,
+    "recommended_rank": 84,
+    "featured": false,
+    "tier": "intermediate"
+  },
+  {
+    "id": 88,
+    "name": "Dreamstime Contributor",
+    "slug": "dreamstime-contributor",
+    "url": "https://www.dreamstime.com/sell-stock-photos-images",
+    "ref_url": "https://www.dreamstime.com/sell-stock-photos-images",
+    "category": "🎨 Print-on-Demand & Stock Content",
+    "description": "Stock photo and illustration marketplace with a long-running contributor program. Better as a portfolio income stream than quick cash.",
+    "best_for": [
+      "Creative",
+      "Design"
+    ],
+    "payout_notes": "Royalties vary. Request payout from $100 via PayPal, Payoneer, Skrill, or check.",
+    "difficulty": "Medium",
+    "tags": [
+      "stock content",
+      "photography",
+      "illustration",
+      "Payoneer"
+    ],
+    "sa_friendly": true,
+    "recommended_rank": 85,
+    "featured": false,
+    "tier": "intermediate"
+  },
+  {
+    "id": 89,
+    "name": "Pond5 Contributor",
+    "slug": "pond5-contributor",
+    "url": "https://contributor.pond5.com/",
+    "ref_url": "https://contributor.pond5.com/",
+    "category": "🎨 Print-on-Demand & Stock Content",
+    "description": "Sell stock video, music, sound effects, images, and After Effects templates. Strongest for creators with video or audio assets.",
+    "best_for": [
+      "Creative",
+      "Design"
+    ],
+    "payout_notes": "Royalties vary. Monthly payouts via PayPal, Payoneer, or Skrill; referral earnings also supported.",
+    "difficulty": "Medium",
+    "tags": [
+      "stock content",
+      "video",
+      "audio",
+      "Payoneer"
+    ],
+    "sa_friendly": true,
+    "recommended_rank": 86,
+    "featured": false,
+    "tier": "intermediate"
+  },
+  {
+    "id": 90,
+    "name": "LaborX",
+    "slug": "laborx",
+    "url": "https://laborx.com/",
+    "ref_url": "https://laborx.com/",
+    "category": "🪙 Crypto & Web3",
+    "description": "Crypto freelance marketplace for development, design, writing, marketing, and admin gigs. Payments can be agreed in stablecoins or major crypto.",
+    "best_for": [
+      "Dev",
+      "Creative",
+      "Writing"
+    ],
+    "payout_notes": "$20-$1,000+ per gig. Crypto escrow-style payments in USDC, USDT, DAI, ETH, BNB and more.",
+    "difficulty": "Medium",
+    "tags": [
+      "crypto",
+      "freelance",
+      "stablecoins",
+      "web3"
+    ],
+    "sa_friendly": true,
+    "recommended_rank": 87,
+    "featured": false,
+    "tier": "intermediate"
+  },
+  {
+    "id": 91,
+    "name": "CryptoTask",
+    "slug": "cryptotask",
+    "url": "https://www.cryptotask.org/en",
+    "ref_url": "https://www.cryptotask.org/en",
+    "category": "🪙 Crypto & Web3",
+    "description": "Decentralized freelance marketplace for crypto, writing, software, and marketing tasks. Better for people comfortable using wallets and escrow.",
+    "best_for": [
+      "Dev",
+      "Writing",
+      "Marketing"
+    ],
+    "payout_notes": "$20-$500+ per task. Crypto payments through smart-contract escrow.",
+    "difficulty": "Medium",
+    "tags": [
+      "crypto",
+      "freelance",
+      "escrow",
+      "web3"
+    ],
+    "sa_friendly": true,
+    "recommended_rank": 88,
+    "featured": false,
+    "tier": "intermediate"
+  },
+  {
+    "id": 92,
+    "name": "Superteam Earn",
+    "slug": "superteam-earn",
+    "url": "https://earn.superteam.fun/",
+    "ref_url": "https://earn.superteam.fun/",
+    "category": "🪙 Crypto & Web3",
+    "description": "Solana-focused bounties, grants, and crypto jobs for developers, designers, writers, and community builders. Work is public and competitive.",
+    "best_for": [
+      "Dev",
+      "Design",
+      "Writing"
+    ],
+    "payout_notes": "$50-$5,000+ per bounty or grant. Rewards usually paid in crypto or stablecoins.",
+    "difficulty": "Hard",
+    "tags": [
+      "crypto",
+      "bounties",
+      "Solana",
+      "high pay"
+    ],
+    "sa_friendly": true,
+    "recommended_rank": 89,
+    "featured": false,
+    "tier": "competitive"
+  },
+  {
+    "id": 93,
+    "name": "Gitcoin Bounties",
+    "slug": "gitcoin-bounties",
+    "url": "https://gitcoin.co/mechanisms/bounties",
+    "ref_url": "https://gitcoin.co/mechanisms/bounties",
+    "category": "🪙 Crypto & Web3",
+    "description": "Open-source and Web3 bounty work for developers, technical writers, translators, and community contributors. Best if you already know GitHub.",
+    "best_for": [
+      "Dev",
+      "Writing"
+    ],
+    "payout_notes": "$50-$10,000+ per bounty. Crypto payments vary by funder and bounty terms.",
+    "difficulty": "Hard",
+    "tags": [
+      "crypto",
+      "open source",
+      "bounties",
+      "developers"
+    ],
+    "sa_friendly": true,
+    "recommended_rank": 90,
+    "featured": false,
+    "tier": "competitive"
+  },
+  {
+    "id": 94,
+    "name": "Bountycaster",
+    "slug": "bountycaster",
+    "url": "https://www.bountycaster.xyz/",
+    "ref_url": "https://www.bountycaster.xyz/",
+    "category": "🪙 Crypto & Web3",
+    "description": "Peer-to-peer crypto bounties linked to Farcaster. Tasks can include design, testing, content, dev fixes, and product feedback.",
+    "best_for": [
+      "Dev",
+      "Creative",
+      "Writing"
+    ],
+    "payout_notes": "$5-$5,000+ per bounty. Peer-to-peer payouts in USDC, ETH, SOL and other supported tokens.",
+    "difficulty": "Medium",
+    "tags": [
+      "crypto",
+      "bounties",
+      "USDC",
+      "flexible"
+    ],
+    "sa_friendly": true,
+    "recommended_rank": 91,
+    "featured": false,
+    "tier": "intermediate"
   }
 ]
