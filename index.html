@@ -732,25 +732,10 @@
         localStorage.setItem('newsletter-modal-dismissed', 'true');
       }
 
-      window.openNewsletterModal = openModal;
-      
-      // Check if user already dismissed the modal
-      if (localStorage.getItem('newsletter-modal-dismissed')) {
-        document.querySelectorAll('[data-open-newsletter]').forEach(btn => {
-          btn.addEventListener('click', openModal);
-        });
-        return;
-      }
-      
-      // Show modal after 15 seconds
-      setTimeout(function() {
-        openModal();
-      }, 15000);
-
       document.querySelectorAll('[data-open-newsletter]').forEach(btn => {
         btn.addEventListener('click', openModal);
       });
-      
+
       // Close modal on button click
       closeBtn.addEventListener('click', closeModal);
       if (closeSecondaryBtn) {
@@ -770,6 +755,15 @@
           closeModal();
         }
       });
+
+      window.openNewsletterModal = openModal;
+
+      // Show modal after 15 seconds, unless the user already dismissed it.
+      if (!localStorage.getItem('newsletter-modal-dismissed')) {
+        setTimeout(function() {
+          openModal();
+        }, 15000);
+      }
     })();
   </script>
   
