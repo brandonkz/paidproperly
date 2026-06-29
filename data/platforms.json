@@ -1436,35 +1436,6 @@
     "tier": "competitive"
   },
   {
-    "id": 60,
-    "name": "Remote4Africa",
-    "slug": "remote4africa",
-    "url": "https://remote4africa.com",
-    "ref_url": "https://remote4africa.com",
-    "category": "📋 Remote Job Boards & Agencies",
-    "description": "Africa-focused remote job board with 1,200+ jobs from 1,000+ companies across 50+ African countries. Features AI-powered resume feedback and interview prep.",
-    "best_for": [
-      "Dev",
-      "Design",
-      "Marketing",
-      "Support",
-      "Ops"
-    ],
-    "payout_notes": "Varies by employer. Direct company applications.",
-    "difficulty": "Medium",
-    "tags": [
-      "job board",
-      "Africa-focused",
-      "remote",
-      "AI tools",
-      "beginner-friendly"
-    ],
-    "sa_friendly": true,
-    "recommended_rank": 18,
-    "featured": false,
-    "tier": "intermediate"
-  },
-  {
     "id": 61,
     "name": "RemoteAfrica",
     "slug": "remoteafrica",
@@ -1490,34 +1461,6 @@
     ],
     "sa_friendly": true,
     "recommended_rank": 19,
-    "featured": false,
-    "tier": "intermediate"
-  },
-  {
-    "id": 62,
-    "name": "Remote Recruitment",
-    "slug": "remote-recruitment",
-    "url": "https://remoterecruitment.co.za",
-    "ref_url": "https://remoterecruitment.co.za",
-    "category": "📋 Remote Job Boards & Agencies",
-    "description": "South Africa's largest remote job platform with 200k+ community. Focuses on independent contractor positions with international businesses. Includes training resources.",
-    "best_for": [
-      "Dev",
-      "Support",
-      "Admin",
-      "Ops"
-    ],
-    "payout_notes": "Contractor-based. Varies by role. Training available.",
-    "difficulty": "Medium",
-    "tags": [
-      "job board",
-      "SA-specific",
-      "contractors",
-      "training",
-      "beginner-friendly"
-    ],
-    "sa_friendly": true,
-    "recommended_rank": 24,
     "featured": false,
     "tier": "intermediate"
   },
