@@ -19,6 +19,29 @@ const WORK_STYLE_OPTIONS = [
 ];
 
 const BEST_CHANCE_SLUGS = ['somewhere', 'wing-assistant', 'remote-recruitment'];
+const BEST_CHANCE_BRANDS = {
+  somewhere: {
+    mark: 'SW',
+    badge: 'USD full-time',
+    accent: '#2563eb',
+    accentDark: '#1e3a8a',
+    tint: '#dbeafe'
+  },
+  'wing-assistant': {
+    mark: 'WA',
+    badge: 'VA/admin roles',
+    accent: '#7c3aed',
+    accentDark: '#4c1d95',
+    tint: '#ede9fe'
+  },
+  'remote-recruitment': {
+    mark: 'RR',
+    badge: 'SA hiring',
+    accent: '#059669',
+    accentDark: '#064e3b',
+    tint: '#d1fae5'
+  }
+};
 
 // DOM Elements
 const searchInput = document.getElementById('search-input');
@@ -375,16 +398,23 @@ function renderPopular() {
     const isSaved = preferences.liked.includes(platform.slug);
     const initial = platform.name.charAt(0).toUpperCase();
     const diffClass = platform.difficulty.toLowerCase();
-    const badge = index === 0 ? 'Best odds' : 'Recent SA pick';
+    const brand = BEST_CHANCE_BRANDS[platform.slug] || {
+      mark: initial,
+      badge: index === 0 ? 'Best odds' : 'Recommended',
+      accent: '#2d6a4f',
+      accentDark: '#1b4332',
+      tint: '#d8f3dc'
+    };
+    const badge = brand.badge;
 
     return `
-    <a href="go/${platform.slug}.html" target="_blank" rel="noopener" class="popular-card featured-platform">
+    <a href="go/${platform.slug}.html" target="_blank" rel="noopener" class="popular-card featured-platform" style="--featured-accent: ${brand.accent}; --featured-accent-dark: ${brand.accentDark}; --featured-tint: ${brand.tint};">
       <button class="save-btn popular-card-bookmark ${isSaved ? 'saved' : ''}" data-slug="${platform.slug}">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="${isSaved ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2">
           <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
         </svg>
       </button>
-      <div class="popular-card-logo">${getEmoji(platform.category) || initial}</div>
+      <div class="popular-card-logo popular-card-logo--brand">${escapeHtml(brand.mark)}</div>
       <div class="popular-card-company">${escapeHtml(platform.category)}</div>
       <div class="popular-card-title">${escapeHtml(platform.name)}</div>
       <p class="popular-card-description">${escapeHtml(platform.description)}</p>
@@ -393,7 +423,7 @@ function renderPopular() {
         <span class="popular-card-badge">${escapeHtml(badge)}</span>
       </div>
       <div class="popular-card-cta">
-        <strong>Check it out</strong>
+        <strong>View opportunity</strong>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
           <polyline points="15 3 21 3 21 9"></polyline>

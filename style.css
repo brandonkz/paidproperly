@@ -438,8 +438,10 @@ body {
 
 /* Featured Platform (Best Chance) */
 .featured-platform {
-  background: linear-gradient(135deg, #2d6a4f 0%, #40916c 100%);
-  border: 2px solid var(--color-primary);
+  background:
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.2), transparent 38%),
+    linear-gradient(135deg, var(--featured-accent-dark, #1b4332) 0%, var(--featured-accent, #2d6a4f) 100%);
+  border: 2px solid var(--featured-accent, var(--color-primary));
   padding: 1.5rem;
   min-height: 220px;
   display: flex;
@@ -449,11 +451,19 @@ body {
 }
 
 .featured-platform .popular-card-logo {
-  width: 48px;
-  height: 48px;
-  font-size: 1.5rem;
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
+  width: 52px;
+  height: 52px;
+  font-size: 1rem;
+  background: var(--featured-tint, rgba(255, 255, 255, 0.2));
+  color: var(--featured-accent-dark, #1b4332);
+  border: 2px solid rgba(255, 255, 255, 0.72);
+  box-shadow: 0 10px 24px rgba(17, 24, 39, 0.18);
+  letter-spacing: 0;
+}
+
+.featured-platform .popular-card-logo--brand {
+  font-weight: 800;
+  font-size: 0.95rem;
 }
 
 .featured-platform .popular-card-company {
@@ -485,13 +495,18 @@ body {
   margin-top: auto;
 }
 
-.featured-platform .popular-card-difficulty {
-  background: rgba(255, 255, 255, 0.25);
-  color: white;
-  font-weight: 600;
+.featured-platform .popular-card-badge {
+  background: var(--featured-tint, rgba(255, 255, 255, 0.25));
+  color: var(--featured-accent-dark, #1b4332);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow: 0 4px 12px rgba(17, 24, 39, 0.12);
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 700;
 }
 
-.featured-platform .popular-card-badge {
+.featured-platform .popular-card-difficulty {
   background: rgba(255, 255, 255, 0.25);
   color: white;
   padding: 0.25rem 0.75rem;
@@ -506,7 +521,7 @@ body {
   justify-content: center;
   gap: 0.5rem;
   background: white;
-  color: var(--color-primary);
+  color: var(--featured-accent-dark, var(--color-primary));
   padding: 0.75rem 1.25rem;
   border-radius: var(--radius-md);
   font-weight: 700;
