@@ -18,7 +18,7 @@ const WORK_STYLE_OPTIONS = [
   { id: 'part-time', label: '⏱️ Part-time' }
 ];
 
-const BEST_CHANCE_SLUGS = ['somewhere', 'wing-assistant', 'remote-recruitment'];
+const BEST_CHANCE_SLUGS = ['somewhere', 'wing-assistant', 'usertesting'];
 const BEST_CHANCE_BRANDS = {
   somewhere: {
     mark: 'SW',
@@ -34,12 +34,12 @@ const BEST_CHANCE_BRANDS = {
     accentDark: '#4c1d95',
     tint: '#ede9fe'
   },
-  'remote-recruitment': {
-    mark: 'RR',
-    badge: 'SA hiring',
-    accent: '#059669',
-    accentDark: '#064e3b',
-    tint: '#d1fae5'
+  usertesting: {
+    mark: 'UT',
+    badge: 'Paid testing',
+    accent: '#0891b2',
+    accentDark: '#164e63',
+    tint: '#cffafe'
   }
 };
 
