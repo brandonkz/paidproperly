@@ -1436,35 +1436,6 @@
     "tier": "competitive"
   },
   {
-    "id": 61,
-    "name": "RemoteAfrica",
-    "slug": "remoteafrica",
-    "url": "https://remoteafrica.io",
-    "ref_url": "https://remoteafrica.io",
-    "category": "📋 Remote Job Boards & Agencies",
-    "description": "Remote job board specifically for African professionals. Categories include Engineering, Design, Product, Marketing, DevOps, and Customer Support.",
-    "best_for": [
-      "Dev",
-      "Design",
-      "Product",
-      "Marketing",
-      "Support"
-    ],
-    "payout_notes": "Varies by employer. Newsletter alerts for new jobs.",
-    "difficulty": "Medium",
-    "tags": [
-      "job board",
-      "Africa-focused",
-      "remote",
-      "newsletter",
-      "beginner-friendly"
-    ],
-    "sa_friendly": true,
-    "recommended_rank": 19,
-    "featured": false,
-    "tier": "intermediate"
-  },
-  {
     "id": 63,
     "name": "FreedomJobs",
     "slug": "freedomjobs",
