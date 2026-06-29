@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free financial needs analysis calculator for South Africans. Estimate retirement savings, life cover, emergency fund gaps, and monthly investment needs.">
+  <link rel="canonical" href="https://paidproperly.co.za/financial-needs-analysis.html">
+  <meta name="keywords" content="financial needs analysis calculator South Africa, FNA calculator, retirement gap calculator, life insurance calculator, financial planning SA">
+  <title>Financial Needs Analysis Calculator South Africa | PaidProperly</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%232d6a4f' width='100' height='100' rx='20'/><text x='50' y='72' font-size='60' text-anchor='middle' fill='white' font-weight='bold'>✓</text><circle cx='75' cy='25' r='15' fill='%23ffd700'/><text x='75' y='31' font-size='18' text-anchor='middle' fill='%232d6a4f' font-weight='bold'>R</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8RPC987YL8"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-8RPC987YL8');
+  </script>
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #059669;
+      --primary-dark: #047857;
+      --bg: #f9fafb;
+      --card: #ffffff;
+      --text: #111827;
+      --text-muted: #6b7280;
+      --border: #e5e7eb;
+      --danger: #dc2626;
+      --warning: #f59e0b;
+      --success: #10b981;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    body .site-header {
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .header {
+      text-align: center;
+      padding: 40px 20px;
+      background: linear-gradient(135deg, #ecfdf5 0%, #f0f9ff 100%);
+      border-bottom: 3px solid var(--primary);
+      margin-bottom: 30px;
+    }
+
+    .header h1 {
+      font-size: 2rem;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    .header p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .tool-note {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+      padding: 14px 16px;
+    }
+
+    .progress-bar {
+      height: 8px;
+      background: var(--border);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 30px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--primary);
+      width: 14%;
+      transition: width 0.3s ease;
+    }
+
+    .step-indicator {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .section {
+      display: none;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+
+    h3 {
+      font-size: 1.2rem;
+      margin: 20px 0 10px;
+      color: var(--text);
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      margin-bottom: 25px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    input[type="number"],
+    input[type="text"],
+    select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.2s;
+    }
+
+    input:focus,
+    select:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .input-group {
+      position: relative;
+    }
+
+    .input-prefix {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+
+    .input-group input {
+      padding-left: 28px;
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .radio-option {
+      flex: 1;
+      min-width: 120px;
+    }
+
+    .radio-option input[type="radio"] {
+      display: none;
+    }
+
+    .radio-option label {
+      display: block;
+      padding: 12px;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .radio-option input:checked + label {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 14px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+    }
+
+    .btn-secondary {
+      background: var(--border);
+      color: var(--text);
+    }
+
+    .btn-secondary:hover {
+      background: #d1d5db;
+    }
+
+    .result-card {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      padding: 30px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+
+    .result-value {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin: 10px 0;
+    }
+
+    .result-label {
+      opacity: 0.9;
+      font-size: 1.1rem;
+    }
+
+    .insight-box {
+      background: #fef3c7;
+      border-left: 4px solid var(--warning);
+      padding: 15px;
+      border-radius: 6px;
+      margin: 15px 0;
+    }
+
+    .insight-box.danger {
+      background: #fee2e2;
+      border-left-color: var(--danger);
+    }
+
+    .insight-box.success {
+      background: #d1fae5;
+      border-left-color: var(--success);
+    }
+
+    .gap-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .gap-item:last-child {
+      border-bottom: none;
+    }
+
+    .gap-label {
+      font-weight: 500;
+    }
+
+    .gap-amount {
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .gap-amount.negative {
+      color: var(--danger);
+    }
+
+    @media (max-width: 640px) {
+      .header h1 {
+        font-size: 1.5rem;
+      }
+
+      .btn-group {
+        flex-direction: column;
+      }
+
+      .result-value {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-container">
+      <a href="index.html" class="brand">
+        <span class="brand-icon">✓</span>
+        <span class="brand-name">PaidProperly</span>
+      </a>
+      <nav class="header-nav">
+        <a href="index.html" class="nav-link">Platforms</a>
+        <a href="blog/" class="nav-link">Blog</a>
+        <a href="usd-salary-calculator.html" class="nav-link">USD Calculator</a>
+        <a href="net-salary-calculator.html" class="nav-link">Net Salary</a>
+        <a href="rate-calculator.html" class="nav-link">Rate Calculator</a>
+        <a href="financial-needs-analysis.html" class="nav-link active">Financial Needs</a>
+        <a href="joint-account-calculator.html" class="nav-link">Joint Account</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="header">
+    <h1>Financial Needs Analysis</h1>
+    <p>Estimate your retirement gap, insurance cover, emergency fund, and monthly investment target in a few minutes.</p>
+  </div>
+
+  <div class="container">
+    <div class="tool-note">
+      This is an educational calculator for South Africans, not personal financial advice. Use it to spot gaps before you speak to a qualified planner.
+    </div>
+
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressBar"></div>
+    </div>
+    <div class="step-indicator" id="stepIndicator">Step 1 of 7</div>
+
+    <!-- Section 1: Personal Info -->
+    <div class="section active" id="section1">
+      <div class="card">
+        <h2>Personal Information</h2>
+        <p class="subtitle">Let's start with the basics</p>
+
+        <div class="form-group">
+          <label>Your age</label>
+          <input type="number" id="age" placeholder="35" min="18" max="100">
+        </div>
+
+        <div class="form-group">
+          <label>Marital status</label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" name="marital" value="single" id="single">
+              <label for="single">Single</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="marital" value="married" id="married" checked>
+              <label for="married">Married</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Number of dependents</label>
+          <input type="number" id="dependents" placeholder="2" min="0" max="10" value="0">
+        </div>
+
+        <div class="form-group">
+          <label>Youngest dependent's age (optional)</label>
+          <input type="number" id="youngestAge" placeholder="5" min="0" max="25">
+        </div>
+
+        <div class="btn-group">
+          <button class="btn btn-primary" data-action="next">Next →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 2: Income & Expenses -->
+    <div class="section" id="section2">
+      <div class="card">
+        <h2>Income & Expenses</h2>
+        <p class="subtitle">Your current financial situation</p>
+
+        <div class="form-group">
+          <label>Monthly gross income</label>
+          <div class="input-group">
+            <span class="input-prefix">R</span>
+            <input type="number" id="income" placeholder="50000" min="0">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Spouse's monthly income (if applicable)</label>
+          <div class="input-group">
+            <span class="input-prefix">R</span>
+            <input type="number" id="spouseIncome" placeholder="40000" min="0" value="0">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Total monthly expenses</label>
+          <div class="input-group">
+            <span class="input-prefix">R</span>
+            <input type="number" id="expenses" placeholder="35000" min="0">
+          </div>
+        </div>
+
+        <div class="btn-group">
+          <button class="btn btn-secondary" data-action="prev">← Back</button>
+          <button class="btn btn-primary" data-action="next">Next →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 3: Assets & Debts -->
+    <div class="section" id="section3">
+      <div class="card">
+        <h2>Assets & Debts</h2>
+        <p class="subtitle">What you own and what you owe</p>
+
+        <h3>Assets</h3>
+        
+        <div class="form-group">
+          <label>Emergency fund / Cash savings</label>
+          <div class="input-group">
+            <span class="input-prefix">R</span>
+            <input type="number" id="emergencyFund" placeholder="50000" min="0" value="0">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Retirement savings (RA, pension, provident)</label>
+          <div class="input-group">
+            <span class="input-prefix">R</span>
+            <input type="number" id="retirementSavings" placeholder="500000" min="0" value="0">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Property value (primary residence)</label>
+          <div class="input-group">
+            <span class="input-prefix">R</span>
+            <input type="number" id="propertyValue" placeholder="2000000" min="0" value="0">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Other investments (TFSA, unit trusts, shares)</label>
+          <div class="input-group">
+            <span class="input-prefix">R</span>
+            <input type="number" id="investments" placeholder="200000" min="0" value="0">
+          </div>
+        </div>
+
+        <h3>Debts</h3>
+
+        <div class="form-group">
+          <label>Home loan outstanding</label>
+          <div class="input-group">
+            <span class="input-prefix">R</span>
+            <input type="number" id="homeLoan" placeholder="1500000" min="0" value="0">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Other debt (car, credit cards, personal loans)</label>
+          <div class="input-group">
+            <span class="input-prefix">R</span>
+            <input type="number" id="otherDebt" placeholder="300000" min="0" value="0">
+          </div>
+        </div>
+
+        <div class="btn-group">
+          <button class="btn btn-secondary" data-action="prev">← Back</button>
+          <button class="btn btn-primary" data-action="next">Next →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 4: Current Insurance -->
+    <div class="section" id="section4">
+      <div class="card">
+        <h2>Current Insurance Cover</h2>
+        <p class="subtitle">What protection do you already have?</p>
+
+        <div class="form-group">
+          <label>Life insurance cover</label>
+          <div class="input-group">
+            <span class="input-prefix">R</span>
+            <input type="number" id="lifeCover" placeholder="2000000" min="0" value="0">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Disability / Income protection (monthly benefit)</label>
+          <div class="input-group">
+            <span class="input-prefix">R</span>
+            <input type="number" id="disabilityCover" placeholder="30000" min="0" value="0">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Critical illness / Severe illness cover</label>
+          <div class="input-group">
+            <span class="input-prefix">R</span>
+            <input type="number" id="criticalCover" placeholder="500000" min="0" value="0">
+          </div>
+        </div>
+
+        <div class="btn-group">
+          <button class="btn btn-secondary" data-action="prev">← Back</button>
+          <button class="btn btn-primary" data-action="next">Next →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 5: Retirement Goals -->
+    <div class="section" id="section5">
+      <div class="card">
+        <h2>Retirement Planning</h2>
+        <p class="subtitle">When and how do you want to retire?</p>
+
+        <div class="form-group">
+          <label>Planned retirement age</label>
+          <input type="number" id="retirementAge" placeholder="65" min="50" max="75" value="65">
+        </div>
+
+        <div class="form-group">
+          <label>Desired monthly retirement income (today's Rands)</label>
+          <div class="input-group">
+            <span class="input-prefix">R</span>
+            <input type="number" id="retirementIncome" placeholder="40000" min="0">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Monthly contributions to retirement (RA, pension)</label>
+          <div class="input-group">
+            <span class="input-prefix">R</span>
+            <input type="number" id="retirementContribution" placeholder="5000" min="0" value="0">
+          </div>
+        </div>
+
+        <div class="btn-group">
+          <button class="btn btn-secondary" data-action="prev">← Back</button>
+          <button class="btn btn-primary" data-action="next">Next →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 6: Estate Planning -->
+    <div class="section" id="section6">
+      <div class="card">
+        <h2>Estate Planning</h2>
+        <p class="subtitle">Protecting your loved ones</p>
+
+        <div class="form-group">
+          <label>Do you have a valid will?</label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" name="will" value="yes" id="willYes">
+              <label for="willYes">Yes</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="will" value="no" id="willNo" checked>
+              <label for="willNo">No</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Have you nominated beneficiaries on all policies?</label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" name="beneficiaries" value="yes" id="benYes">
+              <label for="benYes">Yes</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="beneficiaries" value="no" id="benNo" checked>
+              <label for="benNo">No</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="btn-group">
+          <button class="btn btn-secondary" data-action="prev">← Back</button>
+          <button class="btn btn-primary" data-action="calculate">Calculate My Needs →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 7: Results -->
+    <div class="section" id="section7">
+      <div class="result-card">
+        <div class="result-label">💰 Monthly Investment Needed</div>
+        <div class="result-value" id="monthlyNeed">R 0</div>
+        <p style="opacity: 0.9; margin-top: 10px;" id="investmentSubtext"></p>
+      </div>
+
+      <div class="card">
+        <h2>🎯 Your Retirement Goal</h2>
+        <div id="retirementPlan"></div>
+      </div>
+
+      <div class="card">
+        <h2>📊 What If I Invest More?</h2>
+        <p class="subtitle">See how increasing your monthly investment changes your outcome</p>
+        <div style="margin: 20px 0;">
+          <label style="display: block; margin-bottom: 10px;">Extra monthly investment:</label>
+          <input type="range" id="extraInvestment" min="0" max="10000" step="500" value="0" style="width: 100%;">
+          <div style="display: flex; justify-content: space-between; margin-top: 5px; font-size: 0.9rem; color: var(--text-muted);">
+            <span>R 0</span>
+            <span id="extraAmount">R 0</span>
+            <span>R 10,000</span>
+          </div>
+        </div>
+        <div id="extraImpact"></div>
+      </div>
+
+      <div class="card">
+        <h2>📈 Your Wealth Timeline</h2>
+        <p class="subtitle">How your assets grow to retirement (in today's rands)</p>
+        <div id="wealthProjection"></div>
+      </div>
+
+      <div class="card">
+        <h2>🛡️ Protecting Your Investment Journey</h2>
+        <p class="subtitle">Insurance to protect your family while you build wealth</p>
+        <div id="insuranceGaps"></div>
+      </div>
+
+      <div class="card">
+        <h2>Emergency Fund</h2>
+        <div id="emergencyGaps"></div>
+      </div>
+
+      <div class="card">
+        <h2>Action Plan</h2>
+        <div id="recommendations"></div>
+      </div>
+
+      <div class="card">
+        <h2>Next Steps</h2>
+        <p style="margin-bottom: 15px;">Use the rest of PaidProperly to connect this plan back to your income and work options.</p>
+        <div class="btn-group">
+          <a class="btn btn-primary" href="/net-salary-calculator.html">Calculate Take-Home Pay</a>
+          <a class="btn btn-secondary" href="/rate-calculator.html">Check Freelance Rate</a>
+        </div>
+        <div class="btn-group" style="margin-top: 15px;">
+          <a class="btn btn-secondary" href="/">Browse Income Platforms</a>
+        </div>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn btn-secondary" data-action="restart">Start Over</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="financial-needs-analysis.js" defer></script>
+</body>
+</html>
