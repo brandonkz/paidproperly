@@ -18,7 +18,7 @@ const WORK_STYLE_OPTIONS = [
   { id: 'part-time', label: '⏱️ Part-time' }
 ];
 
-const BEST_CHANCE_SLUGS = ['somewhere', 'remote4africa', 'remote-recruitment'];
+const BEST_CHANCE_SLUGS = ['somewhere', 'wing-assistant', 'remote-recruitment'];
 
 // DOM Elements
 const searchInput = document.getElementById('search-input');
