@@ -8,8 +8,17 @@ let filteredPlatforms = [];
 let preferences = loadPreferences();
 let activeQuickFilter = 'all';
 let selectedDifficulties = ['Easy', 'Medium', 'Hard'];
+let selectedWorkStyles = [];
 let selectedCategories = [];
 let selectedBestFor = [];
+
+const WORK_STYLE_OPTIONS = [
+  { id: 'full-time', label: '💼 Full-time' },
+  { id: 'surveys', label: '🧪 Surveys & Testing' },
+  { id: 'part-time', label: '⏱️ Part-time' }
+];
+
+const BEST_CHANCE_SLUGS = ['somewhere', 'remote4africa', 'remote-recruitment'];
 
 // DOM Elements
 const searchInput = document.getElementById('search-input');
@@ -19,6 +28,7 @@ const platformsList = document.getElementById('platforms-list');
 const quickPills = document.querySelectorAll('.pill');
 const saFriendlyToggle = document.getElementById('sa-friendly-toggle');
 const resetFiltersBtn = document.getElementById('reset-filters');
+const workStyleFiltersContainer = document.getElementById('workstyle-filters');
 const categoryFiltersContainer = document.getElementById('category-filters');
 const bestForFiltersContainer = document.getElementById('bestfor-filters');
 
@@ -98,6 +108,15 @@ function toggleSave(slug) {
 
 // Populate Filters
 function populateFilters() {
+  workStyleFiltersContainer.innerHTML = WORK_STYLE_OPTIONS.map(option => `
+    <label class="filter-checkbox">
+      <input type="checkbox" value="${escapeHtml(option.id)}" class="workstyle-check">
+      <span class="checkmark"></span>
+      <span>${escapeHtml(option.label)}</span>
+      <span class="filter-count" data-workstyle="${escapeHtml(option.id)}">0</span>
+    </label>
+  `).join('');
+
   // Categories
   const categories = [...new Set(platforms.map(p => p.category))].sort();
   categoryFiltersContainer.innerHTML = categories.map(cat => `
@@ -132,6 +151,13 @@ function updateFilterCounts() {
   document.querySelector('[data-difficulty="Easy"]').textContent = easyCnt;
   document.querySelector('[data-difficulty="Medium"]').textContent = medCnt;
   document.querySelector('[data-difficulty="Hard"]').textContent = hardCnt;
+
+  WORK_STYLE_OPTIONS.forEach(option => {
+    const countEl = document.querySelector(`[data-workstyle="${option.id}"]`);
+    if (countEl) {
+      countEl.textContent = platforms.filter(p => matchesWorkStyle(p, option.id)).length;
+    }
+  });
 }
 
 // Event Listeners
@@ -145,6 +171,8 @@ function setupEventListeners() {
       quickPills.forEach(p => p.classList.remove('active'));
       pill.classList.add('active');
       activeQuickFilter = pill.dataset.filter;
+      selectedWorkStyles = [];
+      syncFilterInputs();
       applyFilters();
     });
   });
@@ -155,6 +183,14 @@ function setupEventListeners() {
       selectedDifficulties = [...document.querySelectorAll('.difficulty-check:checked')].map(c => c.value);
       applyFilters();
     });
+  });
+
+  // Work style checkboxes
+  workStyleFiltersContainer.addEventListener('change', () => {
+    selectedWorkStyles = [...document.querySelectorAll('.workstyle-check:checked')].map(c => c.value);
+    activeQuickFilter = 'all';
+    syncFilterInputs();
+    applyFilters();
   });
 
   // Category checkboxes
@@ -195,11 +231,13 @@ function setupEventListeners() {
 function resetFilters() {
   searchInput.value = '';
   selectedDifficulties = ['Easy', 'Medium', 'Hard'];
+  selectedWorkStyles = [];
   selectedCategories = [];
   selectedBestFor = [];
   activeQuickFilter = 'all';
 
   document.querySelectorAll('.difficulty-check').forEach(cb => cb.checked = true);
+  document.querySelectorAll('.workstyle-check').forEach(cb => cb.checked = false);
   document.querySelectorAll('.category-check').forEach(cb => cb.checked = false);
   document.querySelectorAll('.bestfor-check').forEach(cb => cb.checked = false);
   saFriendlyToggle.checked = true;
@@ -213,6 +251,10 @@ function resetFilters() {
 function syncFilterInputs() {
   document.querySelectorAll('.difficulty-check').forEach(cb => {
     cb.checked = selectedDifficulties.includes(cb.value);
+  });
+
+  document.querySelectorAll('.workstyle-check').forEach(cb => {
+    cb.checked = selectedWorkStyles.includes(cb.value);
   });
 
   document.querySelectorAll('.category-check').forEach(cb => {
@@ -231,18 +273,21 @@ function syncFilterInputs() {
 function runQuickStartAction(action, scrollTarget) {
   searchInput.value = '';
   saFriendlyToggle.checked = true;
+  selectedWorkStyles = [];
   selectedBestFor = [];
 
   switch (action) {
     case 'entry-testing':
       activeQuickFilter = 'entry';
       selectedDifficulties = ['Easy'];
+      selectedWorkStyles = ['surveys'];
       selectedCategories = ['🧪 Testing & Research'];
       break;
     case 'full-time-remote':
       activeQuickFilter = 'all';
       selectedDifficulties = ['Easy', 'Medium', 'Hard'];
-      selectedCategories = ['📋 Remote Job Boards & Agencies'];
+      selectedWorkStyles = ['full-time'];
+      selectedCategories = [];
       break;
     case 'high-pay-freelance':
       activeQuickFilter = 'competitive';
@@ -272,6 +317,9 @@ function applyFilters() {
   filteredPlatforms = platforms.filter(p => {
     // Quick filter
     if (activeQuickFilter === 'entry' && p.difficulty !== 'Easy') return false;
+    if (activeQuickFilter === 'full-time' && !matchesWorkStyle(p, 'full-time')) return false;
+    if (activeQuickFilter === 'surveys' && !matchesWorkStyle(p, 'surveys')) return false;
+    if (activeQuickFilter === 'part-time' && !matchesWorkStyle(p, 'part-time')) return false;
     if (activeQuickFilter === 'non-tech') {
       const isOnlyTech = p.best_for.length === 1 && p.best_for[0] === 'Dev';
       if (isOnlyTech) return false;
@@ -281,6 +329,9 @@ function applyFilters() {
 
     // Difficulty
     if (!selectedDifficulties.includes(p.difficulty)) return false;
+
+    // Work style
+    if (selectedWorkStyles.length > 0 && !selectedWorkStyles.some(style => matchesWorkStyle(p, style))) return false;
 
     // Category
     if (selectedCategories.length > 0 && !selectedCategories.includes(p.category)) return false;
@@ -311,35 +362,38 @@ function render() {
 }
 
 function renderPopular() {
-  // Show ONLY Somewhere.com - the best chance for entry-level SA remote work
-  const somewhere = filteredPlatforms.find(p => p.slug === 'somewhere');
-  
-  if (!somewhere) {
+  const bestChancePlatforms = BEST_CHANCE_SLUGS
+    .map(slug => platforms.find(p => p.slug === slug))
+    .filter(Boolean);
+
+  if (bestChancePlatforms.length === 0) {
     popularGrid.innerHTML = '';
     return;
   }
 
-  const isSaved = preferences.liked.includes(somewhere.slug);
-  const initial = somewhere.name.charAt(0).toUpperCase();
-  const diffClass = somewhere.difficulty.toLowerCase();
+  popularGrid.innerHTML = bestChancePlatforms.map((platform, index) => {
+    const isSaved = preferences.liked.includes(platform.slug);
+    const initial = platform.name.charAt(0).toUpperCase();
+    const diffClass = platform.difficulty.toLowerCase();
+    const badge = index === 0 ? 'Best odds' : 'Recent SA pick';
 
-  popularGrid.innerHTML = `
-    <a href="go/${somewhere.slug}.html" target="_blank" rel="noopener" class="popular-card featured-platform">
-      <button class="save-btn popular-card-bookmark ${isSaved ? 'saved' : ''}" data-slug="${somewhere.slug}">
+    return `
+    <a href="go/${platform.slug}.html" target="_blank" rel="noopener" class="popular-card featured-platform">
+      <button class="save-btn popular-card-bookmark ${isSaved ? 'saved' : ''}" data-slug="${platform.slug}">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="${isSaved ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2">
           <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
         </svg>
       </button>
-      <div class="popular-card-logo">${getEmoji(somewhere.category) || initial}</div>
-      <div class="popular-card-company">${escapeHtml(somewhere.category)}</div>
-      <div class="popular-card-title">${escapeHtml(somewhere.name)}</div>
-      <p class="popular-card-description">${escapeHtml(somewhere.description)}</p>
+      <div class="popular-card-logo">${getEmoji(platform.category) || initial}</div>
+      <div class="popular-card-company">${escapeHtml(platform.category)}</div>
+      <div class="popular-card-title">${escapeHtml(platform.name)}</div>
+      <p class="popular-card-description">${escapeHtml(platform.description)}</p>
       <div class="popular-card-meta">
-        <span class="popular-card-difficulty difficulty-${diffClass}">${getDifficultyLabel(somewhere.difficulty)}</span>
-        <span class="popular-card-badge">🇿🇦 Perfect for SA</span>
+        <span class="popular-card-difficulty difficulty-${diffClass}">${getDifficultyLabel(platform.difficulty)}</span>
+        <span class="popular-card-badge">${escapeHtml(badge)}</span>
       </div>
       <div class="popular-card-cta">
-        <strong>Apply Now</strong>
+        <strong>Check it out</strong>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
           <polyline points="15 3 21 3 21 9"></polyline>
@@ -347,7 +401,8 @@ function renderPopular() {
         </svg>
       </div>
     </a>
-  `;
+    `;
+  }).join('');
 }
 
 function renderPlatformsList() {
@@ -426,7 +481,8 @@ function getEmoji(category) {
     '🏢 SaaS Companies': '🏢',
     '🌍 Freelance Marketplaces': '🌍',
     '✍️ Writing & Transcription': '✍️',
-    '🎨 Print-on-Demand & Stock Content': '🎨'
+    '🎨 Print-on-Demand & Stock Content': '🎨',
+    '🟢 Entry Level': '🟢'
   };
   return emojis[category] || null;
 }
@@ -438,6 +494,49 @@ function getDifficultyLabel(diff) {
     'Hard': '🔴 Competitive'
   };
   return labels[diff] || diff;
+}
+
+function matchesWorkStyle(platform, style) {
+  const searchable = [
+    platform.category,
+    platform.description,
+    platform.payout_notes,
+    platform.tier,
+    ...platform.tags,
+    ...platform.best_for
+  ].join(' ').toLowerCase();
+
+  if (style === 'full-time') {
+    return searchable.includes('full-time') ||
+      searchable.includes('salary') ||
+      searchable.includes('monthly') ||
+      searchable.includes('remote-first') ||
+      platform.category === '🏢 SaaS Companies' ||
+      platform.category === '📋 Remote Job Boards & Agencies';
+  }
+
+  if (style === 'surveys') {
+    return platform.category === '🧪 Testing & Research' ||
+      searchable.includes('survey') ||
+      searchable.includes('research') ||
+      searchable.includes('interview') ||
+      searchable.includes('user testing') ||
+      searchable.includes('test websites');
+  }
+
+  if (style === 'part-time') {
+    return searchable.includes('part-time') ||
+      searchable.includes('flexible') ||
+      searchable.includes('side income') ||
+      searchable.includes('side hustle') ||
+      searchable.includes('microtask') ||
+      searchable.includes('per task') ||
+      searchable.includes('per test') ||
+      searchable.includes('per study') ||
+      searchable.includes('set your own rates');
+  }
+
+  return false;
 }
 
 function escapeHtml(text) {
