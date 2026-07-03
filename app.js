@@ -408,7 +408,7 @@ function renderPopular() {
     const badge = brand.badge;
 
     return `
-    <a href="go/${platform.slug}.html" target="_blank" rel="noopener" class="popular-card featured-platform" style="--featured-accent: ${brand.accent}; --featured-accent-dark: ${brand.accentDark}; --featured-tint: ${brand.tint};">
+    <a href="platforms/${platform.slug}.html" class="popular-card featured-platform" style="--featured-accent: ${brand.accent}; --featured-accent-dark: ${brand.accentDark}; --featured-tint: ${brand.tint};">
       <button class="save-btn popular-card-bookmark ${isSaved ? 'saved' : ''}" data-slug="${platform.slug}">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="${isSaved ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2">
           <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
@@ -460,7 +460,7 @@ function renderPlatformsList() {
         <div class="platform-logo">${initial}</div>
         <div class="platform-info">
           <div class="platform-header">
-            <h3 class="platform-name">${escapeHtml(p.name)}</h3>
+            <h3 class="platform-name"><a href="platforms/${p.slug}.html">${escapeHtml(p.name)}</a></h3>
             ${p.sa_friendly ? '<span class="platform-badge badge-sa">🇿🇦 SA Friendly</span>' : ''}
             <span class="platform-badge difficulty-${diffClass}">${getDifficultyLabel(p.difficulty)}</span>
           </div>
@@ -482,8 +482,8 @@ function renderPlatformsList() {
                 <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
               </svg>
             </button>
-            <a href="go/${p.slug}.html" target="_blank" rel="noopener" class="btn btn-primary">
-              Apply
+            <a href="platforms/${p.slug}.html" class="btn btn-primary">
+              Details
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
                 <polyline points="15 3 21 3 21 9"></polyline>
