@@ -183,6 +183,79 @@
     .submit-btn:hover {
       transform: translateY(-2px);
     }
+
+    .hire-contact-panel {
+      background: white;
+      border: 1px solid #dbeafe;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+      padding: 2rem;
+    }
+
+    .hire-contact-panel h3 {
+      margin: 0 0 0.75rem;
+      font-size: 1.35rem;
+      color: #0f172a;
+    }
+
+    .hire-contact-panel p {
+      text-align: left;
+      margin: 0 0 1.25rem;
+    }
+
+    .hire-contact-list {
+      display: grid;
+      gap: 0.85rem;
+      margin: 0 0 1.5rem;
+      padding: 0;
+      list-style: none;
+    }
+
+    .hire-contact-list li {
+      display: flex;
+      gap: 0.65rem;
+      align-items: flex-start;
+      color: #334155;
+      line-height: 1.5;
+    }
+
+    .hire-contact-list li::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #2563eb;
+      flex: 0 0 auto;
+      margin-top: 0.55rem;
+    }
+
+    .telegram-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 1rem 1.25rem;
+      border-radius: 8px;
+      background: #2563eb;
+      color: white;
+      text-decoration: none;
+      font-weight: 700;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.24);
+    }
+
+    .telegram-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 26px rgba(37, 99, 235, 0.3);
+    }
+
+    .hire-response-note {
+      display: block;
+      margin-top: 1rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #64748b;
+    }
     
     .cost-comparison {
       max-width: 900px;
@@ -354,13 +427,19 @@
   <section class="hire-form-section">
     <h2>Ready to Hire South African Talent?</h2>
     <p>Tell us about your hiring needs and we'll connect you with qualified candidates.</p>
-    
-    <!-- Replace the src URL below with your Google Form embed URL -->
-    <iframe src="YOUR_GOOGLE_FORM_URL_HERE" width="100%" height="800" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
 
-    <p style="margin-top: 1.5rem; text-align: center; font-size: 0.9rem; color: #64748b;">
-      We'll respond within 24 hours with qualified candidates from our talent pool.
-    </p>
+    <div class="hire-contact-panel">
+      <h3>Send the hiring brief directly</h3>
+      <p>Message Brandon with the role, budget, timezone needs and whether you want freelance, contract or full-time candidates.</p>
+      <ul class="hire-contact-list">
+        <li>Role title and seniority level</li>
+        <li>Monthly budget or hourly/day rate range</li>
+        <li>Required skills, tools and timezone overlap</li>
+        <li>Start date, contract length and hiring process</li>
+      </ul>
+      <a class="telegram-cta" href="https://t.me/brandonkz" target="_blank" rel="noopener">Message @brandonkz on Telegram</a>
+      <span class="hire-response-note">Typical response time: within 24 hours.</span>
+    </div>
   </section>
 
   <!-- Footer -->
