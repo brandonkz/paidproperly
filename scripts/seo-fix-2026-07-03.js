@@ -279,7 +279,7 @@ function platformCard(p) {
         <div class="platform-logo">${escapeHtml(p.name.charAt(0).toUpperCase())}</div>
         <div class="platform-info">
           <div class="platform-header">
-            <h3 class="platform-name"><a href="/platforms/${p.slug}.html">${escapeHtml(p.name)}</a></h3>
+            <div class="platform-name"><a href="/platforms/${p.slug}.html">${escapeHtml(p.name)}</a></div>
             ${p.sa_friendly ? '<span class="platform-badge badge-sa">🇿🇦 SA Friendly</span>' : ''}
             <span class="platform-badge difficulty-${p.difficulty.toLowerCase()}">${escapeHtml(p.difficulty)}</span>
           </div>
@@ -589,7 +589,7 @@ function updateAppLinks() {
   let js = read("app.js");
   js = js
     .replace(/href="go\/\$\{platform\.slug\}\.html" target="_blank" rel="noopener" class="popular-card featured-platform"/g, 'href="platforms/${platform.slug}.html" class="popular-card featured-platform"')
-    .replace(/<h3 class="platform-name">\$\{escapeHtml\(p\.name\)\}<\/h3>/g, '<h3 class="platform-name"><a href="platforms/${p.slug}.html">${escapeHtml(p.name)}</a></h3>')
+    .replace(/<h3 class="platform-name">\$\{escapeHtml\(p\.name\)\}<\/h3>/g, '<div class="platform-name"><a href="platforms/${p.slug}.html">${escapeHtml(p.name)}</a></div>')
     .replace(/<a href="go\/\$\{p\.slug\}\.html" target="_blank" rel="noopener" class="btn btn-primary">/g, '<a href="platforms/${p.slug}.html" class="btn btn-primary">')
     .replace(/Apply\s*\n\s*<svg/g, 'Details\n              <svg');
   write("app.js", js);

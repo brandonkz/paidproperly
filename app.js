@@ -460,7 +460,7 @@ function renderPlatformsList() {
         <div class="platform-logo">${initial}</div>
         <div class="platform-info">
           <div class="platform-header">
-            <h3 class="platform-name"><a href="platforms/${p.slug}.html">${escapeHtml(p.name)}</a></h3>
+            <div class="platform-name"><a href="platforms/${p.slug}.html">${escapeHtml(p.name)}</a></div>
             ${p.sa_friendly ? '<span class="platform-badge badge-sa">🇿🇦 SA Friendly</span>' : ''}
             <span class="platform-badge difficulty-${diffClass}">${getDifficultyLabel(p.difficulty)}</span>
           </div>
