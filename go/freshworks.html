@@ -32,14 +32,15 @@
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       min-height: 100vh;
+      min-height: 100svh;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
       background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 50%, #40916c 100%);
       color: white;
-      padding: 20px;
+      padding: max(16px, env(safe-area-inset-top)) 20px max(28px, env(safe-area-inset-bottom));
       position: relative;
-      overflow: hidden;
+      overflow-x: hidden;
     }
     
     .bg-shape {
@@ -84,6 +85,7 @@
     
     .container {
       max-width: 500px;
+      width: 100%;
       text-align: center;
       position: relative;
       z-index: 10;
@@ -240,6 +242,71 @@
       margin-top: 2rem;
       font-size: 0.8rem;
       opacity: 0.7;
+    }
+
+    @media (min-height: 760px) {
+      body {
+        align-items: center;
+      }
+    }
+
+    @media (max-width: 540px) {
+      body {
+        padding: max(12px, env(safe-area-inset-top)) 14px calc(max(72px, env(safe-area-inset-bottom)) + 14px);
+      }
+
+      .container {
+        border-radius: 18px;
+        padding: 1.35rem 1rem 1.25rem;
+      }
+
+      .logo {
+        width: 56px;
+        height: 56px;
+        border-radius: 16px;
+        margin-bottom: 1rem;
+        font-size: 1.9rem;
+      }
+
+      .brand {
+        margin-bottom: 1.25rem;
+        font-size: 0.85rem;
+      }
+
+      h1 {
+        font-size: 1.55rem;
+      }
+
+      .subtitle {
+        font-size: 0.95rem;
+        line-height: 1.45;
+        margin-bottom: 1.25rem;
+      }
+
+      .tips {
+        border-radius: 14px;
+        padding: 1rem;
+        margin-bottom: 1.25rem;
+      }
+
+      .tips li {
+        padding: 0.35rem 0;
+        font-size: 0.86rem;
+      }
+
+      .progress-container {
+        margin-bottom: 1.25rem;
+      }
+
+      a.manual-link {
+        width: 100%;
+        justify-content: center;
+        padding: 13px 18px;
+      }
+
+      .footnote {
+        margin-top: 1rem;
+      }
     }
   </style>
 <link rel="canonical" href="https://paidproperly.co.za/go/freshworks.html">
