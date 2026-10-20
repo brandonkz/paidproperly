@@ -680,6 +680,7 @@ function sitemap() {
   for (const file of walk(root)) {
     const rel = path.relative(root, file).replace(/\\/g, "/");
     if (rel.includes(".bak") || rel.endsWith(".backup") || rel.startsWith("backups/")) continue;
+    if (/^(go|newsletter|content)\//.test(rel)) continue;
     if (rel.startsWith("blog/") && (canonicalMap[path.basename(rel)] || path.basename(rel) === "best-rental-platforms-south-africa-2026.html")) continue;
     const loc = rel === "index.html" ? `${site}/` : `${site}/${rel.replace(/index\.html$/, "")}`;
     urls.push(loc);
