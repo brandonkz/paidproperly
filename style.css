@@ -1401,3 +1401,12 @@ body {
 .pp-related-guides p { margin: 0; color: #374151; line-height: 1.65; }
 .pp-related-guides ul { margin: 0.75rem 0 0; }
 .last-updated { color: #6b7280; font-size: 0.95rem; margin: 0.75rem 0 0; }
+
+/* Somewhere employer banner */
+.pp-hire-banner{max-width:1100px;margin:20px auto;padding:14px 20px;background:var(--color-primary-dark);color:#fff;border-radius:12px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 16px;box-shadow:var(--shadow-md);font-family:inherit}
+.pp-hire-banner a{color:#fff;text-decoration:none;font-size:1rem;line-height:1.4;flex:1 1 320px}
+.pp-hire-banner a:hover .pp-hire-banner__arrow{transform:translateX(4px)}
+.pp-hire-banner__arrow{display:inline-block;transition:transform .2s;font-weight:700;color:#95d5b2}
+.pp-hire-banner__note{color:rgba(255,255,255,.7);font-size:.75rem}
+@media (max-width:640px){.pp-hire-banner{margin:14px 12px;padding:12px 14px}.pp-hire-banner a{font-size:.95rem}}
+.pp-hire-banner .pp-hire-banner__note a.pp-hire-banner__sub{color:#95d5b2;font-size:.75rem;flex:none;text-decoration:underline}
